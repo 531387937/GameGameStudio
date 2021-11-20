@@ -34,15 +34,15 @@ public struct CardPower
 public class Card
 {
     private CardType suit;
-
+    GameObject model;
+    Texture2D tex;
     private int rank;
-    private string texture;
-    public Card(CardType type,int point)
+    public Card(CardType type,int point,string tex,string mod)
     {
         suit = type;
         this.rank = point;
-        //texture = tex;
-        //to do 给每张牌加载对应的贴图
+        this.tex = Resources.Load<Texture2D>(tex + point.ToString());
+        this.model = Resources.Load<GameObject>(mod + point.ToString());
     }
 
     public CardType getCardSuit()
@@ -140,33 +140,33 @@ public class Player
     }
 }
 
-[System.Serializable]
-public class CardSetting:ScriptableObject
-{
-    public CardType curType = CardType.red;
-    public int cardTypeNum;
-    public int maxPoint;
-}
 
 public class CardPool
 {
+    string CardPath = "Cards/card_";
+    string settingpath = "Cards/GlobalSetting";
     List<Card> cardPool;
     private int PoolSum;
     private int PoolCur;
     public CardPool()
     {
+        GlobalSetting setting = Resources.Load<GlobalSetting>(settingpath);
         int suitNum = System.Enum.GetNames(typeof(CardType)).Length;
         cardPool = new List<Card>();
-        int cardNum = 16;
-        PoolSum = suitNum * cardNum*3;
+        int cardNum = setting.maxPoint;
+        PoolSum = suitNum * cardNum* setting.cardNum;
         PoolCur = PoolSum;
         for (int i = 0;i<suitNum;i++)
         {
+            CardType type = (CardType)0 + i;
+            string path = CardPath+ type.ToString();
+            CardSetting set = Resources.Load<CardSetting>(CardPath);
             for(int j = 0;j< cardNum; j++)
             {
-                cardPool.Add(new Card((CardType)i, j+1));
-                cardPool.Add(new Card((CardType)i, j + 1));
-                cardPool.Add(new Card((CardType)i, j + 1));
+                for (int k = 0; k < setting.cardNum;k++)
+                {
+                    cardPool.Add(new Card((CardType)i, j + 1, set.tex, set.model));
+                }
             }
         }
         cardPool = CardRandom(cardPool);

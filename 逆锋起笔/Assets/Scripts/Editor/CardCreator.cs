@@ -7,50 +7,52 @@ public class CardCreator : EditorWindow
    [MenuItem("Assets/Card Setting")]
    static void AddWindow()
     {
-        Rect wr = new Rect(0, 0, 500, 500);
+        Rect wr = new Rect(0, 0, 800, 800);
         CardCreator creator = (CardCreator)EditorWindow.GetWindowWithRect(typeof(CardCreator), wr, true, "Card Setting");
         creator.Show();
     }
+    [MenuItem("Assets/Global Setting")]
+    static void CreateSetting()
+    {
+        string path = "Assets/Resources/Cards/GlobalSetting.asset";
+        GlobalSetting setting = CreateInstance<GlobalSetting>();
+        setting.cardNum = 3;
+        setting.maxPoint = 16;
+        AssetDatabase.CreateAsset(setting, path);
+    }
     private CardSetting card = null;
     private bool isCreate = false;
-    private int maxPoint;
-    private int cardNum;
+    private string texName;
+    private string modelName;
     private CardType type;
     private void OnGUI()
     {
-        if (!isCreate&&!card)
+        if (!isCreate)
         {    
-            card = EditorGUILayout.ObjectField("设置卡片", card, typeof(CardSetting), true) as CardSetting;
-
-
-            //string path = "Assets/Resource/Cards" + card.GetType().ToString() + ".asset";
 
             if (GUILayout.Button("创建新卡片", GUILayout.Width(200)))
             {
                 isCreate = true;
-                Repaint();
             }
         }
-        else if(isCreate)
+        else
         {
-            card = new CardSetting();
-            card = EditorGUILayout.ObjectField("设置卡片", card, typeof(CardSetting), true) as CardSetting;
-
-            isCreate = false;
-        }
-        else if(card&&!isCreate)
-        {
-            maxPoint = EditorGUILayout.IntField("花牌最大点数", maxPoint);
+            card = CreateInstance<CardSetting>();
+            EditorGUILayout.TextArea("该类卡牌对应贴图名，填充内容为\"Resources下的文件名\\图片名_\"（对应贴图命名为 名_+点数)");
             EditorGUILayout.Space();
-            cardNum = EditorGUILayout.IntField("每张牌有几张", cardNum);
+            texName = EditorGUILayout.TextField(texName);
+            EditorGUILayout.Space();
+            EditorGUILayout.TextArea("该类卡牌对应预制体,填充内容为\"Resources下的文件名\\模型名_\"（对应预制体命名为 名_+点数)");
+            modelName = EditorGUILayout.TextField(modelName);
             EditorGUILayout.Space();
             type =(CardType)EditorGUILayout.EnumPopup("花色", type);
 
-            string path = "Assets/Resources/Cards/" + type.ToString() + ".asset";
+            string path = "Assets/Resources/Cards/card" + type.ToString() + ".asset";
             if (GUILayout.Button("保存卡片", GUILayout.Width(200)))
             {
-                card.maxPoint = maxPoint;
-                card.cardTypeNum = cardNum;
+                card.tex = texName;
+                card.model = modelName;
+                card.curType = type;
                 AssetDatabase.CreateAsset(card, path);
             }
         }
