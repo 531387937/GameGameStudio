@@ -34,6 +34,7 @@ namespace GameServer.net
         //};
         public Dictionary<int, Player> players = new Dictionary<int, Player>();
         public const int MAX_PLAYER = 3;
+        public bool isMatchSucc = false;
 
         /// <summary>
         /// 获取玩家个数
@@ -90,9 +91,18 @@ namespace GameServer.net
                 if (!players.ContainsKey(i))
                 {
                     players.Add(i, player);
+                    //给玩家设置id
+                    player.data.id = i;
                     player.room = this;
+                    break;
                 }
             }
+
+            if (players.Count == MAX_PLAYER)
+            {
+                isMatchSucc = true;
+            }
+
         }
 
         /// <summary>
@@ -110,8 +120,9 @@ namespace GameServer.net
                 {
                     if (players.ContainsKey(i))
                     {
+                        Player player = players[i];
                         players.Remove(i);
-                        SetPlayer(players[i]);
+                        SetPlayer(player);
                     }
                 }
             }
@@ -135,6 +146,35 @@ namespace GameServer.net
             }
 
             return roomInfo;
+        }
+
+        /// <summary>
+        /// 给房间内的玩家广播房间信息
+        /// </summary>
+        public void SendRoomInfo()
+        {
+            List<Player> players = GetPlayers();
+            foreach (var p in players)
+            {
+                MsgRoomInfo msg = GetRoomInfo(p.data.id);
+                NetManager.Send(p.state, msg);
+            }
+        }
+
+        /// <summary>
+        /// 关闭房间
+        /// </summary>
+        public void CloseRoom()
+        {
+            List<Player> players = GetPlayers();
+            foreach (var p in players)
+            {
+                MsgCancelMatch msg = new MsgCancelMatch();
+                NetManager.Send(p.state, msg);
+                p.room = null;
+                p.state.player = null;
+            }
+            RoomManager.rooms.Remove(this);
         }
     }
 }

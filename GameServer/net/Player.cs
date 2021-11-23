@@ -17,6 +17,7 @@ namespace GameServer.net
         public Player(ClientState state)
         {
             this.state = state;
+            data = new PlayerData();
         }
 
         //发送消息

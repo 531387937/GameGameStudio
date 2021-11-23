@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace GameServer.proto
 {
+    /// <summary>
+    /// 申请匹配类，不需要携带其他信息
+    /// </summary>
+    [Serializable]
     public class MsgStartMatch : MsgBase
     {
-        /// <summary>
-        /// 申请匹配类，不需要携带其他信息
-        /// </summary>
         public MsgStartMatch()
         {
             protoName = "MsgStartMatch";
@@ -19,8 +20,21 @@ namespace GameServer.proto
     }
 
     /// <summary>
+    /// 取消匹配类
+    /// </summary>
+    [Serializable]
+    public class MsgCancelMatch : MsgBase
+    {
+        public MsgCancelMatch()
+        {
+            protoName = "MsgCancelMatch";
+        }
+    }
+
+    /// <summary>
     /// 玩家信息类
     /// </summary>
+    [Serializable]
     public class PlayerInfo
     {
         public int playerId = 0;//默认为0，根据进入房间的顺序分配：1、2、3
@@ -38,6 +52,7 @@ namespace GameServer.proto
     /// 包括本地玩家信息、其他玩家信息的列表
     /// 通过判断remotePlayers的长度，可以知道是否满员，即是否可以开局
     /// </summary>
+    [Serializable]
     public class MsgRoomInfo : MsgBase
     {
         public MsgRoomInfo()
@@ -53,6 +68,7 @@ namespace GameServer.proto
     /// 下一局选择类
     /// </summary>
     /// </summary>
+    [Serializable]
     public class MsgNextBattle : MsgBase
     {
         public MsgNextBattle()

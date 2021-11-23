@@ -10,6 +10,7 @@ namespace GameServer.proto
     /// <summary>
     /// 卡牌花色
     /// </summary>
+    [Serializable]
     public enum CardColor
     {
         ZhiWu,//植物
@@ -20,6 +21,7 @@ namespace GameServer.proto
     /// <summary>
     /// 卡牌类
     /// </summary>
+    [Serializable]
     public class CardInfo
     {
         public CardColor cardType;//花色
@@ -29,6 +31,7 @@ namespace GameServer.proto
     /// <summary>
     /// 初始卡牌类
     /// </summary>
+    [Serializable]
     public class MsgInitCards : MsgBase
     {
         public MsgInitCards()
@@ -42,6 +45,7 @@ namespace GameServer.proto
     /// <summary>
     /// 玩家选牌类
     /// </summary>
+    [Serializable]
     public class MsgChooseCard : MsgBase
     {
         public MsgChooseCard()
@@ -53,6 +57,7 @@ namespace GameServer.proto
         public CardInfo card;
     }
 
+    [Serializable]
     public enum CardsType
     {
         ZhaDan,//炸弹
@@ -68,6 +73,7 @@ namespace GameServer.proto
     /// <summary>
     /// 回合结果
     /// </summary>
+    [Serializable]
     public class RoundResult
     {
         public int rank;//排名
@@ -77,6 +83,7 @@ namespace GameServer.proto
     /// <summary>
     /// 回合对比结果类
     /// </summary>
+    [Serializable]
     public class MsgRoundResult : MsgBase
     {
         public MsgRoundResult()
@@ -91,6 +98,7 @@ namespace GameServer.proto
     /// 胡牌类型
     /// None代表没胡牌
     /// </summary>
+    [Serializable]
     public enum WinType
     {
         None,//没胡牌
@@ -104,6 +112,7 @@ namespace GameServer.proto
     /// <summary>
     /// 对局结果类
     /// </summary>
+    [Serializable]
     public class MsgBattleResult : MsgBase
     {
         public MsgBattleResult()

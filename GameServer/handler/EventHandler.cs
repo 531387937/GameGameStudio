@@ -12,8 +12,18 @@ namespace GameServer.net
             //player下线
             if (c.player != null)
             {
-                //移除
+                //从房间中移除
+                Room room = c.player.room;
+                room.RemovePlayer(c.player.data.id);
 
+                //广播消息
+                room.SendRoomInfo();
+
+                if(room.isMatchSucc==true)
+                {
+                    //如果当前房间在游戏中，关闭房间,广播消息
+                    room.CloseRoom();
+                }
             }
         }
 

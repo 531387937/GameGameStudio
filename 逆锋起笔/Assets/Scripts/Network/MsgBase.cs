@@ -26,8 +26,16 @@ namespace Network
             int count)
         {
             string s = System.Text.Encoding.Default.GetString(bytes, offset, count);
-            MsgBase msgBase = (MsgBase)JsonUtility.FromJson(s, Type.GetType("Network."+protoName));
-            return msgBase;
+            try
+            {
+                MsgBase msgBase = (MsgBase)JsonUtility.FromJson(s, Type.GetType("Network." + protoName));
+                return msgBase;
+            }
+            catch(Exception ex)
+            {
+                Debug.Log("Decode "+protoName+" fail: "+ ex.Message);
+                return null;
+            }
         }
 
         //编码协议名(2字节长度+字符串)

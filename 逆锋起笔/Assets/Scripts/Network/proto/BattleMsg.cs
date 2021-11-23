@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Network.proto
+namespace Network
 {
     /// <summary>
     /// 卡牌花色
     /// </summary>
+    [Serializable]
     public enum CardColor
     {
         ZhiWu,//植物
@@ -19,6 +20,7 @@ namespace Network.proto
     /// <summary>
     /// 卡牌类
     /// </summary>
+    [Serializable]
     public class CardInfo
     {
         public CardColor cardType;//花色
@@ -28,6 +30,7 @@ namespace Network.proto
     /// <summary>
     /// 初始卡牌类
     /// </summary>
+    [Serializable]
     public class MsgInitCards : MsgBase
     {
         public MsgInitCards()
@@ -41,6 +44,7 @@ namespace Network.proto
     /// <summary>
     /// 玩家选牌类
     /// </summary>
+    [Serializable]
     public class MsgChooseCard : MsgBase
     {
         public MsgChooseCard()
@@ -52,6 +56,7 @@ namespace Network.proto
         public CardInfo card;
     }
 
+    [Serializable]
     public enum CardsType
     {
         ZhaDan,//炸弹
@@ -67,6 +72,7 @@ namespace Network.proto
     /// <summary>
     /// 回合结果
     /// </summary>
+    [Serializable]
     public class RoundResult
     {
         public int rank;//排名
@@ -76,6 +82,7 @@ namespace Network.proto
     /// <summary>
     /// 回合对比结果类
     /// </summary>
+    [Serializable]
     public class MsgRoundResult : MsgBase
     {
         public MsgRoundResult()
@@ -90,6 +97,7 @@ namespace Network.proto
     /// 胡牌类型
     /// None代表没胡牌
     /// </summary>
+    [Serializable]
     public enum WinType
     {
         None,//没胡牌
@@ -103,6 +111,7 @@ namespace Network.proto
     /// <summary>
     /// 对局结果类
     /// </summary>
+    [Serializable]
     public class MsgBattleResult : MsgBase
     {
         public MsgBattleResult()
