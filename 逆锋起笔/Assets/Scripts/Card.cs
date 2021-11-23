@@ -5,7 +5,7 @@ using UnityEngine;
 //花色
 public enum CardType
 {
-    red,blue,green
+    moutain,yard,plant
 }
 
 public enum WinType
