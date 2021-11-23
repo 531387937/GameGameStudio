@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Network.proto;
 using Network;
 public class UIManager : Singleton<UIManager>
 {
@@ -24,7 +23,7 @@ public class UIManager : Singleton<UIManager>
         Card card = GameManager.Instance.playerManager.localPlayer.ChooseOneCard(i);
         //发送选牌
         CardInfo cardInfo = new CardInfo();
-        cardInfo.cardType = card.getCardColor();
+        cardInfo.cardType =(Network.CardColor)card.getCardColor();
         cardInfo.num = card.getCardRank();
         MsgChooseCard chooseCard = new MsgChooseCard();
         chooseCard.playerID = GameManager.Instance.playerManager.localPlayer.id;

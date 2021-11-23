@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Network.proto;
 using Network;
 //用于管理服务器上的玩家行为、流程控制
 public class PlayerManager
@@ -70,7 +69,7 @@ public class PlayerManager
                 if(remotePlayers[i].id==choose.playerID)
                 {
                     CardInfo curCard = choose.card;
-                    remotePlayers[i].curCard.Add(new Card(curCard.cardType, curCard.num, settings[(int)curCard.cardType].tex));
+                    remotePlayers[i].curCard.Add(new Card((CardColor)curCard.cardType, curCard.num, settings[(int)curCard.cardType].tex));
                 }
             }
         }
@@ -104,7 +103,7 @@ public class PlayerManager
             for (int i = 0; i <cardInfos.Count;i++ )
             {
                 CardInfo curCard = cardInfos[i];
-                localPlayer.DrawHandCard(new Card(curCard.cardType, curCard.num, settings[(int)curCard.cardType].tex));
+                localPlayer.DrawHandCard(new Card((CardColor)curCard.cardType, curCard.num, settings[(int)curCard.cardType].tex));
             }
         }
     }
