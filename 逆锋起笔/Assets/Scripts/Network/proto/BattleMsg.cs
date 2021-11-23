@@ -9,12 +9,12 @@ namespace Network.proto
     /// <summary>
     /// 卡牌花色
     /// </summary>
-    public enum CardColor
-    {
-        ZhiWu,//植物
-        JianZhu,//建筑
-        ShanShui,//山水
-    }
+    //public enum CardColor
+    //{
+    //    ZhiWu,//植物
+    //    JianZhu,//建筑
+    //    ShanShui,//山水
+    //}
 
     /// <summary>
     /// 卡牌类

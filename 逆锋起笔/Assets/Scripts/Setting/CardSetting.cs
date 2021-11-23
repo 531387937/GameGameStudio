@@ -4,7 +4,7 @@ using UnityEngine;
 [System.Serializable]
 public class CardSetting : ScriptableObject
 {
-    public CardType curType = CardType.moutain;
+    public CardColor curType = CardColor.moutain;
     public string tex;
     public string model;
 }

@@ -3,21 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //花色
-public enum CardType
+public enum CardColor
 {
-    moutain,yard,plant
+    plant,yard,moutain
+}
+
+public enum CardsType
+{
+    ZhaDan,//炸弹
+    TongHuaShun,//同花顺
+    TongShuZi,//同数字
+    ShunZi,//顺子
+    TongHua,//同花
+    TongSeYiDui,//同色一对
+    YiSeYiDui,//异色一对
+    DanZhang,//单张
 }
 
 public enum WinType
 {
-    noPair = 0,
-    diffPair = 1,
-    samePair = 2,
-    straight = 3,
-    flush = 4,
-    fullNum = 5,
-    straightFlush = 6,
-    boom = 7,
+    None,//没胡牌
+    ZhiWu,//植物
+    JianZhu,//建筑
+    ShanShui,//山水
+    BaoDi,//保底
+    XiaoHe,//小和
 }
 
 public struct PlayerInformation
@@ -25,29 +35,21 @@ public struct PlayerInformation
     Card[] cards;
 }
 
-public struct CardPower
-{
-    WinType winType;
-    int weight;
-}
-
 public class Card
 {
-    private CardType suit;
-    GameObject model;
+    private CardColor color;
     Texture2D tex;
     private int rank;
-    public Card(CardType type,int point,string tex,string mod)
+    public Card(CardColor type,int point,string tex)
     {
-        suit = type;
-        this.rank = point;
+        color = type;
+        rank = point;
         this.tex = Resources.Load<Texture2D>(tex + point.ToString());
-        this.model = Resources.Load<GameObject>(mod + point.ToString());
     }
 
-    public CardType getCardSuit()
+    public CardColor getCardColor()
     {
-        return suit;
+        return color;
     }
     public int getCardRank()
     {
@@ -59,11 +61,14 @@ public class Player
 {
     //玩家唯一标识符
     public readonly int id;
-
-    public Player(int id)
+    public readonly string playerName;
+    public Player(int id,string name)
     {
         this.id = id;
+        playerName = name;
     }
+    public CardsType curRoundCard;
+    public WinType wintype = WinType.None;
     private int handNum = 0;
     //现在的手牌
     private List<Card> handCards = new List<Card>();
@@ -74,69 +79,44 @@ public class Player
     //to do从牌库中取出六张牌
     public void DrawHandCard(Card card)
     {
-        if(handNum<6)
-        {
-            handCards.Add(card);
-            handNum++;
-        }
-        Debug.Log("玩家" + id + "抽牌成功，抽到了" + card.getCardSuit() + card.getCardRank()+"\n");
+        handCards.Add(card);
+        Debug.Log("玩家" + id + "抽牌成功，抽到了" + card.getCardColor() + card.getCardRank()+"\n");
     }
 
     //调用前由游戏管理判断是否还可以选牌
     public Card ChooseOneCard(int i)
     {
         curCard.Add(handCards[i]);
+        handCards.RemoveAt(i);
         return handCards[i];
     }
-    public void CancelOneCard(Card card)
-    {
-        if(curCard.Contains(card))
-        {
-            curCard.Remove(card);
-        }
-    }
 
-    private CardPower power;
-    //调用前由游戏管理判断是否准备完毕（已选出三张牌）
-    public void EnsurePlay()
-    {
-        foreach(var card in curCard)
-        {
-            handCards.Remove(card);
-        }
-        //to do判断牌型，填补power
-    }
-
-    public CardPower getPower()
-    {
-        return power;
-    }
 
     //回合结算，并将剩余的卡送入牌堆
-    public void RoundSettlement(int ranking,CardPool pool)
+    public void RoundSettlement(int ranking,CardsType type)
     {
+        curRoundCard = type;
         if(ranking==1)
         {
             groundCard.Add(curCard[0]);
             groundCard.Add(curCard[1]);
-            pool.AddInPool(curCard[2]);
+            curCard[2] = null;
             curCard.Clear();
         }
         else if(ranking==2)
         {
             groundCard.Add(curCard[0]);
-            pool.AddInPool(curCard[1]);
-            pool.AddInPool(curCard[2]);
+            curCard[1] = null;
+            curCard[2] = null;
             curCard.Clear();
         }
         else
         {
-            pool.AddInPool(curCard);
+            curCard[0] = null;
+            curCard[1] = null;
+            curCard[2] = null;
             curCard.Clear();
         }
-        pool.AddInPool(handCards);
-        handCards.Clear();
-        handNum = 0;
     }
 }
 
@@ -151,21 +131,21 @@ public class CardPool
     public CardPool()
     {
         GlobalSetting setting = Resources.Load<GlobalSetting>(settingpath);
-        int suitNum = System.Enum.GetNames(typeof(CardType)).Length;
+        int suitNum = System.Enum.GetNames(typeof(CardColor)).Length;
         cardPool = new List<Card>();
         int cardNum = setting.maxPoint;
         PoolSum = suitNum * cardNum* setting.cardNum;
         PoolCur = PoolSum;
         for (int i = 0;i<suitNum;i++)
         {
-            CardType type = (CardType)0 + i;
+            CardColor type = (CardColor)0 + i;
             string path = CardPath+ type.ToString();
             CardSetting set = Resources.Load<CardSetting>(CardPath);
             for(int j = 0;j< cardNum; j++)
             {
                 for (int k = 0; k < setting.cardNum;k++)
                 {
-                    cardPool.Add(new Card((CardType)i, j + 1, set.tex, set.model));
+                    cardPool.Add(new Card((CardColor)i, j + 1, set.tex));
                 }
             }
         }
