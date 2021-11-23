@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Test_Scenes/main.unity
+- path: Assets/Scenes/NetworkTest.unity
   isLoaded: 1
   isActive: 1
