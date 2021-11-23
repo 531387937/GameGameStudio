@@ -1,0 +1,16 @@
+D:\UnityProjects\Card\GameGameStudio\GameServer\obj\Debug\netcoreapp3.1\GameServer.csproj.AssemblyReference.cache
+D:\UnityProjects\Card\GameGameStudio\GameServer\obj\Debug\netcoreapp3.1\GameServer.GeneratedMSBuildEditorConfig.editorconfig
+D:\UnityProjects\Card\GameGameStudio\GameServer\obj\Debug\netcoreapp3.1\GameServer.AssemblyInfoInputs.cache
+D:\UnityProjects\Card\GameGameStudio\GameServer\obj\Debug\netcoreapp3.1\GameServer.AssemblyInfo.cs
+D:\UnityProjects\Card\GameGameStudio\GameServer\obj\Debug\netcoreapp3.1\GameServer.csproj.CoreCompileInputs.cache
+D:\UnityProjects\Card\GameGameStudio\GameServer\bin\Debug\netcoreapp3.1\GameServer.exe
+D:\UnityProjects\Card\GameGameStudio\GameServer\bin\Debug\netcoreapp3.1\GameServer.deps.json
+D:\UnityProjects\Card\GameGameStudio\GameServer\bin\Debug\netcoreapp3.1\GameServer.runtimeconfig.json
+D:\UnityProjects\Card\GameGameStudio\GameServer\bin\Debug\netcoreapp3.1\GameServer.runtimeconfig.dev.json
+D:\UnityProjects\Card\GameGameStudio\GameServer\bin\Debug\netcoreapp3.1\GameServer.dll
+D:\UnityProjects\Card\GameGameStudio\GameServer\bin\Debug\netcoreapp3.1\GameServer.pdb
+D:\UnityProjects\Card\GameGameStudio\GameServer\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+D:\UnityProjects\Card\GameGameStudio\GameServer\obj\Debug\netcoreapp3.1\GameServer.csproj.CopyComplete
+D:\UnityProjects\Card\GameGameStudio\GameServer\obj\Debug\netcoreapp3.1\GameServer.dll
+D:\UnityProjects\Card\GameGameStudio\GameServer\obj\Debug\netcoreapp3.1\GameServer.pdb
+D:\UnityProjects\Card\GameGameStudio\GameServer\obj\Debug\netcoreapp3.1\GameServer.genruntimeconfig.cache

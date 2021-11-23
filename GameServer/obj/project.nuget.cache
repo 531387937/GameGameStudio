@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "HZ81pZp1vED1qXESa8dDd3cCU2hfrndzHMJfAGi2BXLRtVbrSNfnnQ6fAz1oAeRaAXWshD2YYNpb1qPV2wwI8Q==",
+  "success": true,
+  "projectFilePath": "D:\\UnityProjects\\Card\\GameGameStudio\\GameServer\\GameServer.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\单广威\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}
