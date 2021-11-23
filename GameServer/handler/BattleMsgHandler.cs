@@ -13,9 +13,19 @@ namespace GameServer.handler
         /// </summary>
         /// <param name="c"></param>
         /// <param name="msgBase"></param>
-        public static void MsgMatch(ClientState c, MsgBase msgBase)
+        public static void MsgStartMatch(ClientState c, MsgBase msgBase)
         {
-            Console.WriteLine("MsgMatch");
+            Console.WriteLine("MsgStartMatch");
+
+            //如果已经在房间
+            if (c.player != null )
+            {
+                return;
+            }
+
+            //新建玩家实例
+            c.player = new Player(c);
+
             //如果有空闲房间,如果没有则新建房间
             Room room = RoomManager.GetMatchingRoom();
             
@@ -25,14 +35,20 @@ namespace GameServer.handler
             //加入房间
             room.SetPlayer(player);
             //给房间的玩家广播消息
-            List<Player> players = room.GetPlayers();
-            foreach(var p in players)
-            {
-                MsgRoomInfo msg = room.GetRoomInfo(p.data.id);
-                NetManager.Send(c, msg);
-            }
+            room.SendRoomInfo();
         }
 
+        public static void MsgCancelMatch(ClientState c,MsgBase msgBase)
+        {
+            Console.WriteLine("MsgCancelMatch");
 
+            //从房间中移除该玩家
+            Room room = c.player.room;
+            room.RemovePlayer(c.player.data.id);
+            //广播消息
+            room.SendRoomInfo();
+            //删除玩家的实例
+            c.player = null;
+        }
     }
 }

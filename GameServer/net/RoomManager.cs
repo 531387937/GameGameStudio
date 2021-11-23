@@ -17,7 +17,7 @@ namespace GameServer.net
         {
             foreach(var r in rooms)
             {
-                if (r.GetPlayerCount() < Room.MAX_PLAYER)
+                if (!r.isMatchSucc && r.GetPlayerCount() < Room.MAX_PLAYER)
                 {
                     return r;
                 }
@@ -25,6 +25,7 @@ namespace GameServer.net
 
             //没有合适的，新建房间
             Room room = new Room();
+            rooms.Add(room);
             return room;
         }
 
