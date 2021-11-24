@@ -29,22 +29,17 @@ public enum WinType
     BaoDi,//保底
     XiaoHe,//小和
 }
-
-public struct PlayerInformation
-{
-    Card[] cards;
-}
-
+[System.Serializable]
 public class Card
 {
     private CardColor color;
-    Texture2D tex;
+    public Sprite tex;
     private int rank;
     public Card(CardColor type,int point,string tex)
     {
         color = type;
         rank = point;
-        this.tex = Resources.Load<Texture2D>(tex + point.ToString());
+        this.tex = Resources.Load<Sprite>(tex + point.ToString());
     }
 
     public CardColor getCardColor()
@@ -57,21 +52,39 @@ public class Card
     }
 }
 
+public struct PlayerGroundCard
+{
+    public int plantNum;
+    public int plantSum;
+
+    public int moutainNum;
+    public int moutainSum;
+
+    public int yardNum;
+    public int yardSum;
+}
+
 public class Player
 {
     //玩家唯一标识符
     public readonly int id;
     public readonly string playerName;
+
+    public PlayerGroundCard groundState;
+
     public Player(int id,string name)
     {
         this.id = id;
         playerName = name;
+        handCards.Clear();
+        groundCard.Clear();
+        curCard.Clear();
+        groundState = new PlayerGroundCard();
     }
     public CardsType curRoundCard;
     public WinType wintype = WinType.None;
-    private int handNum = 0;
     //现在的手牌
-    private List<Card> handCards = new List<Card>();
+    public List<Card> handCards = new List<Card>();
     //现在留在场上的牌
     public List<Card> groundCard = new List<Card>();
     //本回合的出牌
@@ -87,8 +100,9 @@ public class Player
     public Card ChooseOneCard(int i)
     {
         curCard.Add(handCards[i]);
+        Card card = handCards[i];
         handCards.RemoveAt(i);
-        return handCards[i];
+        return card;
     }
 
 
@@ -99,13 +113,16 @@ public class Player
         if(ranking==1)
         {
             groundCard.Add(curCard[0]);
+            AddGroundCard(curCard[0].getCardColor(), curCard[0].getCardRank());
             groundCard.Add(curCard[1]);
+            AddGroundCard(curCard[1].getCardColor(), curCard[1].getCardRank());
             curCard[2] = null;
             curCard.Clear();
         }
         else if(ranking==2)
         {
             groundCard.Add(curCard[0]);
+            AddGroundCard(curCard[0].getCardColor(), curCard[0].getCardRank());
             curCard[1] = null;
             curCard[2] = null;
             curCard.Clear();
@@ -116,6 +133,33 @@ public class Player
             curCard[1] = null;
             curCard[2] = null;
             curCard.Clear();
+        }
+    }
+    //开始新一局时调用
+    public void StartNewRound()
+    {
+        handCards.Clear();
+        groundCard.Clear();
+        curCard.Clear();
+        groundState = new PlayerGroundCard();
+    }
+
+    private void AddGroundCard(CardColor color,int point)
+    {
+        if(color==CardColor.moutain)
+        {
+            groundState.moutainNum++;
+            groundState.moutainSum += point;
+        }
+        else if(color == CardColor.plant)
+        {
+            groundState.plantNum++;
+            groundState.plantSum += point;
+        }
+        else
+        {
+            groundState.yardNum++;
+            groundState.yardSum += point;
         }
     }
 }

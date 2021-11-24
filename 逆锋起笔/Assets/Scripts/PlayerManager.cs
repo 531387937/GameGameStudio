@@ -7,7 +7,7 @@ public class PlayerManager
 {
     public List<Player> remotePlayers;
     public Player localPlayer;
-    private List<CardSetting> settings;
+    private List<CardSetting> settings = new List<CardSetting>();
     public List<Player> players;        //所有玩家
     public PlayerManager()
     {
@@ -16,11 +16,10 @@ public class PlayerManager
         NetManager.AddMsgListener("MsgRoundResult", OnReceiveRoundResult);
         NetManager.AddMsgListener("MsgBattleResult", OnReceiveBattleResult);
 
-        string CardPath = "Cards/card_";
-        CardColor type = CardColor.plant;
+        string CardPath = "Cards/card";
         for(int i = 0;i<3;i++)
         {
-            string path = CardPath + (type+i).ToString();
+            string path = CardPath + ((CardColor)i).ToString();
             settings.Add(Resources.Load<CardSetting>(CardPath));
         }
     }
@@ -41,17 +40,14 @@ public class PlayerManager
     private void OnReceiveRoundResult(MsgBase msgBase)
     {
         MsgRoundResult roundResult = (MsgRoundResult)msgBase;
-        if(roundResult.result.ContainsKey(localPlayer.id))
-        {
-            localPlayer.RoundSettlement(roundResult.result[localPlayer.id].rank, (CardsType)roundResult.result[localPlayer.id].cardsType);
-        }
-        foreach(var player in remotePlayers)
+        foreach(var player in players)
         {
             if (roundResult.result.ContainsKey(player.id))
             {
                 player.RoundSettlement(roundResult.result[player.id].rank, (CardsType)roundResult.result[player.id].cardsType);
             }
         }
+        GameManager.Instance.RefreshRoundResult();
 
     }
     //刷新选牌
@@ -106,6 +102,7 @@ public class PlayerManager
                 localPlayer.DrawHandCard(new Card((CardColor)curCard.cardType, curCard.num, settings[(int)curCard.cardType].tex));
             }
         }
+        GameManager.Instance.RefreshHandCard();
     }
 
     private void GetAllPlayers()

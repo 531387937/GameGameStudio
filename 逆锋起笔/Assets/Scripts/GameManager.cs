@@ -14,10 +14,65 @@ public class GameManager : Singleton<GameManager>
     public PlayerManager playerManager;
     public GameState curState;
     public List<Player> players;
+    private List<Drawable> plantDrawable;
+    private List<Drawable> mountainDrawable;
+    private List<Drawable> yardDrawable;
+
+    int point = 1;
+
+    private struct GroundState
+    {
+        public int plantNum;
+        public int moutainNum;
+        public int yardNum;
+    }
+    private GroundState groundState;
     // Start is called before the first frame update
     void Start()
     {
         playerManager = new PlayerManager();
+
+        playerManager.localPlayer = new Player(0, "111");
+        Drawable[] objects = FindObjectsOfType<Drawable>();
+        foreach(var draw in objects)
+        {
+            if(draw.color==CardColor.plant)
+            {
+                int i;
+                for (i = 0;i<plantDrawable.Count;i++)
+                {
+                    if(draw.weight<plantDrawable[i].weight)
+                    {
+                        break;
+                    }
+                }
+                plantDrawable.Insert(i, draw);
+            }
+            else if(draw.color==CardColor.moutain)
+            {
+                int i;
+                for (i = 0; i < mountainDrawable.Count; i++)
+                {
+                    if (draw.weight < mountainDrawable[i].weight)
+                    {
+                        break;
+                    }
+                }
+                mountainDrawable.Insert(i, draw);
+            }
+            else
+            {
+                int i;
+                for (i = 0; i < yardDrawable.Count; i++)
+                {
+                    if (draw.weight < yardDrawable[i].weight)
+                    {
+                        break;
+                    }
+                }
+                yardDrawable.Insert(i, draw);
+            }
+        }
         curState = GameState.begin;
     }
 
@@ -25,6 +80,12 @@ public class GameManager : Singleton<GameManager>
     void Update()
     {
         Network.NetManager.Update();
+        if(Input.GetKeyDown(KeyCode.Space))
+        {
+            playerManager.localPlayer.handCards.Add(new Card(CardColor.moutain,point,""));
+            point++;
+            RefreshHandCard();
+        }
     }
 
 
@@ -34,8 +95,14 @@ public class GameManager : Singleton<GameManager>
     public void InitRoom()
     {
         curState = GameState.playing;
-
+        UIManager.Instance.InitRoom();
     }
+
+    public void RefreshHandCard()
+    {
+        UIManager.Instance.RefreshHandCard();
+    }
+
     /// <summary>
     /// 同步玩家出牌
     /// </summary>
@@ -58,6 +125,14 @@ public class GameManager : Singleton<GameManager>
     /// </summary>
     public void RefreshRoundResult()
     {
+        int plantSum=0, moutainSum=0, yardSum = 0;
+        foreach(var player in players)
+        {
+            plantSum += player.groundState.plantSum;
+            moutainSum += player.groundState.moutainSum;
+            yardSum += player.groundState.yardSum;
+        }
+        
         //展示结果,展示结束后检查是否有人胡牌
     }
 
