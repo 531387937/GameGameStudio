@@ -24,7 +24,7 @@ public class CardCreator : EditorWindow
     private bool isCreate = false;
     private string texName;
     private string modelName;
-    private CardType type;
+    private CardColor type;
     private void OnGUI()
     {
         if (!isCreate)
@@ -45,7 +45,7 @@ public class CardCreator : EditorWindow
             EditorGUILayout.TextArea("该类卡牌对应预制体,填充内容为\"Resources下的文件名\\模型名_\"（对应预制体命名为 名_+点数)");
             modelName = EditorGUILayout.TextField(modelName);
             EditorGUILayout.Space();
-            type =(CardType)EditorGUILayout.EnumPopup("花色", type);
+            type =(CardColor)EditorGUILayout.EnumPopup("花色", type);
 
             string path = "Assets/Resources/Cards/card" + type.ToString() + ".asset";
             if (GUILayout.Button("保存卡片", GUILayout.Width(200)))
