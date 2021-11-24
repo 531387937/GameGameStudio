@@ -80,6 +80,12 @@ namespace Network
             NetManager.Connect("127.0.0.1", 8888);
         }
 
+        //玩家点击连接按钮
+        public void OnConnectClick2()
+        {
+            NetManager.Connect("114.132.44.167", 8888);
+        }
+
         //玩家点击关闭按钮
         public void OnCloseClick()
         {
