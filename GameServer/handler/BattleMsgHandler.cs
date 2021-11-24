@@ -36,8 +36,19 @@ namespace GameServer.handler
             room.SetPlayer(player);
             //给房间的玩家广播消息
             room.SendRoomInfo();
+
+            //判断是否可以进入游戏
+            if (room.GetPlayerCount() == Room.MAX_PLAYER)
+            {
+                room.StartGame();
+            }
         }
 
+        /// <summary>
+        /// 玩家取消匹配
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="msgBase"></param>
         public static void MsgCancelMatch(ClientState c,MsgBase msgBase)
         {
             Console.WriteLine("MsgCancelMatch");
@@ -49,6 +60,30 @@ namespace GameServer.handler
             room.SendRoomInfo();
             //删除玩家的实例
             c.player = null;
+        }
+
+        /// <summary>
+        /// 收到选牌消息
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="msgBase"></param>
+        public static void MsgChooseCard(ClientState c,MsgBase msgBase)
+        {
+            MsgChooseCard msg = (MsgChooseCard)msgBase;
+            Room room = c.player.room;
+            room.ChooseCard(msg);
+        }
+
+        /// <summary>
+        /// 下一局选择消息
+        /// </summary>
+        /// <param name="c"></param>
+        /// <param name="msgBase"></param>
+        public static void MsgNextBattle(ClientState c,MsgBase msgBase)
+        {
+            MsgNextBattle msg = (MsgNextBattle)msgBase;
+            Room room = c.player.room;
+            room.ChooseNextBattle(msg);
         }
     }
 }

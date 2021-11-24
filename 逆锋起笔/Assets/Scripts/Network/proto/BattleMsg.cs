@@ -23,7 +23,7 @@ namespace Network
     [Serializable]
     public class CardInfo
     {
-        public CardColor cardType;//花色
+        public CardColor cardColor;//花色
         public int num;//点数
     }
 
@@ -36,6 +36,20 @@ namespace Network
         public MsgInitCards()
         {
             protoName = "MsgInitCards";
+        }
+
+        public Dictionary<int, List<CardInfo>> Cards;//<playerID, 卡牌列表>
+    }
+
+    /// <summary>
+    /// 下回合发牌类
+    /// </summary>
+    [Serializable]
+    public class MsgRoundCards : MsgBase
+    {
+        public MsgRoundCards()
+        {
+            protoName = "MsgRoundCards";
         }
 
         public Dictionary<int, List<CardInfo>> Cards;//<playerID, 卡牌列表>
