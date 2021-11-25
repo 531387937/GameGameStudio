@@ -7,7 +7,8 @@ public enum eventType
     refreshHandCard,
     initRoom,
     chooseCard,
-    refreshRoundResult
+    refreshRoundResult,
+    receiveChooseCard
 }
 
 public class EventManager : Singleton<EventManager>

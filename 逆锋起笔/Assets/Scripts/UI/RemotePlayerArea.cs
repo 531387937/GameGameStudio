@@ -26,6 +26,7 @@ public class RemotePlayerArea : MonoBehaviour
         EventManager.Instance.AddEventListener(eventType.refreshRoundResult, RefreshHandCard);
         EventManager.Instance.AddEventListener(eventType.refreshRoundResult, OnRefreshRoundResult);
         NetManager.AddMsgListener("MsgChooseCard", OnReceiveChooseCard);
+        EventManager.Instance.AddEventListener(eventType.receiveChooseCard, OnReceiveChooseCard);
         foreach (Transform child in transform)
         {
             if (child.tag == "CardArea")
@@ -50,17 +51,13 @@ public class RemotePlayerArea : MonoBehaviour
     }
 
 
-    private void OnReceiveChooseCard(MsgBase msg)
+    private void OnReceiveChooseCard(object msg)
     {
-        MsgChooseCard cardMsg = (MsgChooseCard)msg;
-        if (cardMsg.playerID != GameManager.Instance.playerManager.remotePlayers[remotePlayer].id)
-            return;
-        Card card = new Card((CardColor)cardMsg.card.cardColor, cardMsg.card.num, "");
+        Card card = GameManager.Instance.playerManager.remotePlayers[remotePlayer].curCard[roundCard.Count];
         GameObject newCard = Instantiate(cardObject, transform);
         newCard.GetComponent<CardInstance>().card = card;
         newCard.GetComponent<RectTransform>().position = roundAreas[roundCard.Count].position;
         roundCard.Add(newCard);
-        GameManager.Instance.playerManager.remotePlayers[remotePlayer].curCard.Add(card);
     }
 
 
@@ -79,6 +76,7 @@ public class RemotePlayerArea : MonoBehaviour
             handCard[i].GetComponent<RectTransform>().position = cardAreas[i].position;
         }
     }
+
     private void OnRefreshRoundResult(object arg)
     {
         foreach (var obj in roundCard)

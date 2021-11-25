@@ -15,7 +15,7 @@ public class PlayerManager
         NetManager.AddMsgListener("MsgInitCards", OnDrawCard);
         NetManager.AddMsgListener("MsgRoundResult", OnReceiveRoundResult);
         NetManager.AddMsgListener("MsgBattleResult", OnReceiveBattleResult);
-
+        NetManager.AddMsgListener("MsgChooseCard", OnReceiveChooseCard);
         string CardPath = "Cards/card";
         for(int i = 0;i<3;i++)
         {
@@ -68,8 +68,12 @@ public class PlayerManager
                     remotePlayers[i].curCard.Add(new Card((CardColor)curCard.cardColor, curCard.num, settings[(int)curCard.cardColor].tex));
                 }
             }
+            if(remotePlayers[0].curCard.Count==remotePlayers[1].curCard.Count)
+            {
+                EventManager.Instance.FireEvent(eventType.receiveChooseCard);
+            }
         }
-        GameManager.Instance.RefreshCurCard();
+        //GameManager.Instance.RefreshCurCard();
     }
     /// <summary>
     /// 有人胡牌，更新胡牌信息

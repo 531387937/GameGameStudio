@@ -39,7 +39,7 @@ namespace Network
         //Update
         public void Update()
         {
-            NetManager.Update();//驱动网络通信的tick
+            //NetManager.Update();//驱动网络通信的tick
 
             if (isConnected)
             {
@@ -63,12 +63,13 @@ namespace Network
             {
                 //如果满3人，显示游戏面板
                 gamePanel.SetActive(true);
+                matchPanel.SetActive(false);
                 foreach (var p in players)
                 {
                     textPlayers[p.playerId - 1].text = string.Format("P{0}: {1}", p.playerId, p.playerName);
                     if(p.playerId == localPlayerId)
                     {
-                        textPlayers[p.playerId - 1].text += "(本地玩家)";
+                        //textPlayers[p.playerId - 1].text += "(本地玩家)";
                     }
                 }
             }
