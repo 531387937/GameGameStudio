@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Network;
 public class PlayerArea : MonoBehaviour
 {
     private List<RectTransform> cardAreas = new List<RectTransform>();
@@ -13,12 +14,16 @@ public class PlayerArea : MonoBehaviour
     private List<GameObject> groundCard = new List<GameObject>();
     public GameObject roundCardArea;
 
-    public Text name;
+    public Text playerName;
+    public WinProgress progress;
 
     private int curChooseCard = 0;
     // Start is called before the first frame update
     void Start()
     {
+        EventManager.Instance.AddEventListener(eventType.refreshHandCard, RefreshHandCard);
+        EventManager.Instance.AddEventListener(eventType.chooseCard, ChooseCard);
+        EventManager.Instance.AddEventListener(eventType.refreshRoundResult, OnFreshRoundResult);
         foreach (Transform child in transform)
         {
             if (child.tag == "CardArea")
@@ -41,8 +46,15 @@ public class PlayerArea : MonoBehaviour
     {
 
     }
-
-    public void RefreshHandCard()
+    private void OnFreshRoundResult(object info)
+    {
+        foreach(var obj in roundCard)
+        {
+            Destroy(obj);
+        }
+        roundCard.Clear();
+    }
+    private void RefreshHandCard(object arg)
     {
         Player localPlayer = GameManager.Instance.playerManager.localPlayer;
         for (; handCard.Count < localPlayer.handCards.Count;)
@@ -59,19 +71,35 @@ public class PlayerArea : MonoBehaviour
             handCard[i].GetComponent<RectTransform>().position = cardAreas[i].position;
         }
     }
-    public void ChooseCard(int index)
+    public void ChooseCard(object index)
     {
-        roundCard.Add(handCard[index]);
-        handCard[index].transform.SetParent(roundCardArea.transform);
-        handCard.RemoveAt(index);
-        RefreshHandCard();
+        int _index = (int)index;
+
+        Card card = GameManager.Instance.playerManager.localPlayer.ChooseOneCard(_index);
+        print("打出了" + card.getCardColor().ToString() + card.getCardRank());
+
+        roundCard.Add(handCard[_index]);
+        handCard[_index].transform.SetParent(roundCardArea.transform);
+        handCard.RemoveAt(_index);
+        RefreshHandCard(null);
         for (int i = 0; i < roundCard.Count; i++)
         {
             roundCard[i].GetComponent<RectTransform>().position = roundAreas[i].position;
         }
+
+        
+
+        //发送选牌
+        CardInfo cardInfo = new CardInfo();
+        cardInfo.cardColor = (Network.CardColor)card.getCardColor();
+        cardInfo.num = card.getCardRank();
+        MsgChooseCard chooseCard = new MsgChooseCard();
+        chooseCard.playerID = GameManager.Instance.playerManager.localPlayer.id;
+        chooseCard.card = cardInfo;
+        NetManager.Send(chooseCard);
     }
 
-    public void InitRoom()
+    public void InitRoom(object arg)
     {
         foreach(var a in handCard)
         {
@@ -88,6 +116,7 @@ public class PlayerArea : MonoBehaviour
             Destroy(a);
         }
         roundCard.Clear();
-        name.text = GameManager.Instance.playerManager.localPlayer.playerName;
+        playerName.text = GameManager.Instance.playerManager.localPlayer.playerName;
+        progress.playerID = GameManager.Instance.playerManager.localPlayer.id;
     }
 }

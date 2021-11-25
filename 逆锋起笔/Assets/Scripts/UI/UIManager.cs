@@ -12,7 +12,7 @@ public class UIManager : Singleton<UIManager>
     // Start is called before the first frame update
     void Start()
     {
-        
+        EventManager.Instance.AddEventListener(eventType.initRoom, InitRoom);
     }
 
     // Update is called once per frame
@@ -21,22 +21,29 @@ public class UIManager : Singleton<UIManager>
         
     }
 
+    private void InitRoom(object obj)
+    {
+        int id = GameManager.Instance.playerManager.localPlayer.id;
+        int r_id1 = (id + 1) % 4 == 0 ? 1 : (id + 1) % 4;
+        int r_id2 = (id + 2) % 4 == 0 ? 1 : (id + 2) % 4;
+        for(int i = 0;i<2;i++)
+        {
+            if(GameManager.Instance.playerManager.remotePlayers[i].id==r_id1)
+            {
+                remoteArea1.remotePlayer = i;
+            }
+            else if(GameManager.Instance.playerManager.remotePlayers[i].id ==r_id2)
+            {
+                remoteArea2.remotePlayer = i;
+            }
+        }
+    }
+
+    //由button调用
     public void ChooseCard()
     {
-        //播放动效
-
-        Card card = GameManager.Instance.playerManager.localPlayer.ChooseOneCard(curChooseCard);
-        print("打出了" + card.getCardColor().ToString() + card.getCardRank());
-        playerArea.ChooseCard(curChooseCard);
+        EventManager.Instance.FireEvent(eventType.chooseCard, curChooseCard);
         curChooseCard = 0;
-        //发送选牌
-        CardInfo cardInfo = new CardInfo();
-        cardInfo.cardType =(Network.CardColor)card.getCardColor();
-        cardInfo.num = card.getCardRank();
-        MsgChooseCard chooseCard = new MsgChooseCard();
-        chooseCard.playerID = GameManager.Instance.playerManager.localPlayer.id;
-        chooseCard.card = cardInfo;
-        NetManager.Send(chooseCard);
     }
 
     public void ContiuneGame(bool choice)
@@ -47,10 +54,7 @@ public class UIManager : Singleton<UIManager>
         NetManager.Send(msgNextBattle);
     }
 
-    public void RefreshHandCard()
-    {
-        playerArea.RefreshHandCard();
-    }
+
 
     private void SelectCard(int i)
     {
@@ -58,8 +62,4 @@ public class UIManager : Singleton<UIManager>
         print("目前选择了第" + curChooseCard + "张卡");
     }
 
-    public void InitRoom()
-    {
-        playerArea.InitRoom();
-    }
 }

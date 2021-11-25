@@ -54,6 +54,8 @@ public class Card
 
 public struct PlayerGroundCard
 {
+    public int id;
+
     public int plantNum;
     public int plantSum;
 
@@ -80,6 +82,7 @@ public class Player
         groundCard.Clear();
         curCard.Clear();
         groundState = new PlayerGroundCard();
+        groundState.id = id;
     }
     public CardsType curRoundCard;
     public WinType wintype = WinType.None;
@@ -96,7 +99,7 @@ public class Player
         Debug.Log("玩家" + id + "抽牌成功，抽到了" + card.getCardColor() + card.getCardRank()+"\n");
     }
 
-    //调用前由游戏管理判断是否还可以选牌
+    //选牌
     public Card ChooseOneCard(int i)
     {
         curCard.Add(handCards[i]);
@@ -134,6 +137,7 @@ public class Player
             curCard[2] = null;
             curCard.Clear();
         }
+        EventManager.Instance.FireEvent(eventType.refreshRoundResult,groundState);
     }
     //开始新一局时调用
     public void StartNewRound()
@@ -141,7 +145,7 @@ public class Player
         handCards.Clear();
         groundCard.Clear();
         curCard.Clear();
-        groundState = new PlayerGroundCard();
+        groundState.id = id;
     }
 
     private void AddGroundCard(CardColor color,int point)

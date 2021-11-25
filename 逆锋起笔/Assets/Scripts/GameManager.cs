@@ -32,7 +32,7 @@ public class GameManager : Singleton<GameManager>
     {
         playerManager = new PlayerManager();
 
-        playerManager.localPlayer = new Player(0, "111");
+        //playerManager.localPlayer = new Player(0, "111");
         Drawable[] objects = FindObjectsOfType<Drawable>();
         foreach(var draw in objects)
         {
@@ -79,12 +79,12 @@ public class GameManager : Singleton<GameManager>
     // Update is called once per frame
     void Update()
     {
-        Network.NetManager.Update();
+        NetManager.Update();
         if(Input.GetKeyDown(KeyCode.Space))
         {
             playerManager.localPlayer.handCards.Add(new Card(CardColor.moutain,point,""));
             point++;
-            RefreshHandCard();
+            EventManager.Instance.FireEvent(eventType.refreshHandCard);
         }
     }
 
@@ -92,16 +92,12 @@ public class GameManager : Singleton<GameManager>
     /// <summary>
     /// 初始化房间
     /// </summary>
-    public void InitRoom()
+    private void InitRoom()
     {
         curState = GameState.playing;
-        UIManager.Instance.InitRoom();
     }
 
-    public void RefreshHandCard()
-    {
-        UIManager.Instance.RefreshHandCard();
-    }
+
 
     /// <summary>
     /// 同步玩家出牌
@@ -123,7 +119,7 @@ public class GameManager : Singleton<GameManager>
     /// <summary>
     /// 同步本轮结果
     /// </summary>
-    public void RefreshRoundResult()
+    public void RefreshRoundResult(object arg)
     {
         int plantSum=0, moutainSum=0, yardSum = 0;
         foreach(var player in players)

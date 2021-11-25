@@ -34,7 +34,7 @@ public class PlayerManager
         }
         GetAllPlayers();
         //to do调用游戏管理器 初始化房间
-        GameManager.Instance.InitRoom();
+        EventManager.Instance.FireEvent(eventType.initRoom);
     }
 
     private void OnReceiveRoundResult(MsgBase msgBase)
@@ -47,7 +47,7 @@ public class PlayerManager
                 player.RoundSettlement(roundResult.result[player.id].rank, (CardsType)roundResult.result[player.id].cardsType);
             }
         }
-        GameManager.Instance.RefreshRoundResult();
+        //GameManager.Instance.RefreshRoundResult();
 
     }
     //刷新选牌
@@ -65,7 +65,7 @@ public class PlayerManager
                 if(remotePlayers[i].id==choose.playerID)
                 {
                     CardInfo curCard = choose.card;
-                    remotePlayers[i].curCard.Add(new Card((CardColor)curCard.cardType, curCard.num, settings[(int)curCard.cardType].tex));
+                    remotePlayers[i].curCard.Add(new Card((CardColor)curCard.cardColor, curCard.num, settings[(int)curCard.cardColor].tex));
                 }
             }
         }
@@ -99,10 +99,10 @@ public class PlayerManager
             for (int i = 0; i <cardInfos.Count;i++ )
             {
                 CardInfo curCard = cardInfos[i];
-                localPlayer.DrawHandCard(new Card((CardColor)curCard.cardType, curCard.num, settings[(int)curCard.cardType].tex));
+                localPlayer.DrawHandCard(new Card((CardColor)curCard.cardColor, curCard.num, settings[(int)curCard.cardColor].tex));
             }
         }
-        GameManager.Instance.RefreshHandCard();
+        EventManager.Instance.FireEvent(eventType.refreshHandCard);
     }
 
     private void GetAllPlayers()
