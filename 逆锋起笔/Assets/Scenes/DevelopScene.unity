@@ -311,6 +311,7 @@ MonoBehaviour:
   remoteArea1: {fileID: 379698847}
   remoteArea2: {fileID: 643447101}
   EndPanel: {fileID: 1417265597}
+  chooseCardBtn: {fileID: 281666003}
 --- !u!1 &23578974
 GameObject:
   m_ObjectHideFlags: 0

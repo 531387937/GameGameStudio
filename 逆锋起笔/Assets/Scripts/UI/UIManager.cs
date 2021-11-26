@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Network;
+using UnityEngine.UI;
 public class UIManager : Singleton<UIManager>
 {
     public PlayerArea playerArea;
@@ -9,11 +10,12 @@ public class UIManager : Singleton<UIManager>
     public RemotePlayerArea remoteArea2;
     public GameObject EndPanel;
     private int curChooseCard = 0;
-    
+    public Button chooseCardBtn;
     // Start is called before the first frame update
     void Start()
     {
         EventManager.Instance.AddEventListener(eventType.initRoom, InitRoom);
+        EventManager.Instance.AddEventListener(eventType.refreshRoundResult, OnReceiveRoundEnd);
     }
 
     // Update is called once per frame
@@ -45,6 +47,7 @@ public class UIManager : Singleton<UIManager>
     {
         EventManager.Instance.FireEvent(eventType.chooseCard, curChooseCard);
         curChooseCard = 0;
+        chooseCardBtn.gameObject.SetActive(false);
     }
 
     public void ContiuneGame(bool choice)
@@ -61,6 +64,11 @@ public class UIManager : Singleton<UIManager>
         List<Player> winPlayer = (List<Player>)obj;
         EndPanel.SetActive(true);
         EndPanel.GetComponent<EndPanel>().GameOver(winPlayer);
+    }
+
+    private void OnReceiveRoundEnd(object obj)
+    {
+        chooseCardBtn.gameObject.SetActive(true);
     }
 
     private void SelectCard(int i)
