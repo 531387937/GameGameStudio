@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 
 namespace GameServer.net
 {
@@ -83,6 +84,7 @@ namespace GameServer.net
                     if (names[idx] == player.data.playerName)
                     {
                         idx = -1;
+                        break;
                     }
                 }
             }
@@ -210,10 +212,19 @@ namespace GameServer.net
                 {
                     CardInfo card = remainCards[idx[i * INIT_COUNT + j]];
                     msg.Cards[i + 1].Add(card);
-                    remainCards.RemoveAt(idx[i * INIT_COUNT + j]);
                 }
             }
+
+            foreach(var cards in msg.Cards.Values)
+            {
+                foreach (var card in cards)
+                {
+                    remainCards.Remove(card);
+                }
+            }
+
             //广播
+            Thread.Sleep(3000);
             BroadCast(msg);
         }
 
@@ -247,7 +258,7 @@ namespace GameServer.net
             else
             {
                 //下一回合发牌
-                MsgRoundCards msgRoundCards = GetRoundCards();
+                MsgInitCards msgRoundCards = GetRoundCards();
                 //广播
                 BroadCast(msgRoundCards);
             }
@@ -475,9 +486,9 @@ namespace GameServer.net
         /// 获取下回合的发牌
         /// </summary>
         /// <returns></returns>
-        private MsgRoundCards GetRoundCards()
+        private MsgInitCards GetRoundCards()
         {
-            MsgRoundCards msg = new MsgRoundCards();
+            MsgInitCards msg = new MsgInitCards();
             List<int> idx = GenerateRandom(remainCards.Count, DIS_COUNT * MAX_PLAYER);
             for(int i = 1; i < MAX_PLAYER; i++)
             {
@@ -486,9 +497,17 @@ namespace GameServer.net
                 {
                     CardInfo card = remainCards[idx[(i - 1) * DIS_COUNT + j]];
                     msg.Cards[i].Add(card);
-                    remainCards.RemoveAt(idx[(i - 1) * DIS_COUNT + j]);
                 }
             }
+
+            foreach (var cards in msg.Cards.Values)
+            {
+                foreach (var card in cards)
+                {
+                    remainCards.Remove(card);
+                }
+            }
+
             return msg;
         }
 

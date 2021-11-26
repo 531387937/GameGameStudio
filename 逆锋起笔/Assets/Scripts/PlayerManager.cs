@@ -5,10 +5,10 @@ using Network;
 //用于管理服务器上的玩家行为、流程控制
 public class PlayerManager
 {
-    public List<Player> remotePlayers;
+    public List<Player> remotePlayers = new List<Player>();
     public Player localPlayer;
     private List<CardSetting> settings = new List<CardSetting>();
-    public List<Player> players;        //所有玩家
+    public List<Player> players = new List<Player>();        //所有玩家
     public PlayerManager()
     {
         NetManager.AddMsgListener("MsgRoomInfo", OnReceiveRoomInfo);
@@ -20,21 +20,27 @@ public class PlayerManager
         for(int i = 0;i<3;i++)
         {
             string path = CardPath + ((CardColor)i).ToString();
-            settings.Add(Resources.Load<CardSetting>(CardPath));
+            CardSetting card = Resources.Load(path) as CardSetting;
+            settings.Add(card);
+            Debug.Log("Load Card: " + card.curType);
         }
     }
     //接收房间信息
     private void OnReceiveRoomInfo(MsgBase msgBase)
     {
         MsgRoomInfo roomInfo = (MsgRoomInfo)msgBase;
-        localPlayer = new Player(roomInfo.localPlayer.playerId, roomInfo.localPlayer.playerName);
-        for(int i = 0;i<roomInfo.remotePlayers.Count;i++)
+        
+        if (roomInfo.remotePlayers.Count == 2)
         {
-            remotePlayers.Add(new Player(roomInfo.remotePlayers[i].playerId, roomInfo.remotePlayers[i].playerName));
+            localPlayer = new Player(roomInfo.localPlayer.playerId, roomInfo.localPlayer.playerName);
+            for (int i = 0; i < roomInfo.remotePlayers.Count; i++)
+            {
+                remotePlayers.Add(new Player(roomInfo.remotePlayers[i].playerId, roomInfo.remotePlayers[i].playerName));
+            }
+            GetAllPlayers();
+            //to do调用游戏管理器 初始化房间
+            EventManager.Instance.FireEvent(eventType.initRoom);
         }
-        GetAllPlayers();
-        //to do调用游戏管理器 初始化房间
-        EventManager.Instance.FireEvent(eventType.initRoom);
     }
 
     private void OnReceiveRoundResult(MsgBase msgBase)
@@ -97,10 +103,10 @@ public class PlayerManager
     {
         MsgInitCards cards = (MsgInitCards)msgBase;
 
-        if(cards.Cards.ContainsKey(localPlayer.id))
+        if (cards.Cards.ContainsKey(localPlayer.id))
         {
             List<CardInfo> cardInfos = cards.Cards[localPlayer.id];
-            for (int i = 0; i <cardInfos.Count;i++ )
+            for (int i = 0; i < cardInfos.Count; i++)
             {
                 CardInfo curCard = cardInfos[i];
                 localPlayer.DrawHandCard(new Card((CardColor)curCard.cardColor, curCard.num, settings[(int)curCard.cardColor].tex));

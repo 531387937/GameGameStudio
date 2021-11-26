@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -64,15 +65,49 @@ namespace Network
                 //如果满3人，显示游戏面板
                 gamePanel.SetActive(true);
                 matchPanel.SetActive(false);
-                foreach (var p in players)
-                {
-                    textPlayers[p.playerId - 1].text = string.Format("P{0}: {1}", p.playerId, p.playerName);
-                    if(p.playerId == localPlayerId)
-                    {
-                        //textPlayers[p.playerId - 1].text += "(本地玩家)";
-                    }
-                }
+                //foreach (var p in players)
+                //{
+                //    textPlayers[p.playerId - 1].text = string.Format("P{0}: {1}", p.playerId, p.playerName);
+                //    if(p.playerId == localPlayerId)
+                //    {
+                //        //textPlayers[p.playerId - 1].text += "(本地玩家)";
+                //    }
+                //}
+
+
             }
+        }
+
+        public void OnSerializeClick()
+        {
+            MsgInitCards msg = new MsgInitCards();
+            msg.Cards = new Dictionary<int, List<CardInfo>>();
+            byte[] bytes = Encode(msg);
+            MsgInitCards newMsg = (MsgInitCards)(Decode("MsgInitCards", bytes, 0, bytes.Length));
+
+            bytes = MsgBase.Encode(msg);
+            newMsg = (MsgInitCards)MsgBase.Decode("MsgInitCards", bytes, 0, bytes.Length);
+
+            Debug.Log("sss");
+        }
+
+        public byte[] Encode(MsgBase msgBase)
+        {
+            string s = JsonConvert.SerializeObject(msgBase);
+            return System.Text.Encoding.Default.GetBytes(s);
+        }
+
+        public MsgBase Decode(
+            string protoName,
+            byte[] bytes,
+            int offset,
+            int count)
+        {
+            string s = System.Text.Encoding.Default.GetString(bytes, offset, count);
+            //MsgBase msgBase = (MsgBase)JsonUtility.FromJson(s, Type.GetType(protoName));
+            Console.WriteLine(s);
+            MsgBase msgBase = (MsgBase)JsonConvert.DeserializeObject(s, Type.GetType("Network." + protoName));
+            return msgBase;
         }
 
         //玩家点击连接按钮

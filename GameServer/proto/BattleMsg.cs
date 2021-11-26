@@ -39,7 +39,7 @@ namespace GameServer.proto
             protoName = "MsgInitCards";
         }
 
-        public Dictionary<int, List<CardInfo>> Cards;//<playerID, 卡牌列表>
+        public Dictionary<int, List<CardInfo>> Cards = new Dictionary<int, List<CardInfo>>();//<playerID, 卡牌列表>
     }
 
     /// <summary>
@@ -53,7 +53,7 @@ namespace GameServer.proto
             protoName = "MsgRoundCards";
         }
 
-        public Dictionary<int, List<CardInfo>> Cards;//<playerID, 卡牌列表>
+        public Dictionary<int, List<CardInfo>> Cards = new Dictionary<int, List<CardInfo>>();//<playerID, 卡牌列表>
     }
 
     /// <summary>
@@ -105,7 +105,7 @@ namespace GameServer.proto
             protoName = "MsgRoundResult";
         }
 
-        public Dictionary<int, RoundResult> result;
+        public Dictionary<int, RoundResult> result = new Dictionary<int, RoundResult>();
     }
 
     /// <summary>
@@ -134,6 +134,6 @@ namespace GameServer.proto
             protoName = "MsgBattleResult";
         }
 
-        public Dictionary<int, WinType> result;//<playerID, 番型>
+        public Dictionary<int, WinType> result = new Dictionary<int, WinType>();//<playerID, 番型>
     }
 }

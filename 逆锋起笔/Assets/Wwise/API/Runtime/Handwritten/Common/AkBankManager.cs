@@ -65,7 +65,7 @@ public static class AkBankManager
 		var result = AkSoundEngine.LoadBank("Init.bnk", out BankID);
 		if (result != AKRESULT.AK_Success)
 		{
-			UnityEngine.Debug.LogError("WwiseUnity: Failed load Init.bnk with result: " + result);
+			//+++UnityEngine.Debug.LogError("WwiseUnity: Failed load Init.bnk with result: " + result);
 		}
 	}
 

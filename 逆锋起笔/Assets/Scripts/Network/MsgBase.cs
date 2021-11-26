@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,16 @@ namespace Network
         //协议名
         public string protoName = "";
         //编码
+        //public static byte[] Encode(MsgBase msgBase)
+        //{
+        //    string s = JsonUtility.ToJson(msgBase);
+        //    return System.Text.Encoding.Default.GetBytes(s);
+        //}
+
+        //编码
         public static byte[] Encode(MsgBase msgBase)
         {
-            string s = JsonUtility.ToJson(msgBase);
+            string s = JsonConvert.SerializeObject(msgBase);
             return System.Text.Encoding.Default.GetBytes(s);
         }
 
@@ -25,17 +33,23 @@ namespace Network
             int offset,
             int count)
         {
+            //string s = System.Text.Encoding.Default.GetString(bytes, offset, count);
+            //try
+            //{
+            //    MsgBase msgBase = (MsgBase)JsonUtility.FromJson(s, Type.GetType("Network." + protoName));
+            //    return msgBase;
+            //}
+            //catch(Exception ex)
+            //{
+            //    Debug.Log("Decode "+protoName+" fail: "+ ex.Message);
+            //    return null;
+            //}
+
             string s = System.Text.Encoding.Default.GetString(bytes, offset, count);
-            try
-            {
-                MsgBase msgBase = (MsgBase)JsonUtility.FromJson(s, Type.GetType("Network." + protoName));
-                return msgBase;
-            }
-            catch(Exception ex)
-            {
-                Debug.Log("Decode "+protoName+" fail: "+ ex.Message);
-                return null;
-            }
+            //MsgBase msgBase = (MsgBase)JsonUtility.FromJson(s, Type.GetType(protoName));
+            Console.WriteLine(s);
+            MsgBase msgBase = (MsgBase)JsonConvert.DeserializeObject(s, Type.GetType("Network." + protoName));
+            return msgBase;
         }
 
         //编码协议名(2字节长度+字符串)
