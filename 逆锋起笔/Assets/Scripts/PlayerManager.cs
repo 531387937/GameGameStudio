@@ -97,6 +97,7 @@ public class PlayerManager
                 player.wintype =(WinType)battleResult.result[player.id];
             }
         }
+        EventManager.Instance.FireEvent(eventType.battleEnd, winPlayer);
     }
     //抽牌
     private void OnDrawCard(MsgBase msgBase)

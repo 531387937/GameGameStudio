@@ -7,8 +7,9 @@ public class UIManager : Singleton<UIManager>
     public PlayerArea playerArea;
     public RemotePlayerArea remoteArea1;
     public RemotePlayerArea remoteArea2;
-
+    public GameObject EndPanel;
     private int curChooseCard = 0;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -52,9 +53,15 @@ public class UIManager : Singleton<UIManager>
         msgNextBattle.playerID = GameManager.Instance.playerManager.localPlayer.id;
         msgNextBattle.choice = choice;
         NetManager.Send(msgNextBattle);
+        EndPanel.SetActive(false);
     }
 
-
+    private void OnReceiveBattleEnd(object obj)
+    {
+        List<Player> winPlayer = (List<Player>)obj;
+        EndPanel.SetActive(true);
+        EndPanel.GetComponent<EndPanel>().GameOver(winPlayer);
+    }
 
     private void SelectCard(int i)
     {

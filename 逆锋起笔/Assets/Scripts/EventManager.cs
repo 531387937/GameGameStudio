@@ -8,7 +8,8 @@ public enum eventType
     initRoom,
     chooseCard,
     refreshRoundResult,
-    receiveChooseCard
+    receiveChooseCard,
+    battleEnd
 }
 
 public class EventManager : Singleton<EventManager>
