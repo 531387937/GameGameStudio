@@ -11,6 +11,7 @@ public class WinProgress : MonoBehaviour
     public Text baodi;
     public Text xiaohu;
 
+
     public int playerID;
     // Start is called before the first frame update
     void Start()
@@ -22,37 +23,43 @@ public class WinProgress : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (!groundInfo.used)
+        {
+
+            int plantNum = groundInfo.plantNum;
+            int yardNum = groundInfo.yardNum;
+            int moutainNum = groundInfo.moutainNum;
+            FreshText(plant, plantNum, 6 + moutainNum);
+            FreshText(yard, yardNum, 6 + plantNum);
+            FreshText(moutain, moutainNum, 6 + yardNum);
+            FreshText(baodi, plantNum > 4 ? 4 : plantNum + yardNum > 4 ? 4 : yardNum + moutainNum > 4 ? 4 : moutainNum, 12);
+            if (groundInfo.plantSum + groundInfo.yardSum + groundInfo.moutainSum < 25)
+            {
+                FreshText(xiaohu, plantNum + yardNum + moutainNum, 25);
+            }
+            else
+            {
+                FreshText(xiaohu, plantNum + yardNum + moutainNum, 25, false);
+            }
+            groundInfo.used = true;
+        }
     }
     private void OnFreshRoundResult(object info)
     {
-        groundInfo =(PlayerGroundCard)info;
-        if(groundInfo.id!=playerID)
+        groundInfo = (PlayerGroundCard)info;
+        if (groundInfo.id != playerID)
         {
+            groundInfo.used = true;
             return;
         }
-        int plantNum = groundInfo.plantNum;
-        int yardNum = groundInfo.yardNum;
-        int moutainNum = groundInfo.moutainNum;
-        FreshText(plant, plantNum, 6 + moutainNum);
-        FreshText(yard, yardNum, 6 + plantNum);
-        FreshText(moutain, moutainNum, 6 + yardNum);
-        FreshText(baodi, plantNum > 4 ? 4 : plantNum + yardNum > 4 ? 4 : yardNum + moutainNum > 4 ? 4 : moutainNum, 12);
-        if(groundInfo.plantSum+ groundInfo.yardSum+ groundInfo.moutainSum<25)
-        {
-            FreshText(xiaohu, plantNum + yardNum + moutainNum, 25);
-        }
-        else
-        {
-            FreshText(xiaohu, plantNum + yardNum + moutainNum, 25,false);
-        }
+        groundInfo.used = false;
     }
-    void FreshText(Text text,int num,int target,bool active = true)
+    void FreshText(Text text, int num, int target, bool active = true)
     {
         if (active)
         {
             //tmpText = num.ToString() + "//" + target.ToString();
-            text.text = num.ToString() + "//" + target.ToString();
+            text.text = num.ToString() + "/" + target.ToString();
         }
         else
             text.text = "无役";
@@ -64,5 +71,7 @@ public class WinProgress : MonoBehaviour
         FreshText(yard, 0, 5);
         FreshText(baodi, 0, 5);
         FreshText(xiaohu, 0, 5);
+        groundInfo = new PlayerGroundCard();
+        groundInfo.used = false;
     }
 }

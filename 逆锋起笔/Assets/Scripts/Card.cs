@@ -54,6 +54,7 @@ public class Card
 
 public struct PlayerGroundCard
 {
+    public bool used;
     public int id;
 
     public int plantNum;
@@ -82,6 +83,7 @@ public class Player
         groundCard.Clear();
         curCard.Clear();
         groundState = new PlayerGroundCard();
+        groundState.used = false;
         groundState.id = id;
     }
     public CardsType curRoundCard;
