@@ -69,6 +69,7 @@ namespace GameServer.handler
         /// <param name="msgBase"></param>
         public static void MsgChooseCard(ClientState c,MsgBase msgBase)
         {
+            Console.WriteLine("MsgChooseCard");
             MsgChooseCard msg = (MsgChooseCard)msgBase;
             Room room = c.player.room;
             room.ChooseCard(msg);
@@ -81,6 +82,7 @@ namespace GameServer.handler
         /// <param name="msgBase"></param>
         public static void MsgNextBattle(ClientState c,MsgBase msgBase)
         {
+            Console.WriteLine("MsgNextBattle");
             MsgNextBattle msg = (MsgNextBattle)msgBase;
             Room room = c.player.room;
             room.ChooseNextBattle(msg);

@@ -9,6 +9,8 @@ public class PlayerManager
     public Player localPlayer;
     private List<CardSetting> settings = new List<CardSetting>();
     public List<Player> players = new List<Player>();        //所有玩家
+
+    private int receivedCards = 0;
     public PlayerManager()
     {
         NetManager.AddMsgListener("MsgRoomInfo", OnReceiveRoomInfo);
@@ -60,25 +62,30 @@ public class PlayerManager
     private void OnReceiveChooseCard(MsgBase msgBase)
     {
         MsgChooseCard choose = (MsgChooseCard)msgBase;
-        if(choose.playerID==localPlayer.id)
+        if (choose.playerID == localPlayer.id)
         {
-            return;
+            receivedCards++;
         }
         else
         {
-            for(int i = 0;i<remotePlayers.Count;i++)
+            for (int i = 0; i < remotePlayers.Count; i++)
             {
-                if(remotePlayers[i].id==choose.playerID)
+                if (remotePlayers[i].id == choose.playerID)
                 {
                     CardInfo curCard = choose.card;
                     remotePlayers[i].curCard.Add(new Card((CardColor)curCard.cardColor, curCard.num, settings[(int)curCard.cardColor].tex));
                 }
             }
-            if(remotePlayers[0].curCard.Count==remotePlayers[1].curCard.Count)
-            {
-                EventManager.Instance.FireEvent(eventType.receiveChooseCard);
-            }
+            receivedCards++;
         }
+        if (receivedCards == 3)
+        {
+            EventManager.Instance.FireEvent(eventType.receiveChooseCard);
+            receivedCards = 0;
+        }
+
+
+
         //GameManager.Instance.RefreshCurCard();
     }
     /// <summary>

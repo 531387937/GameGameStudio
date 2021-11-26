@@ -95,6 +95,7 @@ abf1930d8126d0b2e00e9449129a0190 UnityEngine.UI.dll:UnityEngine.EventSystems.Tou
 64e54c0cbb0177c5ea26f340efb9ff85 UnityEngine.UI.dll:UnityEngine.UI.VerticalLayoutGroup
 801fffe42aad4bba39f2cc5c4568786c AK.Wwise.Unity.MonoBehaviour.dll:.AkEnvironment
 d170ea2c9e01f54f5247679cbdc51803 AK.Wwise.Unity.MonoBehaviour.dll:.AkTriggerEnter
+7b58da42ea960ca7ddaf830d9441ff9f Assembly-CSharp.dll:.JsonNetSample
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 06f0fef534ca4c1d6064fd77a26bf722 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack
 780e8f682b3221346c034a6712a0fd25 UnityEngine.Timeline.dll:UnityEngine.Timeline.AnimationPlayableAsset
@@ -208,7 +209,7 @@ a473ff8cece235a741064243dd1b9621 AK.Wwise.Unity.MonoBehaviour.dll:.AkEnvironment
 d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 4dc40d82c140121f355f5c4c1a2db468 AK.Wwise.Unity.MonoBehaviour.dll:.AkRoomPortal
 c1585a7a5e7f5a12be8592bd9415c8c9 AK.Wwise.Unity.API.WwiseTypes.dll:.WwiseStateReference
-f1ebf64bae9451a9eee1a8d18060719f Assembly-CSharp.dll:.UIManager
+cadf5bbf7e5e759b1e3f123244907d5c Assembly-CSharp.dll:.UIManager
 2f89da7dc5ab34f2d201bdfe57c2c52c AK.Wwise.Unity.API.WwiseTypes.dll:.WwiseBankReference
 89587b91c2be39c724c0665db375e75d AK.Wwise.Unity.MonoBehaviour.dll:.AkSpatialAudioEmitter
 71bb6a6b6c8f052f948db64c7dd3ca4f AK.Wwise.Unity.MonoBehaviour.dll:.AkAmbientLargeModePositioner
@@ -224,4 +225,4 @@ d170ea2c9e01f54f5247679cbdc51803 AK.Wwise.Unity.MonoBehaviour.dll:.AkTriggerColl
 a33eb9d815a1a0cd7d8367185381691a AK.Wwise.Unity.API.dll:.AkMacSettings
 6e94ebac960fbf1e849452fa7f9e226a AK.Wwise.Unity.Timeline.dll:.AkRTPCTrack
 1e64e873d37d6d1d1eba1ef8eacdc719 AK.Wwise.Unity.API.dll:.AkWindowsSettings
-7b58da42ea960ca7ddaf830d9441ff9f Assembly-CSharp.dll:.JsonNetSample
+e82118631de522e1b3a320a13df96139 Assembly-CSharp.dll:.EndPanel

@@ -25,7 +25,7 @@ public class RemotePlayerArea : MonoBehaviour
         EventManager.Instance.AddEventListener(eventType.refreshHandCard, RefreshHandCard);
         EventManager.Instance.AddEventListener(eventType.refreshRoundResult, RefreshHandCard);
         EventManager.Instance.AddEventListener(eventType.refreshRoundResult, OnRefreshRoundResult);
-        NetManager.AddMsgListener("MsgChooseCard", OnReceiveChooseCard);
+        //NetManager.AddMsgListener("MsgChooseCard", OnReceiveChooseCard);
         EventManager.Instance.AddEventListener(eventType.receiveChooseCard, OnReceiveChooseCard);
         foreach (Transform child in transform)
         {

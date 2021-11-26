@@ -28,8 +28,9 @@ public class UIManager : Singleton<UIManager>
     private void InitRoom(object obj)
     {
         int id = GameManager.Instance.playerManager.localPlayer.id;
-        int r_id1 = (id + 1) % 4 == 0 ? 1 : (id + 1) % 4;
-        int r_id2 = (id + 2) % 4 == 0 ? 1 : (id + 2) % 4;
+        int r_id1 = (id + 1) % 3 == 0 ? 3 : (id + 1) % 3;
+        int r_id2 = (id + 2) % 3 == 0 ? 3 : (id + 2) % 3;
+
         for(int i = 0;i<2;i++)
         {
             if(GameManager.Instance.playerManager.remotePlayers[i].id==r_id1)

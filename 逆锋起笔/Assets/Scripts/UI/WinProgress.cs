@@ -51,6 +51,7 @@ public class WinProgress : MonoBehaviour
     {
         if (active)
         {
+            //tmpText = num.ToString() + "//" + target.ToString();
             text.text = num.ToString() + "//" + target.ToString();
         }
         else

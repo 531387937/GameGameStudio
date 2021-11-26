@@ -80,6 +80,7 @@
     <Compile Include="Assets\Scripts\Setting\GlobalSetting.cs" />
     <Compile Include="Assets\Scripts\Singleton.cs" />
     <Compile Include="Assets\Scripts\UI\CardInstance.cs" />
+    <Compile Include="Assets\Scripts\UI\EndPanel.cs" />
     <Compile Include="Assets\Scripts\UI\PlayerArea.cs" />
     <Compile Include="Assets\Scripts\UI\RemotePlayerArea.cs" />
     <Compile Include="Assets\Scripts\UI\UIManager.cs" />

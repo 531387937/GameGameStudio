@@ -125,7 +125,7 @@ namespace GameServer.net
                 players.Remove(id);
 
                 //把剩余的往前移
-                for (int i = 1; i < MAX_PLAYER; i++)
+                for (int i = 1; i <= MAX_PLAYER; i++)
                 {
                     if (players.ContainsKey(i))
                     {
@@ -183,8 +183,16 @@ namespace GameServer.net
             chooseCards = new Dictionary<int, List<CardInfo>>();
             battleChoice = new Dictionary<int, MsgNextBattle>();
 
+            for (int i = 1; i <= MAX_PLAYER; i++)
+            {
+                curCards.Add(i, new List<CardInfo>());
+                preCards.Add(i, new List<CardInfo>());
+                chooseCards.Add(i, new List<CardInfo>());
+                //battleChoice.Add(i, new MsgNextBattle());
+            }
+
             //初始化牌组
-            for(int i = 0; i < COLOR_COUNT; i++)
+            for (int i = 0; i < COLOR_COUNT; i++)
             {
                 //花色
                 for(int j = 0; j < NUM_COUNT; j++)
@@ -233,7 +241,7 @@ namespace GameServer.net
             chooseCards[msg.playerID].Add(msg.card);
             //广播
             BroadCast(msg);
-
+            
             //是否全部已选满
             int count = 0;
             foreach(var cards in chooseCards.Values)
@@ -242,25 +250,26 @@ namespace GameServer.net
             }
             if(count == DIS_COUNT * MAX_PLAYER)
             {
+
                 //对比
                 MsgRoundResult msgRoundresult = GetRoundResult();
                 //广播
                 BroadCast(msgRoundresult);
-            }
 
-            //判断是否胡牌
-            MsgBattleResult msgBattleResult = GetBattleResult();
-            if (msgBattleResult != null)
-            {
-                //广播
-                BroadCast(msgBattleResult);
-            }
-            else
-            {
-                //下一回合发牌
-                MsgInitCards msgRoundCards = GetRoundCards();
-                //广播
-                BroadCast(msgRoundCards);
+                //判断是否胡牌
+                MsgBattleResult msgBattleResult = GetBattleResult();
+                if (msgBattleResult != null)
+                {
+                    //广播
+                    BroadCast(msgBattleResult);
+                }
+                else
+                {
+                    //下一回合发牌
+                    MsgInitCards msgRoundCards = GetRoundCards();
+                    //广播
+                    BroadCast(msgRoundCards);
+                }
             }
         }
 
@@ -349,7 +358,7 @@ namespace GameServer.net
             for(int i = 2; i <= MAX_PLAYER; i++)
             {
                 int j = i;
-                for(; j >0&&scores[i]>scores[j-1]; j--)
+                for(; j >1&&scores[i]>scores[j-1]; j--)
                 {
                     ranks[j] = ranks[j - 1];
                 }
@@ -410,7 +419,7 @@ namespace GameServer.net
                 remainCards.Add(chooseCards[ranks[3]][2]);
             }
 
-            for(int i = 1; i < MAX_PLAYER; i++)
+            for(int i = 1; i <= MAX_PLAYER; i++)
             {
                 chooseCards[i].Clear();//清空选牌
             }
@@ -427,19 +436,19 @@ namespace GameServer.net
             MsgBattleResult msg = new MsgBattleResult();
             int winCount = 0;//胡牌的人数
 
-            for(int i = 1; i < MAX_PLAYER; i++)
+            for(int i = 1; i <= MAX_PLAYER; i++)
             {
                 WinType tmpWinType = WinType.None;
                 int numCount = 0;
 
                 List<CardInfo> cards = preCards[i];
                 Dictionary<CardColor, int> colorCount = new Dictionary<CardColor, int>();
+                colorCount.Add(CardColor.JianZhu, 0);
+                colorCount.Add(CardColor.ShanShui, 0);
+                colorCount.Add(CardColor.ZhiWu, 0);
                 foreach(var card in cards)
                 {
-                    if (!colorCount.ContainsKey(card.cardColor))
-                        colorCount[card.cardColor] = 0;
-                    else
-                        colorCount[card.cardColor] += 1;
+                    colorCount[card.cardColor] += 1;
                     numCount += card.num;
                 }
 
@@ -490,7 +499,7 @@ namespace GameServer.net
         {
             MsgInitCards msg = new MsgInitCards();
             List<int> idx = GenerateRandom(remainCards.Count, DIS_COUNT * MAX_PLAYER);
-            for(int i = 1; i < MAX_PLAYER; i++)
+            for(int i = 1; i <= MAX_PLAYER; i++)
             {
                 msg.Cards.Add(i, new List<CardInfo>());
                 for(int j = 0; j < DIS_COUNT; j++)
