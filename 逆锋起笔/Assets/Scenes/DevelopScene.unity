@@ -2821,8 +2821,8 @@ MonoBehaviour:
   cardObject: {fileID: 1003713690283842573, guid: 73512d986684f8d44b1fd94dd7d1e529,
     type: 3}
   roundCardArea: {fileID: 155582874}
-  playerName: {fileID: 0}
-  progress: {fileID: 0}
+  playerName: {fileID: 1490840134}
+  progress: {fileID: 366250577}
 --- !u!114 &574750567
 MonoBehaviour:
   m_ObjectHideFlags: 0
