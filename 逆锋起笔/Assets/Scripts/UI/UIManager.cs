@@ -16,6 +16,7 @@ public class UIManager : Singleton<UIManager>
     {
         EventManager.Instance.AddEventListener(eventType.initRoom, InitRoom);
         EventManager.Instance.AddEventListener(eventType.refreshRoundResult, OnReceiveRoundEnd);
+        EventManager.Instance.AddEventListener(eventType.receiveChooseCard, OnReceiveRoundEnd);
     }
 
     // Update is called once per frame
