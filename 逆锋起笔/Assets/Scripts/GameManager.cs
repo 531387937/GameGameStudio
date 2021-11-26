@@ -80,12 +80,13 @@ public class GameManager : Singleton<GameManager>
     void Update()
     {
         NetManager.Update();
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            playerManager.localPlayer.handCards.Add(new Card(CardColor.moutain,point,""));
-            point++;
-            EventManager.Instance.FireEvent(eventType.refreshHandCard);
-        }
+        //if(Input.GetKeyDown(KeyCode.Space))
+        //{
+        //    List<Player> winPlayer = new List<Player>();
+        //    winPlayer.Add(playerManager.localPlayer);
+        //    playerManager.localPlayer.wintype = WinType.ShanShui;
+        //    EventManager.Instance.FireEvent(eventType.battleEnd, winPlayer);
+        //}
     }
 
 

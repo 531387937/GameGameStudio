@@ -66,11 +66,6 @@ public class WinProgress : MonoBehaviour
     }
     private void InitRoom(object arg)
     {
-        FreshText(plant, 0, 5);
-        FreshText(moutain, 0, 5);
-        FreshText(yard, 0, 5);
-        FreshText(baodi, 0, 5);
-        FreshText(xiaohu, 0, 5);
         groundInfo = new PlayerGroundCard();
         groundInfo.used = false;
     }

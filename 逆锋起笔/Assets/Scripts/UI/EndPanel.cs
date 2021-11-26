@@ -17,7 +17,7 @@ public class EndPanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        EndTimer.text = timer.ToString() + "s";
+        EndTimer.text = string.Format( "{0:F1}s后自动开始下一局",timer);
         if(timer>0&&gameOver)
         {
             timer -= Time.deltaTime;

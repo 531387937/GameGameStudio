@@ -17,6 +17,7 @@ public class UIManager : Singleton<UIManager>
         EventManager.Instance.AddEventListener(eventType.initRoom, InitRoom);
         EventManager.Instance.AddEventListener(eventType.refreshRoundResult, OnReceiveRoundEnd);
         EventManager.Instance.AddEventListener(eventType.receiveChooseCard, OnReceiveRoundEnd);
+        EventManager.Instance.AddEventListener(eventType.battleEnd, OnReceiveBattleEnd);
     }
 
     // Update is called once per frame
@@ -63,6 +64,7 @@ public class UIManager : Singleton<UIManager>
 
     private void OnReceiveBattleEnd(object obj)
     {
+        print("游戏结束");
         List<Player> winPlayer = (List<Player>)obj;
         EndPanel.SetActive(true);
         EndPanel.GetComponent<EndPanel>().GameOver(winPlayer);
