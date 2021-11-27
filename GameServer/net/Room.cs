@@ -50,6 +50,73 @@ namespace GameServer.net
         private Dictionary<int, List<CardInfo>> chooseCards = new Dictionary<int, List<CardInfo>>();//选牌
         private Dictionary<int, MsgNextBattle> battleChoice = new Dictionary<int, MsgNextBattle>();//下一局的选择
 
+        public void TestRound()
+        {
+            Init();
+            //炸弹、同花顺、同数字
+            //chooseCards[1].Add(new CardInfo(CardColor.JianZhu, 3));
+            //chooseCards[1].Add(new CardInfo(CardColor.JianZhu, 3));
+            //chooseCards[1].Add(new CardInfo(CardColor.JianZhu, 3));
+            //chooseCards[2].Add(new CardInfo(CardColor.ShanShui, 3));
+            //chooseCards[2].Add(new CardInfo(CardColor.ShanShui, 4));
+            //chooseCards[2].Add(new CardInfo(CardColor.ShanShui, 5));
+            //chooseCards[3].Add(new CardInfo(CardColor.ZhiWu, 3));
+            //chooseCards[3].Add(new CardInfo(CardColor.JianZhu, 3));
+            //chooseCards[3].Add(new CardInfo(CardColor.ShanShui, 3));
+            //GetRoundResult();
+
+            //顺子、同花、同色一对
+            //chooseCards[1].Add(new CardInfo(CardColor.ShanShui, 5));
+            //chooseCards[1].Add(new CardInfo(CardColor.JianZhu, 6));
+            //chooseCards[1].Add(new CardInfo(CardColor.ShanShui, 7));
+            //chooseCards[2].Add(new CardInfo(CardColor.ShanShui, 5));
+            //chooseCards[2].Add(new CardInfo(CardColor.ShanShui, 5));
+            //chooseCards[2].Add(new CardInfo(CardColor.ShanShui, 7));
+            //chooseCards[3].Add(new CardInfo(CardColor.ShanShui, 5));
+            //chooseCards[3].Add(new CardInfo(CardColor.ShanShui, 5));
+            //chooseCards[3].Add(new CardInfo(CardColor.JianZhu, 7));
+            //GetRoundResult();
+
+            //同色一对、异色一对、单张
+            chooseCards[1].Add(new CardInfo(CardColor.JianZhu, 3));
+            chooseCards[1].Add(new CardInfo(CardColor.ZhiWu, 4));
+            chooseCards[1].Add(new CardInfo(CardColor.JianZhu, 3));
+            chooseCards[2].Add(new CardInfo(CardColor.JianZhu, 3));
+            chooseCards[2].Add(new CardInfo(CardColor.ShanShui, 3));
+            chooseCards[2].Add(new CardInfo(CardColor.JianZhu, 4));
+            chooseCards[3].Add(new CardInfo(CardColor.JianZhu, 4));
+            chooseCards[3].Add(new CardInfo(CardColor.ShanShui, 3));
+            chooseCards[3].Add(new CardInfo(CardColor.JianZhu, 6));
+            GetRoundResult();
+        }
+
+        public void TestBattle()
+        {
+            Init();
+            //建筑6
+            for (int i = 0; i < 7; i++)
+                preCards[1].Add(new CardInfo(CardColor.JianZhu, i));
+            preCards[1].Add(new CardInfo(CardColor.ShanShui, 5));
+
+            //4*3
+            for(int i = 0; i < 4; i++)
+            {
+                preCards[2].Add(new CardInfo(CardColor.JianZhu, i));
+                preCards[2].Add(new CardInfo(CardColor.ShanShui, i));
+                preCards[2].Add(new CardInfo(CardColor.ZhiWu, i));
+            }
+
+            //9<25
+            for(int i = 0; i < 3; i++)
+            {
+                preCards[3].Add(new CardInfo(CardColor.JianZhu, 2));
+                preCards[3].Add(new CardInfo(CardColor.ShanShui, 2));
+                preCards[3].Add(new CardInfo(CardColor.ZhiWu, 2));
+            }
+
+            GetBattleResult();
+        }
+
         /// <summary>
         /// 获取玩家个数
         /// </summary>
@@ -171,12 +238,10 @@ namespace GameServer.net
         }
 
         /// <summary>
-        /// 进入游戏
+        /// 初始化变量
         /// </summary>
-        public void StartGame()
+        public void Init()
         {
-            isMatchSucc = true;
-            //初始化变量
             remainCards = new List<CardInfo>();
             curCards = new Dictionary<int, List<CardInfo>>();
             preCards = new Dictionary<int, List<CardInfo>>();
@@ -190,6 +255,16 @@ namespace GameServer.net
                 chooseCards.Add(i, new List<CardInfo>());
                 //battleChoice.Add(i, new MsgNextBattle());
             }
+        }
+
+        /// <summary>
+        /// 进入游戏
+        /// </summary>
+        public void StartGame()
+        {
+            isMatchSucc = true;
+            //初始化变量
+            Init();
 
             //初始化牌组
             for (int i = 0; i < COLOR_COUNT; i++)
@@ -273,6 +348,10 @@ namespace GameServer.net
             }
         }
 
+        private bool Cmp(CardInfo A, CardInfo B) {
+            return A.num < B.num;
+        }
+
         /// <summary>
         /// 回合对比
         /// </summary>
@@ -281,29 +360,34 @@ namespace GameServer.net
         {
             MsgRoundResult msg = new MsgRoundResult();
             
-            int[] scores = new int[MAX_PLAYER + 1];//用于比较大小，等于(10-CardsType)*1000+总点数
+            int[] scores = new int[MAX_PLAYER + 1];//用于比较大小，等于(10-CardsType)*1000+特定最大点数
             for(int i = 1; i <= MAX_PLAYER; i++)
             {
                 RoundResult res = new RoundResult();
 
                 List<CardInfo> cards = chooseCards[i];
-                
+                int minNum = Math.Min(Math.Min(cards[0].num, cards[1].num), cards[2].num);
+                int maxNum = Math.Max(Math.Max(cards[0].num, cards[1].num), cards[2].num);
+
                 //炸弹
-                if(cards[0].cardColor==cards[1].cardColor
+                if (cards[0].cardColor==cards[1].cardColor
                     &&cards[0].cardColor==cards[2].cardColor
                     &&cards[0].num==cards[1].num
                     && cards[0].num == cards[2].num)
                 {
                     res.cardsType = CardsType.ZhaDan;
+                    scores[i] = cards[0].num;
                 }
                 //同花顺
                 else if(cards[0].cardColor == cards[1].cardColor
                     && cards[0].cardColor == cards[2].cardColor
-                    &&cards[1].num-cards[0].num==1
-                    &&cards[2].num-cards[1].num==1
-                    )
+                    &&(maxNum-minNum == 2)
+                    &&cards[0].num!=cards[1].num
+                    &&cards[0].num!=cards[2].num
+                    &&cards[1].num!=cards[2].num)
                 {
                     res.cardsType = CardsType.TongHuaShun;
+                    scores[i] = maxNum;
                 }
                 //同数字
                 else if(cards[0].num == cards[1].num
@@ -311,13 +395,17 @@ namespace GameServer.net
                     )
                 {
                     res.cardsType = CardsType.TongShuZi;
+                    scores[i] = cards[0].num;
                 }
                 //顺子
-                else if(cards[1].num - cards[0].num == 1
-                    && cards[2].num - cards[1].num == 1
+                else if((maxNum - minNum == 2)
+                    && cards[0].num != cards[1].num
+                    && cards[0].num != cards[2].num
+                    && cards[1].num != cards[2].num
                     )
                 {
                     res.cardsType = CardsType.ShunZi;
+                    scores[i] = maxNum;
                 }
                 //同花
                 else if(cards[0].cardColor == cards[1].cardColor
@@ -325,6 +413,7 @@ namespace GameServer.net
                     )
                 {
                     res.cardsType = CardsType.TongHua;
+                    scores[i] = maxNum;
                 }
                 //同色一对
                 else if((cards[0].cardColor==cards[1].cardColor&&cards[0].num==cards[1].num)
@@ -333,6 +422,8 @@ namespace GameServer.net
                     )
                 {
                     res.cardsType = CardsType.TongSeYiDui;
+                    if (cards[0].num == cards[1].num || cards[0].num == cards[2].num) scores[i] = cards[0].num;
+                    else if (cards[1].num == cards[2].num) scores[i] = cards[1].num;
                 }
                 //异色一对
                 else if(cards[0].num == cards[1].num
@@ -341,14 +432,17 @@ namespace GameServer.net
                     )
                 {
                     res.cardsType = CardsType.YiSeYiDui;
+                    if (cards[0].num == cards[1].num || cards[0].num == cards[2].num) scores[i] = cards[0].num;
+                    else if (cards[1].num == cards[2].num) scores[i] = cards[1].num;
                 }
                 //单张
                 else
                 {
                     res.cardsType = CardsType.DanZhang;
+                    scores[i] = maxNum;
                 }
 
-                scores[i] = (10 - (int)res.cardsType) * 1000 + cards[0].num + cards[1].num + cards[2].num;
+                scores[i] += (10 - (int)res.cardsType) * 1000;
                 msg.result.Add(i, res);
             }
 
@@ -390,7 +484,7 @@ namespace GameServer.net
                 remainCards.Add(chooseCards[ranks[3]][1]);
                 remainCards.Add(chooseCards[ranks[3]][2]);
             }
-            else if(scores[ranks[1]]==scores[ranks[2]])
+            else if(scores[ranks[2]]==scores[ranks[3]])
             {
                 preCards[ranks[1]].Add(chooseCards[ranks[1]][0]);//留2弃1
                 preCards[ranks[1]].Add(chooseCards[ranks[1]][1]);
@@ -473,7 +567,7 @@ namespace GameServer.net
                     tmpWinType = WinType.BaoDi;
                 }
                 //9张，<25
-                else if (cards.Count == 9 && numCount == 25)
+                else if (cards.Count == 9 && numCount < 25)
                 {
                     tmpWinType = WinType.XiaoHe;
                 }

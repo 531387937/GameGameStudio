@@ -10,6 +10,9 @@ namespace GameServer
             Console.WriteLine("Hello World!");
 
             NetManager.StartLoop(8888);
+
+            //Room room = new Room();
+            //room.TestBattle();
         }
     }
 }

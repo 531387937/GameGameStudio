@@ -26,6 +26,17 @@ namespace GameServer.proto
     {
         public CardColor cardColor;//花色
         public int num;//点数
+
+        public CardInfo()
+        {
+            cardColor = CardColor.JianZhu;
+            num = 0;
+        }
+        public CardInfo(CardColor color, int n)
+        {
+            cardColor = color;
+            num = n;
+        }
     }
 
     /// <summary>
