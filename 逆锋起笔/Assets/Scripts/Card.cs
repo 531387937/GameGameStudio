@@ -65,6 +65,9 @@ public struct PlayerGroundCard
 
     public int yardNum;
     public int yardSum;
+
+    public int pointSum { get { return (plantSum + moutainSum + yardSum); } }
+    public int numSum { get { return (plantNum + moutainNum + yardNum); } }
 }
 
 public class Player
