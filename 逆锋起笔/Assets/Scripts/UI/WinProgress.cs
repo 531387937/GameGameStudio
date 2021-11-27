@@ -51,12 +51,17 @@ public class WinProgress : MonoBehaviour
     }
     private void OnFreshRoundResult(object info)
     {
-        groundInfo = (PlayerGroundCard)info;
-        if (groundInfo.id != playerID)
+        PlayerGroundCard card = (PlayerGroundCard)info;
+        if (card.id != playerID)
         {
             return;
         }
-        groundInfo.used = false;
+        else
+        {
+            groundInfo = card;
+            groundInfo.used = false;
+        }
+        
     }
     void FreshText(Text text, int num, int target, bool active = true)
     {
