@@ -120,7 +120,7 @@ namespace Network
         //玩家点击连接按钮
         public void OnConnectClick2()
         {
-            NetManager.Connect("114.132.44.167", 8888);
+            NetManager.Connect("42.193.169.30", 8888);
         }
 
         //玩家点击关闭按钮
@@ -195,6 +195,14 @@ namespace Network
         void OnMsgCancelMatch(MsgBase msgBase)
         {
             //TODO
+        }
+
+        /// <summary>
+        /// 退出游戏时关闭网络连接
+        /// </summary>
+        private void OnApplicationQuit()
+        {
+            NetManager.Close();
         }
     }
 }
