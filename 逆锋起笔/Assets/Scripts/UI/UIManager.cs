@@ -43,6 +43,8 @@ public class UIManager : Singleton<UIManager>
                 remoteArea2.remotePlayer = i;
             }
         }
+        remoteArea1.InitRoom(null);
+        remoteArea2.InitRoom(null);
     }
 
     //由button调用

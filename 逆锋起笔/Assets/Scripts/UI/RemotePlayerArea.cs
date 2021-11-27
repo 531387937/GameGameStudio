@@ -25,7 +25,7 @@ public class RemotePlayerArea : MonoBehaviour
         EventManager.Instance.AddEventListener(eventType.refreshHandCard, RefreshHandCard);
         EventManager.Instance.AddEventListener(eventType.refreshRoundResult, RefreshHandCard);
         EventManager.Instance.AddEventListener(eventType.refreshRoundResult, OnRefreshRoundResult);
-        EventManager.Instance.AddEventListener(eventType.initRoom, InitRoom);
+        //EventManager.Instance.AddEventListener(eventType.initRoom, InitRoom);
     }
 
     void Start()
