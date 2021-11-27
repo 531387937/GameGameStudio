@@ -9,7 +9,9 @@ public enum eventType
     chooseCard,
     refreshRoundResult,
     receiveChooseCard,
-    battleEnd
+    battleEnd,
+    roundVision,
+    roundDraw,
 }
 
 public class EventManager : Singleton<EventManager>
