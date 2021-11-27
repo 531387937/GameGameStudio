@@ -16,7 +16,7 @@ namespace Network
         public GameObject gamePanel;//游戏面板
         public Text textMatch;//显示是否能够点击匹配
         public Text[] textPlayers;//显示各个玩家的名称
-
+        public GameObject waitingPanel;
         private bool isConnected = false;//是否已连接服务器
         private int playerCount = 0;//房间人数
 
@@ -46,6 +46,7 @@ namespace Network
             {
                 //如果已连接服务器，显示匹配面板
                 matchPanel.SetActive(true);
+                waitingPanel.SetActive(false);
             }
 
             if (matchPanel.activeInHierarchy==true&& playerCount > 0)
