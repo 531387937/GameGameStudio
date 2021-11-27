@@ -31,7 +31,8 @@ public class PlayerManager
     private void OnReceiveRoomInfo(MsgBase msgBase)
     {
         MsgRoomInfo roomInfo = (MsgRoomInfo)msgBase;
-        
+        remotePlayers.Clear();
+        localPlayer = null;
         if (roomInfo.remotePlayers.Count == 2)
         {
             localPlayer = new Player(roomInfo.localPlayer.playerId, roomInfo.localPlayer.playerName);

@@ -62,6 +62,7 @@ public class UIManager : Singleton<UIManager>
         msgNextBattle.choice = choice;
         NetManager.Send(msgNextBattle);
         EndPanel.SetActive(false);
+        EventManager.Instance.FireEvent(eventType.initRoom);
     }
 
     private void OnReceiveBattleEnd(object obj)
