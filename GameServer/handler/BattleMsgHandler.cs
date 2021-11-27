@@ -55,9 +55,13 @@ namespace GameServer.handler
 
             //从房间中移除该玩家
             Room room = c.player.room;
-            room.RemovePlayer(c.player.data.id);
-            //广播消息
-            room.SendRoomInfo();
+            if (room != null)
+            {
+                room.RemovePlayer(c.player.data.id);
+                //广播消息
+                room.SendRoomInfo();
+            }
+            
             //删除玩家的实例
             c.player = null;
         }
