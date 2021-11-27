@@ -1,0 +1,22 @@
+Event	ID	Name			Wwise Object Path	Notes
+	1396041131	Set_State_Bridge			\Default Work Unit\Set_State_Bridge	
+	1603954450	Set_State_Chorus			\Default Work Unit\Set_State_Chorus	
+	1691765453	Play_MainBGM			\Default Work Unit\Play_MainBGM	
+	2630068541	Set_State_Normal			\Default Work Unit\Set_State_Normal	
+	4093728171	Stop_MainBGM			\Default Work Unit\Stop_MainBGM	
+	4160240018	Set_State_None			\Default Work Unit\Set_State_None	
+
+State Group	ID	Name			Wwise Object Path	Notes
+	1431182499	Playing_State			\Default Work Unit\Playing_State	
+
+State	ID	Name	State Group			Notes
+	748895195	None	Playing_State			
+	1160234136	Normal	Playing_State			
+	2068062714	Bridge	Playing_State			
+	2866621671	Chorus	Playing_State			
+
+Streamed Audio	ID	Name	Audio source file	Generated audio file	Wwise Object Path	Notes
+	437833667	芊蔚 - 广陵散 (Live) render 001	E:\Prjs\nfqb\NFQB_Wwise\nfqb\.cache\Windows\SFX\芊蔚 - 广陵散 (Live) render 001_3D1D1BA5.wem	437833667.wem	\Interactive Music Hierarchy\Default Work Unit\MainBGM\Chorus\芊蔚 - 广陵散 (Live) render 001\芊蔚 - 广陵散 (Live) render 001	
+	1008275583	芊蔚 - 广陵散 (Live) render 003	E:\Prjs\nfqb\NFQB_Wwise\nfqb\.cache\Windows\SFX\芊蔚 - 广陵散 (Live) render 003_3D1D1BA5.wem	1008275583.wem	\Interactive Music Hierarchy\Default Work Unit\MainBGM\Bridge\芊蔚 - 广陵散 (Live) render 003\芊蔚 - 广陵散 (Live) render 003	
+	1038379119	华夏民族乐团 - 广陵散 (古琴独奏) render 001	E:\Prjs\nfqb\NFQB_Wwise\nfqb\.cache\Windows\SFX\华夏民族乐团 - 广陵散 (古琴独奏) render 001_3D1D1BA5.wem	1038379119.wem	\Interactive Music Hierarchy\Default Work Unit\MainBGM\Normal\华夏民族乐团 - 广陵散 (古琴独奏) render 001\华夏民族乐团 - 广陵散 (古琴独奏) render 001	
+
