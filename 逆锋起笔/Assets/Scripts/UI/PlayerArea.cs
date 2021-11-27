@@ -19,11 +19,16 @@ public class PlayerArea : MonoBehaviour
 
     private int curChooseCard = 0;
     // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
         EventManager.Instance.AddEventListener(eventType.refreshHandCard, RefreshHandCard);
         EventManager.Instance.AddEventListener(eventType.chooseCard, ChooseCard);
         EventManager.Instance.AddEventListener(eventType.refreshRoundResult, OnFreshRoundResult);
+        EventManager.Instance.AddEventListener(eventType.initRoom, InitRoom);
+    }
+    void Start()
+    {
         foreach (Transform child in transform)
         {
             if (child.tag == "CardArea")
@@ -71,7 +76,7 @@ public class PlayerArea : MonoBehaviour
             handCard[i].GetComponent<RectTransform>().position = cardAreas[i].position;
         }
     }
-    public void ChooseCard(object index)
+    private void ChooseCard(object index)
     {
         int _index = (int)index;
 

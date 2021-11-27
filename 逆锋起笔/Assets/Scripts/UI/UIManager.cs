@@ -78,7 +78,6 @@ public class UIManager : Singleton<UIManager>
     private void SelectCard(int i)
     {
         curChooseCard = i;
-        print("目前选择了第" + curChooseCard + "张卡");
     }
 
 }

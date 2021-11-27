@@ -20,11 +20,17 @@ public class RemotePlayerArea : MonoBehaviour
 
     private int curChooseCard = 0;
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         EventManager.Instance.AddEventListener(eventType.refreshHandCard, RefreshHandCard);
         EventManager.Instance.AddEventListener(eventType.refreshRoundResult, RefreshHandCard);
         EventManager.Instance.AddEventListener(eventType.refreshRoundResult, OnRefreshRoundResult);
+        EventManager.Instance.AddEventListener(eventType.initRoom, InitRoom);
+    }
+
+    void Start()
+    {
+        
         //NetManager.AddMsgListener("MsgChooseCard", OnReceiveChooseCard);
         EventManager.Instance.AddEventListener(eventType.receiveChooseCard, OnReceiveChooseCard);
         foreach (Transform child in transform)

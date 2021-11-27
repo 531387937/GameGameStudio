@@ -13,11 +13,16 @@ public class WinProgress : MonoBehaviour
 
 
     public int playerID;
-    // Start is called before the first frame update
-    void Start()
+
+    private void Awake()
     {
         EventManager.Instance.AddEventListener(eventType.initRoom, InitRoom);
         EventManager.Instance.AddEventListener(eventType.refreshRoundResult, OnFreshRoundResult);
+    }
+    // Start is called before the first frame update
+    void Start()
+    {
+        
     }
 
     // Update is called once per frame
@@ -49,7 +54,6 @@ public class WinProgress : MonoBehaviour
         groundInfo = (PlayerGroundCard)info;
         if (groundInfo.id != playerID)
         {
-            groundInfo.used = true;
             return;
         }
         groundInfo.used = false;
