@@ -40,11 +40,11 @@ public class WinProgress : MonoBehaviour
             FreshText(baodi, plantNum > 4 ? 4 : plantNum + yardNum > 4 ? 4 : yardNum + moutainNum > 4 ? 4 : moutainNum, 12);
             if (groundInfo.plantSum + groundInfo.yardSum + groundInfo.moutainSum < 25)
             {
-                FreshText(xiaohu, plantNum + yardNum + moutainNum, 25);
+                FreshText(xiaohu, groundInfo.plantSum + groundInfo.yardSum + groundInfo.moutainSum, 25);
             }
             else
             {
-                FreshText(xiaohu, plantNum + yardNum + moutainNum, 25, false);
+                FreshText(xiaohu, groundInfo.plantSum + groundInfo.yardSum + groundInfo.moutainSum, 25, false);
             }
             groundInfo.used = true;
         }
