@@ -11,6 +11,10 @@ public class WinProgress : MonoBehaviour
     public Text baodi;
     public Text xiaohu;
 
+    public Text pointSum;
+    public Text moutainSum;
+    public Text plantSum;
+    public Text yardSum;
 
     public int playerID;
 
@@ -34,18 +38,22 @@ public class WinProgress : MonoBehaviour
             int plantNum = groundInfo.plantNum;
             int yardNum = groundInfo.yardNum;
             int moutainNum = groundInfo.moutainNum;
-            FreshText(plant, plantNum, 6 + moutainNum);
-            FreshText(yard, yardNum, 6 + plantNum);
-            FreshText(moutain, moutainNum, 6 + yardNum);
+            FreshText(plant, plantNum-moutainNum, 6);
+            FreshText(yard, yardNum-plantNum, 6);
+            FreshText(moutain, moutainNum-yardNum, 6);
             FreshText(baodi, plantNum > 4 ? 4 : plantNum + yardNum > 4 ? 4 : yardNum + moutainNum > 4 ? 4 : moutainNum, 12);
-            if (groundInfo.plantSum + groundInfo.yardSum + groundInfo.moutainSum < 25)
+            if (groundInfo.pointSum < 25)
             {
-                FreshText(xiaohu, groundInfo.plantSum + groundInfo.yardSum + groundInfo.moutainSum, 25);
+                FreshText(xiaohu, groundInfo.pointSum, 25);
             }
             else
             {
-                FreshText(xiaohu, groundInfo.plantSum + groundInfo.yardSum + groundInfo.moutainSum, 25, false);
+                FreshText(xiaohu, groundInfo.pointSum, 25, false);
             }
+            FreshText(plantSum, groundInfo.plantSum);
+            FreshText(moutainSum, groundInfo.moutainSum);
+            FreshText(yardSum, groundInfo.yardSum);
+            FreshText(pointSum, groundInfo.pointSum);
             groundInfo.used = true;
         }
     }
@@ -65,6 +73,10 @@ public class WinProgress : MonoBehaviour
     }
     void FreshText(Text text, int num, int target, bool active = true)
     {
+        if(text==null)
+        {
+            return;
+        }
         if (active)
         {
             //tmpText = num.ToString() + "//" + target.ToString();
@@ -72,6 +84,14 @@ public class WinProgress : MonoBehaviour
         }
         else
             text.text = "无役";
+    }
+    void FreshText(Text text,int num)
+    {
+        if(text==null)
+        {
+            return;
+        }
+        text.text = num.ToString();
     }
     private void InitRoom(object arg)
     {
