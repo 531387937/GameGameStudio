@@ -50,9 +50,9 @@ public class WinProgress : MonoBehaviour
             {
                 FreshText(xiaohu, groundInfo.pointSum, 25, false);
             }
-            FreshText(plantSum, groundInfo.plantSum);
-            FreshText(moutainSum, groundInfo.moutainSum);
-            FreshText(yardSum, groundInfo.yardSum);
+            FreshText(plantSum, groundInfo.plantNum);
+            FreshText(moutainSum, groundInfo.moutainNum);
+            FreshText(yardSum, groundInfo.yardNum);
             FreshText(pointSum, groundInfo.pointSum);
             groundInfo.used = true;
         }
