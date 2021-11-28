@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: cardyard
   m_EditorClassIdentifier: 
   curType: 1
-  tex: 
+  tex: CardImages/build
   model: 

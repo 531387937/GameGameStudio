@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: cardplant
   m_EditorClassIdentifier: 
   curType: 0
-  tex: 
+  tex: CardImages/tree
   model: 

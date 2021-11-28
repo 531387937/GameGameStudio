@@ -11,6 +11,12 @@ public class CardInstance : MonoBehaviour
     [SerializeField]
     private Image ColorIcon;
     public Sprite[] sprites;
+
+    /*
+    植物 90, 104, 85, 255
+    建筑 89, 81, 62, 255
+    山水 81, 88, 98, 255
+    */
     // Start is called before the first frame update
     void Start()
     {

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: cardmoutain
   m_EditorClassIdentifier: 
   curType: 2
-  tex: 
+  tex: CardImages/rock
   model: 
