@@ -50,6 +50,13 @@ namespace GameServer.net
         private Dictionary<int, List<CardInfo>> chooseCards = new Dictionary<int, List<CardInfo>>();//选牌
         private Dictionary<int, MsgNextBattle> battleChoice = new Dictionary<int, MsgNextBattle>();//下一局的选择
 
+        private Thread threadSendCards;
+
+        public Room()
+        {
+            threadSendCards = new Thread(SendInitCards);
+        }
+
         public void TestRound()
         {
             Init();
@@ -99,7 +106,7 @@ namespace GameServer.net
             preCards[1].Add(new CardInfo(CardColor.ShanShui, 5));
 
             //4*3
-            for(int i = 0; i < 4; i++)
+            for (int i = 0; i < 4; i++)
             {
                 preCards[2].Add(new CardInfo(CardColor.JianZhu, i));
                 preCards[2].Add(new CardInfo(CardColor.ShanShui, i));
@@ -107,7 +114,7 @@ namespace GameServer.net
             }
 
             //9<25
-            for(int i = 0; i < 3; i++)
+            for (int i = 0; i < 3; i++)
             {
                 preCards[3].Add(new CardInfo(CardColor.JianZhu, 2));
                 preCards[3].Add(new CardInfo(CardColor.ShanShui, 2));
@@ -115,6 +122,18 @@ namespace GameServer.net
             }
 
             GetBattleResult();
+        }
+
+        public void TestNextBattle()
+        {
+            for (int i = 1; i <= MAX_PLAYER; i++)
+            {
+                MsgNextBattle msg = new MsgNextBattle();
+                msg.playerID = i;
+                msg.choice = true;
+                ChooseNextBattle(msg);
+            }
+
         }
 
         /// <summary>
@@ -143,10 +162,10 @@ namespace GameServer.net
         {
             Random rd = new Random();
             int idx = -1;
-            for(int i = 0; i < 10000&&idx==-1;i++)
+            for (int i = 0; i < 10000 && idx == -1; i++)
             {
-                idx = rd.Next(0,names.Count);
-                foreach(var player in players.Values)
+                idx = rd.Next(0, names.Count);
+                foreach (var player in players.Values)
                 {
                     if (names[idx] == player.data.playerName)
                     {
@@ -168,7 +187,7 @@ namespace GameServer.net
         /// <param name="player"></param>
         public void SetPlayer(Player player)
         {
-            for(int i = 1; i <= MAX_PLAYER; i++)
+            for (int i = 1; i <= MAX_PLAYER; i++)
             {
                 if (!players.ContainsKey(i))
                 {
@@ -213,7 +232,7 @@ namespace GameServer.net
         {
             MsgRoomInfo roomInfo = new MsgRoomInfo();
             roomInfo.localPlayer = new PlayerInfo(localPlayerId, players[localPlayerId].data.playerName);
-            foreach(var i in players.Keys)
+            foreach (var i in players.Keys)
             {
                 if (i != localPlayerId)
                 {
@@ -257,6 +276,36 @@ namespace GameServer.net
             }
         }
 
+        public void SendInitCards()
+        {
+            //获取初始牌
+            List<int> idx = GenerateRandom(remainCards.Count, INIT_COUNT * 3);
+            MsgInitCards msg = new MsgInitCards();
+            msg.Cards = new Dictionary<int, List<CardInfo>>();
+            for (int i = 0; i < MAX_PLAYER; i++)
+            {
+                msg.Cards.Add(i + 1, new List<CardInfo>());
+                for (int j = 0; j < INIT_COUNT; j++)
+                {
+                    CardInfo card = remainCards[idx[i * INIT_COUNT + j]];
+                    msg.Cards[i + 1].Add(card);
+                }
+            }
+
+            foreach (var cards in msg.Cards.Values)
+            {
+                foreach (var card in cards)
+                {
+                    remainCards.Remove(card);
+                }
+            }
+
+            //延时3s
+            Thread.Sleep(3000);
+            if(players.Count==MAX_PLAYER)//防止中途有人退
+                BroadCast(msg);
+        }
+
         /// <summary>
         /// 进入游戏
         /// </summary>
@@ -270,10 +319,10 @@ namespace GameServer.net
             for (int i = 0; i < COLOR_COUNT; i++)
             {
                 //花色
-                for(int j = 0; j < NUM_COUNT; j++)
+                for (int j = 0; j < NUM_COUNT; j++)
                 {
                     //点数
-                    for(int k = 0; k < SAME_COUNT; k++)
+                    for (int k = 0; k < SAME_COUNT; k++)
                     {
                         //相同
                         CardInfo card = new CardInfo();
@@ -284,31 +333,9 @@ namespace GameServer.net
                 }
             }
 
-            //获取初始牌
-            List<int> idx = GenerateRandom(remainCards.Count, INIT_COUNT*3);
-            MsgInitCards msg = new MsgInitCards();
-            msg.Cards = new Dictionary<int, List<CardInfo>>();
-            for (int i = 0; i < MAX_PLAYER; i++)
-            {
-                msg.Cards.Add(i+1, new List<CardInfo>());
-                for (int j = 0; j < INIT_COUNT; j++)
-                {
-                    CardInfo card = remainCards[idx[i * INIT_COUNT + j]];
-                    msg.Cards[i + 1].Add(card);
-                }
-            }
-
-            foreach(var cards in msg.Cards.Values)
-            {
-                foreach (var card in cards)
-                {
-                    remainCards.Remove(card);
-                }
-            }
-
-            //广播
-            Thread.Sleep(3000);
-            BroadCast(msg);
+            //Thread sub = new Thread(SendInitCards);
+            //sub.Start(); 
+            threadSendCards.Start();
         }
 
         public void ChooseCard(MsgChooseCard msg)
@@ -316,14 +343,14 @@ namespace GameServer.net
             chooseCards[msg.playerID].Add(msg.card);
             //广播
             BroadCast(msg);
-            
+
             //是否全部已选满
             int count = 0;
-            foreach(var cards in chooseCards.Values)
+            foreach (var cards in chooseCards.Values)
             {
                 count += cards.Count;
             }
-            if(count == DIS_COUNT * MAX_PLAYER)
+            if (count == DIS_COUNT * MAX_PLAYER)
             {
 
                 //对比
@@ -348,7 +375,8 @@ namespace GameServer.net
             }
         }
 
-        private bool Cmp(CardInfo A, CardInfo B) {
+        private bool Cmp(CardInfo A, CardInfo B)
+        {
             return A.num < B.num;
         }
 
@@ -359,9 +387,9 @@ namespace GameServer.net
         private MsgRoundResult GetRoundResult()
         {
             MsgRoundResult msg = new MsgRoundResult();
-            
+
             int[] scores = new int[MAX_PLAYER + 1];//用于比较大小，等于(10-CardsType)*1000+特定最大点数
-            for(int i = 1; i <= MAX_PLAYER; i++)
+            for (int i = 1; i <= MAX_PLAYER; i++)
             {
                 RoundResult res = new RoundResult();
 
@@ -370,27 +398,27 @@ namespace GameServer.net
                 int maxNum = Math.Max(Math.Max(cards[0].num, cards[1].num), cards[2].num);
 
                 //炸弹
-                if (cards[0].cardColor==cards[1].cardColor
-                    &&cards[0].cardColor==cards[2].cardColor
-                    &&cards[0].num==cards[1].num
+                if (cards[0].cardColor == cards[1].cardColor
+                    && cards[0].cardColor == cards[2].cardColor
+                    && cards[0].num == cards[1].num
                     && cards[0].num == cards[2].num)
                 {
                     res.cardsType = CardsType.ZhaDan;
                     scores[i] = cards[0].num;
                 }
                 //同花顺
-                else if(cards[0].cardColor == cards[1].cardColor
+                else if (cards[0].cardColor == cards[1].cardColor
                     && cards[0].cardColor == cards[2].cardColor
-                    &&(maxNum-minNum == 2)
-                    &&cards[0].num!=cards[1].num
-                    &&cards[0].num!=cards[2].num
-                    &&cards[1].num!=cards[2].num)
+                    && (maxNum - minNum == 2)
+                    && cards[0].num != cards[1].num
+                    && cards[0].num != cards[2].num
+                    && cards[1].num != cards[2].num)
                 {
                     res.cardsType = CardsType.TongHuaShun;
                     scores[i] = maxNum;
                 }
                 //同数字
-                else if(cards[0].num == cards[1].num
+                else if (cards[0].num == cards[1].num
                     && cards[0].num == cards[2].num
                     )
                 {
@@ -398,7 +426,7 @@ namespace GameServer.net
                     scores[i] = cards[0].num;
                 }
                 //顺子
-                else if((maxNum - minNum == 2)
+                else if ((maxNum - minNum == 2)
                     && cards[0].num != cards[1].num
                     && cards[0].num != cards[2].num
                     && cards[1].num != cards[2].num
@@ -408,7 +436,7 @@ namespace GameServer.net
                     scores[i] = maxNum;
                 }
                 //同花
-                else if(cards[0].cardColor == cards[1].cardColor
+                else if (cards[0].cardColor == cards[1].cardColor
                     && cards[0].cardColor == cards[2].cardColor
                     )
                 {
@@ -416,7 +444,7 @@ namespace GameServer.net
                     scores[i] = maxNum;
                 }
                 //同色一对
-                else if((cards[0].cardColor==cards[1].cardColor&&cards[0].num==cards[1].num)
+                else if ((cards[0].cardColor == cards[1].cardColor && cards[0].num == cards[1].num)
                     || (cards[0].cardColor == cards[2].cardColor && cards[0].num == cards[2].num)
                     || (cards[2].cardColor == cards[1].cardColor && cards[2].num == cards[1].num)
                     )
@@ -426,7 +454,7 @@ namespace GameServer.net
                     else if (cards[1].num == cards[2].num) scores[i] = cards[1].num;
                 }
                 //异色一对
-                else if(cards[0].num == cards[1].num
+                else if (cards[0].num == cards[1].num
                     || cards[0].num == cards[2].num
                     || cards[2].num == cards[1].num
                     )
@@ -449,21 +477,22 @@ namespace GameServer.net
             int[] ranks = new int[MAX_PLAYER + 1];//rank[a]=b表示第a名是b
             ranks[1] = 1;
             //排序
-            for(int i = 2; i <= MAX_PLAYER; i++)
+            for (int i = 2; i <= MAX_PLAYER; i++)
             {
                 int j = i;
-                for(; j >1&&scores[i]>scores[j-1]; j--)
+                for (; j > 1 && scores[i] > scores[j - 1]; j--)
                 {
                     ranks[j] = ranks[j - 1];
                 }
                 ranks[j] = i;
             }
 
-            for(int i = 1; i <= MAX_PLAYER; i++)
+            for (int i = 1; i <= MAX_PLAYER; i++)
             {
-                for(int j = 1; j <= MAX_PLAYER; j++)
+                for (int j = 1; j <= MAX_PLAYER; j++)
                 {
-                    if (ranks[j] == i) {
+                    if (ranks[j] == i)
+                    {
                         msg.result[i].rank = j;//给排名赋值
                     }
                 }
@@ -484,7 +513,7 @@ namespace GameServer.net
                 remainCards.Add(chooseCards[ranks[3]][1]);
                 remainCards.Add(chooseCards[ranks[3]][2]);
             }
-            else if(scores[ranks[2]]==scores[ranks[3]])
+            else if (scores[ranks[2]] == scores[ranks[3]])
             {
                 preCards[ranks[1]].Add(chooseCards[ranks[1]][0]);//留2弃1
                 preCards[ranks[1]].Add(chooseCards[ranks[1]][1]);
@@ -513,7 +542,7 @@ namespace GameServer.net
                 remainCards.Add(chooseCards[ranks[3]][2]);
             }
 
-            for(int i = 1; i <= MAX_PLAYER; i++)
+            for (int i = 1; i <= MAX_PLAYER; i++)
             {
                 chooseCards[i].Clear();//清空选牌
             }
@@ -530,7 +559,7 @@ namespace GameServer.net
             MsgBattleResult msg = new MsgBattleResult();
             int winCount = 0;//胡牌的人数
 
-            for(int i = 1; i <= MAX_PLAYER; i++)
+            for (int i = 1; i <= MAX_PLAYER; i++)
             {
                 WinType tmpWinType = WinType.None;
                 int numCount = 0;
@@ -540,14 +569,14 @@ namespace GameServer.net
                 colorCount.Add(CardColor.JianZhu, 0);
                 colorCount.Add(CardColor.ShanShui, 0);
                 colorCount.Add(CardColor.ZhiWu, 0);
-                foreach(var card in cards)
+                foreach (var card in cards)
                 {
                     colorCount[card.cardColor] += 1;
                     numCount += card.num;
                 }
 
                 //山水6
-                if(colorCount[CardColor.ShanShui]- colorCount[CardColor.JianZhu] >= 6)
+                if (colorCount[CardColor.ShanShui] - colorCount[CardColor.JianZhu] >= 6)
                 {
                     tmpWinType = WinType.ShanShui;
                 }
@@ -562,7 +591,7 @@ namespace GameServer.net
                     tmpWinType = WinType.ZhiWu;
                 }
                 //4张
-                else if (colorCount[CardColor.ShanShui] ==4&& colorCount[CardColor.JianZhu] ==4&& colorCount[CardColor.ZhiWu]==4)
+                else if (colorCount[CardColor.ShanShui] == 4 && colorCount[CardColor.JianZhu] == 4 && colorCount[CardColor.ZhiWu] == 4)
                 {
                     tmpWinType = WinType.BaoDi;
                 }
@@ -593,10 +622,10 @@ namespace GameServer.net
         {
             MsgInitCards msg = new MsgInitCards();
             List<int> idx = GenerateRandom(remainCards.Count, DIS_COUNT * MAX_PLAYER);
-            for(int i = 1; i <= MAX_PLAYER; i++)
+            for (int i = 1; i <= MAX_PLAYER; i++)
             {
                 msg.Cards.Add(i, new List<CardInfo>());
-                for(int j = 0; j < DIS_COUNT; j++)
+                for (int j = 0; j < DIS_COUNT; j++)
                 {
                     CardInfo card = remainCards[idx[(i - 1) * DIS_COUNT + j]];
                     msg.Cards[i].Add(card);
@@ -625,7 +654,7 @@ namespace GameServer.net
         {
             List<int> nums = new List<int>();
             Random rd = new Random();
-            for(int i = 0; i < 10000 && nums.Count < count; i++)
+            for (int i = 0; i < 10000 && nums.Count < count; i++)
             {
                 int num = rd.Next(maxNum);
                 if (!nums.Contains(num))
@@ -634,9 +663,9 @@ namespace GameServer.net
                 }
             }
 
-            if(nums.Count < count)
+            if (nums.Count < count)
             {
-                for(int i = 0; i < maxNum; i++)
+                for (int i = 0; i < maxNum; i++)
                 {
                     if (!nums.Contains(i))
                     {
@@ -670,7 +699,7 @@ namespace GameServer.net
         /// <param name="msg"></param>
         public void BroadCast(MsgBase msg)
         {
-            foreach(var p in players.Values)
+            foreach (var p in players.Values)
             {
                 NetManager.Send(p.state, msg);
             }
@@ -695,13 +724,14 @@ namespace GameServer.net
         public void NextBattle()
         {
             MsgNextBattle msgNextBattle = new MsgNextBattle();
-            foreach(var msg in battleChoice.Values)
+            msgNextBattle.choice = true;
+            foreach (var msg in battleChoice.Values)
             {
                 if (msg.choice == false)
                 {
                     msgNextBattle.choice = false;
                     break;
-                }  
+                }
             }
 
             BroadCast(msgNextBattle);
