@@ -20,6 +20,8 @@ public class PlayerArea : MonoBehaviour
 
     float timer = 1.5f;
 
+    bool tweenEnd = true;
+
     Dictionary<CardsType, string> winStringDic = new Dictionary<CardsType, string>() {
         { CardsType.DanZhang, "铁线描" },{ CardsType.ShunZi, "撅头丁" },
         {CardsType.TongHua,"蚯蚓描" },{CardsType.TongHuaShun,"行云流水"},

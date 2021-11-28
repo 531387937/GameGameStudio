@@ -36,13 +36,10 @@ public class GameManager : Singleton<GameManager>
     void Update()
     {
         NetManager.Update();
-        //if(Input.GetKeyDown(KeyCode.Space))
-        //{
-        //    List<Player> winPlayer = new List<Player>();
-        //    winPlayer.Add(playerManager.localPlayer);
-        //    playerManager.localPlayer.wintype = WinType.ShanShui;
-        //    EventManager.Instance.FireEvent(eventType.battleEnd, winPlayer);
-        //}
+        AudioManager.GetInstance().Init();
+        AudioManager.GetInstance().LoadBank("Common");
+
+        
     }
 
 
@@ -55,23 +52,6 @@ public class GameManager : Singleton<GameManager>
     }
 
 
-
-    /// <summary>
-    /// 同步玩家出牌
-    /// </summary>
-    public void RefreshCurCard()
-    {
-        //当收到所有玩家出牌信息时刷新敌方玩家的出牌
-        foreach(var player in playerManager.remotePlayers)
-        {
-            if(player.curCard.Count!=playerManager.localPlayer.curCard.Count)
-            {
-                return;
-            }
-        }
-
-        //刷新
-    }
 
     void OnRefreshRoundResult()
     {

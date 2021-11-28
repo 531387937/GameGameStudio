@@ -54,20 +54,20 @@ public class Card
 
 public struct PlayerGroundCard
 {
-    public bool used;
-    public int id;
+    public bool used;       //用于检测是否已用于更新数据
+    public int id;          //玩家ID
 
-    public int plantNum;
-    public int plantSum;
+    public int plantNum;    //植物牌数
+    public int plantSum;    //植物总点数
 
-    public int moutainNum;
-    public int moutainSum;
+    public int moutainNum;  //山水牌数
+    public int moutainSum;  //山水总点数
 
-    public int yardNum;
-    public int yardSum;
+    public int yardNum;     //庭院牌数
+    public int yardSum;     //庭院总点数
 
-    public int pointSum { get { return (plantSum + moutainSum + yardSum); } }
-    public int numSum { get { return (plantNum + moutainNum + yardNum); } }
+    public int pointSum { get { return (plantSum + moutainSum + yardSum); } }       //总点数
+    public int numSum { get { return (plantNum + moutainNum + yardNum); } }         //总牌数
 }
 
 public class Player
