@@ -138,10 +138,15 @@ MonoBehaviour:
   number: 0
   CardInfo: {fileID: 3157359449444054308}
   ColorIcon: {fileID: 7733979464611127884}
+  Content: {fileID: 5326801195951532848}
   sprites:
   - {fileID: 21300000, guid: 14c7ae84553d2a44faf360051adf82a0, type: 3}
   - {fileID: 21300000, guid: ad2cac359e1afc441ace377ac0adaa5f, type: 3}
   - {fileID: 21300000, guid: c01455d63c1fd7d43a6326eb8bc33921, type: 3}
+  colors:
+  - {r: 0.37254903, g: 0.40784314, b: 0.33333334, a: 1}
+  - {r: 0.34901962, g: 0.31764707, b: 0.24313726, a: 1}
+  - {r: 0.31764707, g: 0.34509805, b: 0.38431373, a: 1}
 --- !u!114 &2643374350096637189
 MonoBehaviour:
   m_ObjectHideFlags: 0

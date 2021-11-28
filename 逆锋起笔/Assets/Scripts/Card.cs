@@ -39,7 +39,18 @@ public class Card
     {
         color = type;
         rank = point;
-        this.tex = Resources.Load<Sprite>(tex + point.ToString());
+        int num = 1;
+        if (point < 3)
+        {
+            num = 1;
+        }
+        else if (point < 5)
+        {
+            num = 2;
+        }
+        else
+            num = 3;
+        this.tex = Resources.Load<Sprite>(tex + num.ToString());
     }
 
     public CardColor getCardColor()
