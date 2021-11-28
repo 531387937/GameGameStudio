@@ -102,7 +102,7 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Outline: 0.06
+    - _Outline: 0.05
     - _OutlineNoise: 1
     - _OutsideNoise: 1.3
     - _OutsideNoiseWidth: 1.6
