@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <SoundBanksInfo Platform="Windows" BasePlatform="Windows" SchemaVersion="12" SoundbankVersion="140">
 	<RootPaths>
-		<ProjectRoot>E:\Prjs\nfqb\NFQB_Wwise\nfqb\</ProjectRoot>
-		<SourceFilesRoot>E:\Prjs\nfqb\NFQB_Wwise\nfqb\.cache\Windows\</SourceFilesRoot>
-		<SoundBanksRoot>E:\Prjs\nfqb\GameGameStudio\逆锋起笔\Assets\StreamingAssets\Audio\GeneratedSoundBanks\</SoundBanksRoot>
+		<ProjectRoot>E:\Git\GameGameStudio\AudioWwiseProject\</ProjectRoot>
+		<SourceFilesRoot>E:\Git\GameGameStudio\AudioWwiseProject\.cache\Windows\</SourceFilesRoot>
+		<SoundBanksRoot>E:\Git\GameGameStudio\逆锋起笔\Assets\StreamingAssets\Audio\GeneratedSoundBanks\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
-		<ExternalSourcesOutputRoot>E:\Prjs\nfqb\NFQB_Wwise\nfqb\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
+		<ExternalSourcesOutputRoot>E:\Git\GameGameStudio\AudioWwiseProject\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
 	<DialogueEvents/>
 	<StreamedFiles>
@@ -29,7 +29,7 @@
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
 		</SoundBank>
-		<SoundBank Id="2395677314" Language="SFX" Hash="1876523039">
+		<SoundBank Id="2395677314" Language="SFX" Hash="952953766">
 			<ObjectPath>\SoundBanks\Default Work Unit\Common</ObjectPath>
 			<ShortName>Common</ShortName>
 			<Path>Common.bnk</Path>
@@ -90,24 +90,24 @@
 				<Event Id="4093728171" Name="Stop_MainBGM" ObjectPath="\Events\Default Work Unit\Stop_MainBGM" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
 			</IncludedEvents>
 			<StateGroups>
-				<StateGroup Id="748895195" Name="None" ObjectPath="\States\Default Work Unit\Playing_State\None" GUID="{2698E391-5672-4190-A180-4873878D9DAC}">
+				<StateGroup Id="748895195" Name="None" ObjectPath="\States\Default Work Unit\Playing_State\None">
 					<States/>
 				</StateGroup>
-				<StateGroup Id="1160234136" Name="Normal" ObjectPath="\States\Default Work Unit\Playing_State\Normal" GUID="{10F94FF0-F026-4A14-AA48-C6C10D1D0F7F}">
+				<StateGroup Id="1160234136" Name="Normal" ObjectPath="\States\Default Work Unit\Playing_State\Normal">
 					<States/>
 				</StateGroup>
-				<StateGroup Id="1431182499" Name="Playing_State" ObjectPath="\States\Default Work Unit\Playing_State" GUID="{1A08B2EE-F0CB-49E6-93AD-873DD5327B02}">
+				<StateGroup Id="1431182499" Name="Playing_State" ObjectPath="\States\Default Work Unit\Playing_State">
 					<States>
-						<State Id="748895195" Name="None" ObjectPath="\States\Default Work Unit\Playing_State\None" GUID="{2698E391-5672-4190-A180-4873878D9DAC}"/>
-						<State Id="1160234136" Name="Normal" ObjectPath="\States\Default Work Unit\Playing_State\Normal" GUID="{10F94FF0-F026-4A14-AA48-C6C10D1D0F7F}"/>
-						<State Id="2866621671" Name="Chorus" ObjectPath="\States\Default Work Unit\Playing_State\Chorus" GUID="{50C895E2-7D04-4CCB-A1B6-E5968C7FF946}"/>
-						<State Id="2068062714" Name="Bridge" ObjectPath="\States\Default Work Unit\Playing_State\Bridge" GUID="{318A16F7-D1BF-47E2-9097-3CA5115830E5}"/>
+						<State Id="748895195" Name="None" ObjectPath="\States\Default Work Unit\Playing_State\None"/>
+						<State Id="1160234136" Name="Normal" ObjectPath="\States\Default Work Unit\Playing_State\Normal"/>
+						<State Id="2866621671" Name="Chorus" ObjectPath="\States\Default Work Unit\Playing_State\Chorus"/>
+						<State Id="2068062714" Name="Bridge" ObjectPath="\States\Default Work Unit\Playing_State\Bridge"/>
 					</States>
 				</StateGroup>
-				<StateGroup Id="2068062714" Name="Bridge" ObjectPath="\States\Default Work Unit\Playing_State\Bridge" GUID="{318A16F7-D1BF-47E2-9097-3CA5115830E5}">
+				<StateGroup Id="2068062714" Name="Bridge" ObjectPath="\States\Default Work Unit\Playing_State\Bridge">
 					<States/>
 				</StateGroup>
-				<StateGroup Id="2866621671" Name="Chorus" ObjectPath="\States\Default Work Unit\Playing_State\Chorus" GUID="{50C895E2-7D04-4CCB-A1B6-E5968C7FF946}">
+				<StateGroup Id="2866621671" Name="Chorus" ObjectPath="\States\Default Work Unit\Playing_State\Chorus">
 					<States/>
 				</StateGroup>
 			</StateGroups>
