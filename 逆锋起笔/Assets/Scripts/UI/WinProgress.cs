@@ -38,9 +38,9 @@ public class WinProgress : MonoBehaviour
             int plantNum = groundInfo.plantNum;
             int yardNum = groundInfo.yardNum;
             int moutainNum = groundInfo.moutainNum;
-            FreshText(plant, plantNum-moutainNum, 6);
-            FreshText(yard, yardNum-plantNum, 6);
-            FreshText(moutain, moutainNum-yardNum, 6);
+            FreshText(plant, plantNum-moutainNum<0?0:plantNum-moutainNum, 6);
+            FreshText(yard, yardNum-plantNum<0?0:yardNum-plantNum, 6);
+            FreshText(moutain, moutainNum-yardNum<0?0:moutainNum-yardNum, 6);
             FreshText(baodi, plantNum > 4 ? 4 : plantNum + yardNum > 4 ? 4 : yardNum + moutainNum > 4 ? 4 : moutainNum, 12);
             if (groundInfo.pointSum < 25)
             {

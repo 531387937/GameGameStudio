@@ -725,9 +725,9 @@ MonoBehaviour:
   baodi: {fileID: 317292064}
   xiaohu: {fileID: 535519749}
   pointSum: {fileID: 0}
-  moutainSum: {fileID: 0}
-  plantSum: {fileID: 0}
-  yardSum: {fileID: 0}
+  moutainSum: {fileID: 1568751427}
+  plantSum: {fileID: 1399587476}
+  yardSum: {fileID: 2035711743}
   playerID: 0
 --- !u!114 &99895173
 MonoBehaviour:
