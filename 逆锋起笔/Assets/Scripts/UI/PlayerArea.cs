@@ -13,6 +13,7 @@ public class PlayerArea : MonoBehaviour
     private List<GameObject> roundCard = new List<GameObject>();
     private List<GameObject> groundCard = new List<GameObject>();
     public GameObject roundCardArea;
+    public GameObject cardEffect;
 
     public Text playerName;
     public WinProgress progress;
@@ -53,6 +54,7 @@ public class PlayerArea : MonoBehaviour
     }
     private void OnFreshRoundResult(object info)
     {
+        //cardEffect.SetActive(true);
         foreach(var obj in roundCard)
         {
             Destroy(obj);
