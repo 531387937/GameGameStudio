@@ -7,7 +7,7 @@ public class CardInstance : MonoBehaviour
     public Card card { set { /*GetComponent<Image>().sprite = value.tex;*/CardInfo.text = value.getCardRank().ToString();
             ColorIcon.sprite = sprites[(int)value.getCardColor()];
             Content.sprite = value.tex;
-            GetComponent<Image>().color = colors[(int)value.getCardColor()];
+            Outline.color = colors[(int)value.getCardColor()];
             Content.color = colors[(int)value.getCardColor()];
         } get { return card; } }
     public int number = 0;
@@ -17,6 +17,8 @@ public class CardInstance : MonoBehaviour
     private Image ColorIcon;
     [SerializeField]
     private Image Content;
+    [SerializeField]
+    private Image Outline;
     public Sprite[] sprites;
     public Color[] colors;
     /*

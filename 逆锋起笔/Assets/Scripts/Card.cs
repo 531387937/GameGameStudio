@@ -132,8 +132,10 @@ public class Player
         if(ranking==1)
         {
             groundCard.Add(curCard[0]);
+            EventManager.Instance.FireEvent(eventType.AddDrawWeight, curCard[0]);
             AddGroundCard(curCard[0].getCardColor(), curCard[0].getCardRank());
             groundCard.Add(curCard[1]);
+            EventManager.Instance.FireEvent(eventType.AddDrawWeight, curCard[1]);
             AddGroundCard(curCard[1].getCardColor(), curCard[1].getCardRank());
             curCard[2] = null;
             curCard.Clear();
@@ -141,6 +143,7 @@ public class Player
         else if(ranking==2)
         {
             groundCard.Add(curCard[0]);
+            EventManager.Instance.FireEvent(eventType.AddDrawWeight, curCard[0]);
             AddGroundCard(curCard[0].getCardColor(), curCard[0].getCardRank());
             curCard[1] = null;
             curCard[2] = null;

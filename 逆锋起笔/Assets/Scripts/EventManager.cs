@@ -12,7 +12,8 @@ public enum eventType
     battleEnd,
     roundVision,
     roundDraw,
-    tweenEnd
+    tweenEnd,
+    AddDrawWeight
 }
 
 public class EventManager : Singleton<EventManager>

@@ -56,6 +56,7 @@ public class PlayerManager
                 player.RoundSettlement(roundResult.result[player.id].rank, (CardsType)roundResult.result[player.id].cardsType);
             }
         }
+        EventManager.Instance.FireEvent(eventType.roundDraw);
         //GameManager.Instance.RefreshRoundResult();
 
     }

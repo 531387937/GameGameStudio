@@ -37,6 +37,7 @@ public class BattleVision : MonoBehaviour
         EventManager.Instance.AddEventListener(eventType.roundVision, OnRoundVision);
         EventManager.Instance.AddEventListener(eventType.initRoom, InitRoom);
         EventManager.Instance.AddEventListener(eventType.roundDraw, DrawPic);
+        EventManager.Instance.AddEventListener(eventType.AddDrawWeight, AddDrawWeight);
     }
     // Start is called before the first frame update
     void Start()
@@ -49,22 +50,41 @@ public class BattleVision : MonoBehaviour
     {
 
     }
+    void AddDrawWeight(object obj)
+    {
+        Card card = (Card)obj;
+        switch(card.getCardColor())
+        {
+            case CardColor.moutain:
+                moutainSum += card.getCardRank();
+                break;
+            case CardColor.plant:
+                plantSum += card.getCardRank();
+                break;
+            case CardColor.yard:
+                yardSum += card.getCardRank();
+                break;
+        }
+    }
     void DrawPic(object obj)
     {
         if(plantSum>0)
         {
             int comp = (plantSum - 2) / 5;
             SelectToDraw(computes[comp], plantDrawables);
+            plantSum = 0;
         }
         if(moutainSum>0)
         {
             int comp = (moutainSum - 2) / 5;
             SelectToDraw(computes[comp], moutainDrawables);
+            moutainSum = 0;
         }
         if (yardSum > 0)
         {
             int comp = (yardSum - 2) / 5;
             SelectToDraw(computes[comp], yardDrawables);
+            yardSum = 0;
         }
     }
 
