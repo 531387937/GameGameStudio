@@ -21,6 +21,11 @@ public class UIManager : Singleton<UIManager>
         EventManager.Instance.AddEventListener(eventType.receiveChooseCard, OnReceiveRoundEnd);
         EventManager.Instance.AddEventListener(eventType.battleEnd, OnReceiveBattleEnd);
         NetManager.AddMsgListener("MsgNextBattle", OnCountinueGame);
+        Button[] buttons = transform.GetComponentsInChildren<Button>(true);
+        foreach(var button in buttons)
+        {
+            button.onClick.AddListener(()=> { AudioManager.GetInstance().Post2D("Click_UI"); });
+        }
     }
 
     // Update is called once per frame
