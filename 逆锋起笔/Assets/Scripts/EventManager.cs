@@ -12,6 +12,7 @@ public enum eventType
     battleEnd,
     roundVision,
     roundDraw,
+    waitTween,
     tweenEnd,
     AddDrawWeight
 }
@@ -64,7 +65,6 @@ public class EventManager : Singleton<EventManager>
     //分发事件
     public void FireEvent(eventType e, object arg)
     {
-        print(gameObject.name);
         if (eventListeners.ContainsKey(e))
         {
             eventListeners[e](arg);

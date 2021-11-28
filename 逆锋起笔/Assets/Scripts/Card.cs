@@ -99,6 +99,7 @@ public class Player
         groundState = new PlayerGroundCard();
         groundState.used = false;
         groundState.id = id;
+        EventManager.Instance.AddEventListener(eventType.battleEnd, StartNewRound);
     }
     public CardsType curRoundCard;
     public WinType wintype = WinType.None;
@@ -112,7 +113,6 @@ public class Player
     public void DrawHandCard(Card card)
     {
         handCards.Add(card);
-        Debug.Log("玩家" + id + "抽牌成功，抽到了" + card.getCardColor() + card.getCardRank()+"\n");
     }
 
     //选牌
@@ -159,11 +159,13 @@ public class Player
         EventManager.Instance.FireEvent(eventType.refreshRoundResult,groundState);
     }
     //开始新一局时调用
-    public void StartNewRound()
+    private void StartNewRound(object obj)
     {
         handCards.Clear();
         groundCard.Clear();
         curCard.Clear();
+        groundState = new PlayerGroundCard();
+        groundState.used = false;
         groundState.id = id;
     }
 
@@ -188,6 +190,8 @@ public class Player
 }
 
 
+
+//已经无用的弃牌堆
 public class CardPool
 {
     string CardPath = "Cards/card_";

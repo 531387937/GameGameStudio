@@ -75,7 +75,6 @@ public class UIManager : Singleton<UIManager>
 
     private void OnReceiveBattleEnd(object obj)
     {
-        print("游戏结束");
         List<Player> winPlayer = (List<Player>)obj;
         EndPanel.SetActive(true);
         EndPanel.GetComponent<EndPanel>().GameOver(winPlayer);
