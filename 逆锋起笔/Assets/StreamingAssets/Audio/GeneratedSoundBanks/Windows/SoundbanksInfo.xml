@@ -3,7 +3,7 @@
 	<RootPaths>
 		<ProjectRoot>E:\Git\GameGameStudio\AudioWwiseProject\</ProjectRoot>
 		<SourceFilesRoot>E:\Git\GameGameStudio\AudioWwiseProject\.cache\Windows\</SourceFilesRoot>
-		<SoundBanksRoot>E:\Git\GameGameStudio\逆锋起笔\Assets\StreamingAssets\Audio\GeneratedSoundBanks\</SoundBanksRoot>
+		<SoundBanksRoot>E:\Git\GameGameStudio\逆锋起笔\Assets\StreamingAssets\Audio\GeneratedSoundBanks\Windows\</SoundBanksRoot>
 		<ExternalSourcesInputFile></ExternalSourcesInputFile>
 		<ExternalSourcesOutputRoot>E:\Git\GameGameStudio\AudioWwiseProject\GeneratedSoundBanks\Windows</ExternalSourcesOutputRoot>
 	</RootPaths>
