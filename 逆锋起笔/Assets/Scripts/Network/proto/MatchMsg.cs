@@ -57,10 +57,12 @@ namespace Network
         public MsgRoomInfo()
         {
             protoName = "MsgRoomInfo";
+            long RandomSeed = DateTime.Now.Ticks;
         }
 
         public PlayerInfo localPlayer;
         public List<PlayerInfo> remotePlayers = new List<PlayerInfo>();
+        public long RandomSeed;//随机种子
     }
 
     /// <summary>
@@ -73,9 +75,11 @@ namespace Network
         public MsgNextBattle()
         {
             protoName = "MsgNextBattle";
+            long RandomSeed = DateTime.Now.Ticks;
         }
 
         public int playerID;
         public bool choice;//true表示继续下一局
+        public long RandomSeed;//随机种子
     }
 }

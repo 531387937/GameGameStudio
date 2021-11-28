@@ -49,6 +49,13 @@ public class PlayerManager
     private void OnReceiveRoundResult(MsgBase msgBase)
     {
         MsgRoundResult roundResult = (MsgRoundResult)msgBase;
+
+        //打印得分
+        foreach(var re in roundResult.result)
+        {
+            Debug.Log(string.Format("[对比结果]: {{PlayerID: {0}, Score: {1}}}", re.Key, re.Value.score));
+        }
+
         foreach(var player in players)
         {
             if (roundResult.result.ContainsKey(player.id))

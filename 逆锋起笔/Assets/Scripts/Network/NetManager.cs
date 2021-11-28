@@ -283,6 +283,9 @@ namespace Network
                 Debug.Log("OnReceiveData MsgBase.DecodeName fail");
                 return;
             }
+
+            Debug.Log("[接收消息]: " + protoName);
+
             readBuff.readIdx += nameCount;
             //解析协议体
             int bodyCount = bodyLength - nameCount;

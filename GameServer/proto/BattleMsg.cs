@@ -103,6 +103,7 @@ namespace GameServer.proto
     {
         public int rank;//排名
         public CardsType cardsType;//牌型
+        public int score;//得分
     }
 
     /// <summary>
@@ -132,6 +133,7 @@ namespace GameServer.proto
         ShanShui,//山水
         BaoDi,//保底
         XiaoHe,//小和
+        Test,//胡牌测试
     }
 
     /// <summary>

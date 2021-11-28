@@ -50,13 +50,6 @@ namespace GameServer.net
         private Dictionary<int, List<CardInfo>> chooseCards = new Dictionary<int, List<CardInfo>>();//选牌
         private Dictionary<int, MsgNextBattle> battleChoice = new Dictionary<int, MsgNextBattle>();//下一局的选择
 
-        private Thread threadSendCards;
-
-        public Room()
-        {
-            threadSendCards = new Thread(SendInitCards);
-        }
-
         public void TestRound()
         {
             Init();
@@ -333,8 +326,7 @@ namespace GameServer.net
                 }
             }
 
-            //Thread sub = new Thread(SendInitCards);
-            //sub.Start(); 
+            Thread threadSendCards = new Thread(SendInitCards);
             threadSendCards.Start();
         }
 
@@ -343,6 +335,14 @@ namespace GameServer.net
             chooseCards[msg.playerID].Add(msg.card);
             //广播
             BroadCast(msg);
+
+            //本地测试胡牌
+            MsgBattleResult msgBattle = GetBattleResult();
+            if (msgBattle != null)
+            {
+                //广播
+                BroadCast(msgBattle);
+            }
 
             //是否全部已选满
             int count = 0;
@@ -471,6 +471,7 @@ namespace GameServer.net
                 }
 
                 scores[i] += (10 - (int)res.cardsType) * 1000;
+                res.score = scores[i];
                 msg.result.Add(i, res);
             }
 
@@ -601,6 +602,9 @@ namespace GameServer.net
                     tmpWinType = WinType.XiaoHe;
                 }
 
+                //胡牌测试
+                tmpWinType = WinType.Test;
+
                 if (tmpWinType != WinType.None)
                 {
                     msg.result.Add(i, tmpWinType);
@@ -711,7 +715,8 @@ namespace GameServer.net
         /// <param name="msg"></param>
         public void ChooseNextBattle(MsgNextBattle msg)
         {
-            battleChoice.Add(msg.playerID, msg);
+            if(!battleChoice.ContainsKey(msg.playerID))
+                battleChoice.Add(msg.playerID, msg);
             if (battleChoice.Count == MAX_PLAYER)
             {
                 NextBattle();
