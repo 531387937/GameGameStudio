@@ -24,12 +24,15 @@
 	</StreamedFiles>
 	<MediaFilesNotInAnyBank/>
 	<SoundBanks>
-		<SoundBank Id="1355168291" Language="SFX" Hash="2657054530">
+		<SoundBank Id="1355168291" Language="SFX" Hash="1114189834">
 			<ObjectPath>Init</ObjectPath>
 			<ShortName>Init</ShortName>
 			<Path>Init.bnk</Path>
+			<GameParameters>
+				<GameParameter Id="247982605" Name="SC_meter" ObjectPath="\Game Parameters\Default Work Unit\SC_meter"/>
+			</GameParameters>
 		</SoundBank>
-		<SoundBank Id="2395677314" Language="SFX" Hash="4141457192">
+		<SoundBank Id="2395677314" Language="SFX" Hash="883837138">
 			<ObjectPath>\SoundBanks\Default Work Unit\Common</ObjectPath>
 			<ShortName>Common</ShortName>
 			<Path>Common.bnk</Path>
@@ -71,6 +74,38 @@
 						<File Id="994120821" Language="SFX">
 							<ShortName>UI_Click_2.wav</ShortName>
 							<Path>SFX\UI_Click_2_C1F52A07.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="381742967" Name="paixing_COMMON" ObjectPath="\Events\Default Work Unit\Cards\paixing_COMMON" DurationType="OneShot" DurationMin="3.376757" DurationMax="3.376757">
+					<IncludedMemoryFiles>
+						<File Id="555587638" Language="SFX">
+							<ShortName>paixing_COMMON.wav</ShortName>
+							<Path>SFX\paixing_COMMON_C1F52A07.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3237840143" Name="paixing_JCD" ObjectPath="\Events\Default Work Unit\Cards\paixing_JCD" DurationType="OneShot" DurationMin="3.373968" DurationMax="3.373968">
+					<IncludedMemoryFiles>
+						<File Id="149713249" Language="SFX">
+							<ShortName>paixing_JCD.wav</ShortName>
+							<Path>SFX\paixing_JCD_C1F52A07.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3936890802" Name="paixing_XYLS" ObjectPath="\Events\Default Work Unit\Cards\paixing_XYLS" DurationType="OneShot" DurationMin="4.661791" DurationMax="4.661791">
+					<IncludedMemoryFiles>
+						<File Id="921370662" Language="SFX">
+							<ShortName>paixing_XYLS.wav</ShortName>
+							<Path>SFX\paixing_XYLS_C1F52A07.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3034806198" Name="paixing_ZBSW" ObjectPath="\Events\Default Work Unit\Cards\paixing_ZBSW" DurationType="OneShot" DurationMin="5.983401" DurationMax="5.983401">
+					<IncludedMemoryFiles>
+						<File Id="205981991" Language="SFX">
+							<ShortName>paixing_ZBSW.wav</ShortName>
+							<Path>SFX\paixing_ZBSW_C1F52A07.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
 				</Event>
@@ -122,6 +157,14 @@
 							</Media>
 						</SwitchContainer>
 					</SwitchContainers>
+				</Event>
+				<Event Id="2090783926" Name="Push_Card" ObjectPath="\Events\Default Work Unit\Cards\Push_Card" DurationType="OneShot" DurationMin="0.890272" DurationMax="0.890272">
+					<IncludedMemoryFiles>
+						<File Id="563790099" Language="SFX">
+							<ShortName>select.wav</ShortName>
+							<Path>SFX\select_C1F52A07.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
 				</Event>
 				<Event Id="1396041131" Name="Set_State_Bridge" ObjectPath="\Events\Default Work Unit\Sync\Set_State_Bridge" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000">
 					<ActionSetState>
