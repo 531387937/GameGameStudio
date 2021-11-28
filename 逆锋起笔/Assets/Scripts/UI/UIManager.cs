@@ -9,6 +9,8 @@ public class UIManager : Singleton<UIManager>
     public RemotePlayerArea remoteArea1;
     public RemotePlayerArea remoteArea2;
     public GameObject EndPanel;
+    public GameObject gamePanel;
+    public GameObject waitingPanel;
     private int curChooseCard = 0;
     public Button chooseCardBtn;
     // Start is called before the first frame update
@@ -18,6 +20,7 @@ public class UIManager : Singleton<UIManager>
         EventManager.Instance.AddEventListener(eventType.refreshRoundResult, OnReceiveRoundEnd);
         EventManager.Instance.AddEventListener(eventType.receiveChooseCard, OnReceiveRoundEnd);
         EventManager.Instance.AddEventListener(eventType.battleEnd, OnReceiveBattleEnd);
+        NetManager.AddMsgListener("MsgNextBattle", OnCountinueGame);
     }
 
     // Update is called once per frame
@@ -61,7 +64,7 @@ public class UIManager : Singleton<UIManager>
         msgNextBattle.playerID = GameManager.Instance.playerManager.localPlayer.id;
         msgNextBattle.choice = choice;
         NetManager.Send(msgNextBattle);
-        EndPanel.SetActive(false);
+        
         EventManager.Instance.FireEvent(eventType.initRoom);
     }
 
@@ -76,6 +79,20 @@ public class UIManager : Singleton<UIManager>
     private void OnReceiveRoundEnd(object obj)
     {
         chooseCardBtn.gameObject.SetActive(true);
+    }
+
+    private void OnCountinueGame(MsgBase msg)
+    {
+        MsgNextBattle msgNextBattle = (MsgNextBattle)msg;
+        if(msgNextBattle.choice)
+        {
+            EndPanel.SetActive(false);
+        }
+        else
+        {
+            gamePanel.SetActive(false);
+            waitingPanel.SetActive(true);
+        }
     }
 
     private void SelectCard(int i)
