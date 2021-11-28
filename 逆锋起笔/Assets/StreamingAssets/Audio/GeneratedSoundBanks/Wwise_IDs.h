@@ -13,6 +13,8 @@ namespace AK
 {
     namespace EVENTS
     {
+        static const AkUniqueID CLICK_UI = 1098020724U;
+        static const AkUniqueID PLAY_CLICK_CARD = 3019326911U;
         static const AkUniqueID PLAY_MAINBGM = 1691765453U;
         static const AkUniqueID SET_STATE_BRIDGE = 1396041131U;
         static const AkUniqueID SET_STATE_CHORUS = 1603954450U;
