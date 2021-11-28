@@ -16,9 +16,17 @@ public class RemotePlayerArea : MonoBehaviour
     public GameObject roundCardArea;
     public Text playerName;
     public WinProgress progress;
+    public GameObject cardEffect;
     public int remotePlayer;
-
+    float timer = 1.5f;
     private int curChooseCard = 0;
+
+    Dictionary<CardsType, string> winStringDic = new Dictionary<CardsType, string>() {
+        { CardsType.DanZhang, "铁线描" },{ CardsType.ShunZi, "撅头丁" },
+        {CardsType.TongHua,"蚯蚓描" },{CardsType.TongHuaShun,"行云流水"},
+        {CardsType.TongSeYiDui,"折芦描" },{CardsType.YiSeYiDui,"枯柴描"},
+        {CardsType.ZhaDan,"战笔水纹" },{CardsType.TongShuZi,"金错刀"}
+    };
     // Start is called before the first frame update
     private void Awake()
     {
@@ -53,7 +61,20 @@ public class RemotePlayerArea : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (cardEffect.activeInHierarchy)
+        {
+            timer -= Time.deltaTime;
+            if (timer < 0)
+            {
+                cardEffect.SetActive(false);
+                timer = 1.5f;
+            }
+            foreach (var obj in roundCard)
+            {
+                Destroy(obj);
+            }
+            roundCard.Clear();
+        }
     }
 
 
@@ -85,11 +106,8 @@ public class RemotePlayerArea : MonoBehaviour
 
     private void OnRefreshRoundResult(object arg)
     {
-        foreach (var obj in roundCard)
-        {
-            Destroy(obj);
-        }
-        roundCard.Clear();
+        cardEffect.SetActive(true);
+        cardEffect.GetComponentInChildren<Text>().text = winStringDic[GameManager.Instance.playerManager.remotePlayers[remotePlayer].curRoundCard];
     }
 
     public void InitRoom(object arg)
