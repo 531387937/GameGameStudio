@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: WideStrokeMaterial
+  m_Name: Mountain
   m_Shader: {fileID: 4800000, guid: dc6a075441eb6bd438f9b0ebd9621d66, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
