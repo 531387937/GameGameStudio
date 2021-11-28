@@ -18,6 +18,15 @@ public class PlayerArea : MonoBehaviour
     public Text playerName;
     public WinProgress progress;
 
+    float timer = 1.5f;
+
+    Dictionary<CardsType, string> winStringDic = new Dictionary<CardsType, string>() {
+        { CardsType.DanZhang, "铁线描" },{ CardsType.ShunZi, "撅头丁" },
+        {CardsType.TongHua,"蚯蚓描" },{CardsType.TongHuaShun,"行云流水"},
+        {CardsType.TongSeYiDui,"折芦描" },{CardsType.YiSeYiDui,"枯柴描"},
+        {CardsType.ZhaDan,"战笔水纹" },{CardsType.TongShuZi,"金错刀"}
+    };
+
     private int curChooseCard = 0;
     // Start is called before the first frame update
 
@@ -50,16 +59,26 @@ public class PlayerArea : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if(cardEffect.activeInHierarchy)
+        {
+            timer -= Time.deltaTime;
+            if(timer<0)
+            {
+                cardEffect.SetActive(false);
+                timer = 1.5f;
+            }
+            foreach (var obj in roundCard)
+            {
+                Destroy(obj);
+            }
+            roundCard.Clear();
+        }
     }
     private void OnFreshRoundResult(object info)
     {
+        cardEffect.SetActive(true);
+        cardEffect.GetComponentInChildren<Text>().text = winStringDic[GameManager.Instance.playerManager.localPlayer.curRoundCard];
         //cardEffect.SetActive(true);
-        foreach(var obj in roundCard)
-        {
-            Destroy(obj);
-        }
-        roundCard.Clear();
     }
     private void RefreshHandCard(object arg)
     {
