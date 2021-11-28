@@ -24,7 +24,7 @@ MonoBehaviour:
     ParentPath: Virtual Acoustics\Default Work Unit
     guid: 9b141abd9abc524bab0378907c5971d3
     GuidInternal: 
-    m_lastTime: -8585639252083266496
+    m_lastTime: -8585639252074775808
     List: []
   AuxBusWwu:
   - PhysicalPath: Master-Mixer Hierarchy\Default Work Unit.wwu
@@ -38,7 +38,7 @@ MonoBehaviour:
     ParentPath: Master-Mixer Hierarchy\Default Work Unit
     guid: 7695644efda38943a2d28f181b6f9877
     GuidInternal: 
-    m_lastTime: -8585639252084773049
+    m_lastTime: -8585639252074775808
     List:
     - name: Master Audio Bus
       guid: d8a41415a61d2a41a17e75ca0c2149f3
@@ -66,8 +66,22 @@ MonoBehaviour:
     ParentPath: SoundBanks\Default Work Unit
     guid: ea8cdb4c7cc97b458147bbe9c0208944
     GuidInternal: 
-    m_lastTime: -8585639252084096487
-    List: []
+    m_lastTime: -8585635783394775808
+    List:
+    - name: Common
+      guid: e27df0f0e868bf4f94694bb6df789034
+      id: 2395677314
+      PathAndIcons:
+      - ElementName: SoundBanks
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: ea8cdb4c7cc97b458147bbe9c0208944
+      - ElementName: Common
+        ObjectType: 7
+        guid: e27df0f0e868bf4f94694bb6df789034
+      Path: SoundBanks\Default Work Unit\Common
   EventWwu:
   - PhysicalPath: Events\Default Work Unit.wwu
     PathAndIcons:
@@ -80,8 +94,110 @@ MonoBehaviour:
     ParentPath: Events\Default Work Unit
     guid: 4b00da19c1b8b04fa0fab256dd810275
     GuidInternal: 
-    m_lastTime: -8585639252084653045
-    List: []
+    m_lastTime: -8585635774754775808
+    List:
+    - name: Play_MainBGM
+      guid: a5cc0ed8fb7e594a92adb4e43eb45565
+      id: 1691765453
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 4b00da19c1b8b04fa0fab256dd810275
+      - ElementName: Play_MainBGM
+        ObjectType: 3
+        guid: a5cc0ed8fb7e594a92adb4e43eb45565
+      Path: Events\Default Work Unit\Play_MainBGM
+      maxAttenuation: 0
+      maxDuration: -1
+      minDuration: -1
+    - name: Set_State_Bridge
+      guid: bb9d2b4863f0aa4fa2edc38fa032792b
+      id: 1396041131
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 4b00da19c1b8b04fa0fab256dd810275
+      - ElementName: Set_State_Bridge
+        ObjectType: 3
+        guid: bb9d2b4863f0aa4fa2edc38fa032792b
+      Path: Events\Default Work Unit\Set_State_Bridge
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Set_State_Chorus
+      guid: 31c5d78d87257e4e8697e594b6eb6018
+      id: 1603954450
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 4b00da19c1b8b04fa0fab256dd810275
+      - ElementName: Set_State_Chorus
+        ObjectType: 3
+        guid: 31c5d78d87257e4e8697e594b6eb6018
+      Path: Events\Default Work Unit\Set_State_Chorus
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Set_State_None
+      guid: 1f994874f9cffd4d97664fd3bf50fa04
+      id: 4160240018
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 4b00da19c1b8b04fa0fab256dd810275
+      - ElementName: Set_State_None
+        ObjectType: 3
+        guid: 1f994874f9cffd4d97664fd3bf50fa04
+      Path: Events\Default Work Unit\Set_State_None
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Set_State_Normal
+      guid: 0a48ed54430681468f8499fef226ecdb
+      id: 2630068541
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 4b00da19c1b8b04fa0fab256dd810275
+      - ElementName: Set_State_Normal
+        ObjectType: 3
+        guid: 0a48ed54430681468f8499fef226ecdb
+      Path: Events\Default Work Unit\Set_State_Normal
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
+    - name: Stop_MainBGM
+      guid: 451fc559561e7f42b4814e19b7406123
+      id: 4093728171
+      PathAndIcons:
+      - ElementName: Events
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 4b00da19c1b8b04fa0fab256dd810275
+      - ElementName: Stop_MainBGM
+        ObjectType: 3
+        guid: 451fc559561e7f42b4814e19b7406123
+      Path: Events\Default Work Unit\Stop_MainBGM
+      maxAttenuation: 0
+      maxDuration: 0
+      minDuration: 0
   RtpcWwu:
   - PhysicalPath: Game Parameters\Default Work Unit.wwu
     PathAndIcons:
@@ -94,7 +210,7 @@ MonoBehaviour:
     ParentPath: Game Parameters\Default Work Unit
     guid: 0882997f4c5b3646af55acc8d91cfdfb
     GuidInternal: 
-    m_lastTime: -8585639252083866494
+    m_lastTime: -8585639252074775808
     List: []
   StateWwu:
   - PhysicalPath: States\Default Work Unit.wwu
@@ -108,8 +224,90 @@ MonoBehaviour:
     ParentPath: States\Default Work Unit
     guid: 5a986c881748374294bf818be7963280
     GuidInternal: 
-    m_lastTime: -8585639252083921505
-    List: []
+    m_lastTime: -8585635790014775808
+    List:
+    - name: Playing_State
+      guid: eeb2081acbf0e64993ad873dd5327b02
+      id: 1431182499
+      PathAndIcons:
+      - ElementName: States
+        ObjectType: 5
+        guid: 00000000000000000000000000000000
+      - ElementName: Default Work Unit
+        ObjectType: 12
+        guid: 5a986c881748374294bf818be7963280
+      - ElementName: Playing_State
+        ObjectType: 9
+        guid: eeb2081acbf0e64993ad873dd5327b02
+      Path: States\Default Work Unit\Playing_State
+      values:
+      - name: Bridge
+        guid: f7168a31bfd1e24790973ca5115830e5
+        id: 2068062714
+        PathAndIcons:
+        - ElementName: States
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: 5a986c881748374294bf818be7963280
+        - ElementName: Playing_State
+          ObjectType: 9
+          guid: eeb2081acbf0e64993ad873dd5327b02
+        - ElementName: Bridge
+          ObjectType: 8
+          guid: f7168a31bfd1e24790973ca5115830e5
+      - name: Chorus
+        guid: e295c850047dcb4ca1b6e5968c7ff946
+        id: 2866621671
+        PathAndIcons:
+        - ElementName: States
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: 5a986c881748374294bf818be7963280
+        - ElementName: Playing_State
+          ObjectType: 9
+          guid: eeb2081acbf0e64993ad873dd5327b02
+        - ElementName: Chorus
+          ObjectType: 8
+          guid: e295c850047dcb4ca1b6e5968c7ff946
+      - name: None
+        guid: 91e3982672569041a1804873878d9dac
+        id: 748895195
+        PathAndIcons:
+        - ElementName: States
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: 5a986c881748374294bf818be7963280
+        - ElementName: Playing_State
+          ObjectType: 9
+          guid: eeb2081acbf0e64993ad873dd5327b02
+        - ElementName: None
+          ObjectType: 8
+          guid: 91e3982672569041a1804873878d9dac
+      - name: Normal
+        guid: f04ff91026f0144aaa48c6c10d1d0f7f
+        id: 1160234136
+        PathAndIcons:
+        - ElementName: States
+          ObjectType: 5
+          guid: 00000000000000000000000000000000
+        - ElementName: Default Work Unit
+          ObjectType: 12
+          guid: 5a986c881748374294bf818be7963280
+        - ElementName: Playing_State
+          ObjectType: 9
+          guid: eeb2081acbf0e64993ad873dd5327b02
+        - ElementName: Normal
+          ObjectType: 8
+          guid: f04ff91026f0144aaa48c6c10d1d0f7f
+      ValueGuids: []
+      ValueIcons: []
+      valuesInternal: []
   SwitchWwu:
   - PhysicalPath: Switches\Default Work Unit.wwu
     PathAndIcons:
@@ -122,7 +320,7 @@ MonoBehaviour:
     ParentPath: Switches\Default Work Unit
     guid: 334e6fc498ad2f4c8a9eefbcc7593b3a
     GuidInternal: 
-    m_lastTime: -8585639252083976497
+    m_lastTime: -8585639252074775808
     List: []
   TriggerWwu:
   - PhysicalPath: Triggers\Default Work Unit.wwu
@@ -136,7 +334,7 @@ MonoBehaviour:
     ParentPath: Triggers\Default Work Unit
     guid: 9613ab2822f9534c99af3baa46d9c54b
     GuidInternal: 
-    m_lastTime: -8585639252083436489
+    m_lastTime: -8585639252074775808
     List: []
   ExpandedFileSystemItemIds: 
   ExpandedWaapiItemIds: 
