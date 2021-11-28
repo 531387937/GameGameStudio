@@ -30,6 +30,7 @@ public class CardInstance : MonoBehaviour
     void Start()
     {
         CardInfo = GetComponentInChildren<Text>();
+        GetComponent<Button>().onClick.AddListener(() => { AudioManager.GetInstance().Post2D("Play_Click_Card"); });
     }
 
     // Update is called once per frame

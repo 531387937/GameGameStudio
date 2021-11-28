@@ -99,7 +99,7 @@ public class RemotePlayerArea : MonoBehaviour
         }
         for (int i = 0; i < handCard.Count; i++)
         {
-            handCard[i].GetComponent<CardInstance>().number = i;
+            //handCard[i].GetComponent<CardInstance>().number = i;
             handCard[i].GetComponent<RectTransform>().position = cardAreas[i].position;
         }
     }
