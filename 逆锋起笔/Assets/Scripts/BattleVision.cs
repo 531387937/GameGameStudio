@@ -163,6 +163,7 @@ public class BattleVision : MonoBehaviour
                     yardDrawables.Add(draw.weight, new List<Drawable>() { draw });
                 }
             }
+            draw.Erase();
         }
     }
     private List<Drawable> DrawRandom(List<Drawable> drawable)
