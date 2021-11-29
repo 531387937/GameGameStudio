@@ -11,6 +11,7 @@ public class UIManager : Singleton<UIManager>
     public GameObject EndPanel;
     public GameObject gamePanel;
     public GameObject waitingPanel;
+    public GameObject tutorialPanel;
     private int curChooseCard = 0;
     public Button chooseCardBtn;
     public delegate void GetMessage(object msg);
@@ -128,5 +129,10 @@ public class UIManager : Singleton<UIManager>
         while (ReadyToGetNextMessage) ;
         message(obj);
         yield return null;
+    }
+
+    public void Tutorial(bool show)
+    {
+        tutorialPanel.SetActive(show);
     }
 }
