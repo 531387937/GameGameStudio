@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Network;
 using UnityEngine.UI;
+using DG.Tweening;
 public class UIManager : Singleton<UIManager>
 {
     public PlayerArea playerArea;
@@ -16,6 +17,11 @@ public class UIManager : Singleton<UIManager>
     public Button chooseCardBtn;
     public delegate void GetMessage(object msg);
 
+    public GameObject Vision3D;
+    public GameObject battleUI;
+
+    private Vector3 visionPos;
+    private Vector2 visionSize;
     public bool ReadyToGetNextMessage = true;
     // Start is called before the first frame update
     void Start()
@@ -27,7 +33,9 @@ public class UIManager : Singleton<UIManager>
         EventManager.Instance.AddEventListener(eventType.waitTween, WaitTween);
         NetManager.AddMsgListener("MsgNextBattle", OnCountinueGame);
         Button[] buttons = transform.GetComponentsInChildren<Button>(true);
-        foreach(var button in buttons)
+        visionPos = Vision3D.GetComponent<RectTransform>().position;
+        visionSize = Vision3D.GetComponent<RectTransform>().sizeDelta;
+        foreach (var button in buttons)
         {
             button.onClick.AddListener(()=> { AudioManager.GetInstance().Post2D("Click_UI"); });
         }
@@ -45,8 +53,9 @@ public class UIManager : Singleton<UIManager>
         int id = GameManager.Instance.playerManager.localPlayer.id;
         int r_id1 = (id + 1) % 3 == 0 ? 3 : (id + 1) % 3;
         int r_id2 = (id + 2) % 3 == 0 ? 3 : (id + 2) % 3;
-
-        for(int i = 0;i<2;i++)
+        Vision3D.GetComponent<RectTransform>().position = visionPos;
+        Vision3D.GetComponent<RectTransform>().sizeDelta = visionSize;
+        for (int i = 0;i<2;i++)
         {
             if(GameManager.Instance.playerManager.remotePlayers[i].id==r_id1)
             {
@@ -59,6 +68,7 @@ public class UIManager : Singleton<UIManager>
         }
         remoteArea1.InitRoom(null);
         remoteArea2.InitRoom(null);
+        battleUI.SetActive(true);
     }
 
     //由button调用
@@ -87,6 +97,10 @@ public class UIManager : Singleton<UIManager>
         List<Player> winPlayer = (List<Player>)obj;
         EndPanel.SetActive(true);
         EndPanel.GetComponent<EndPanel>().GameOver(winPlayer);
+        battleUI.SetActive(false);
+        EventManager.Instance.FireEvent(eventType.waitTween, false);
+        Vision3D.GetComponent<RectTransform>().DOMove(new Vector3(0, 0, 0), 0.2f);
+        Vision3D.GetComponent<RectTransform>().DOSizeDelta(new Vector2(1920, 1080), 1).OnComplete(() => { EventManager.Instance.FireEvent(eventType.waitTween, true); });
     }
 
     private void OnReceiveRoundEnd(object obj)
