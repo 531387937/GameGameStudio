@@ -176,6 +176,7 @@ UIManager.Instance.StartCoroutine(UIManager.Instance.GetNext(OnReFreshRoundResul
             Destroy(a);
         }
         roundCard.Clear();
+        cardEffect.SetActive(false);
         playerName.text = GameManager.Instance.playerManager.localPlayer.playerName;
         progress.playerID = GameManager.Instance.playerManager.localPlayer.id;
     }

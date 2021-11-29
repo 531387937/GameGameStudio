@@ -161,6 +161,7 @@ public class RemotePlayerArea : MonoBehaviour
             Destroy(a);
         }
         roundCard.Clear();
+        cardEffect.SetActive(false);
         playerName.text = GameManager.Instance.playerManager.remotePlayers[remotePlayer].playerName;
         progress.playerID = GameManager.Instance.playerManager.remotePlayers[remotePlayer].id;
     }
