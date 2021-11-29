@@ -542,7 +542,7 @@ MonoBehaviour:
   EndPanel: {fileID: 1417265597}
   gamePanel: {fileID: 1596705020}
   waitingPanel: {fileID: 1397568736}
-  tutorialPanel: {fileID: 0}
+  tutorialPanel: {fileID: 1053785765}
   chooseCardBtn: {fileID: 281666003}
   ReadyToGetNextMessage: 1
 --- !u!1 &23578974
