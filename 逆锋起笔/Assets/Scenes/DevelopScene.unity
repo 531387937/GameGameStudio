@@ -545,7 +545,7 @@ MonoBehaviour:
   tutorialPanel: {fileID: 1053785765}
   chooseCardBtn: {fileID: 281666003}
   Vision3D: {fileID: 811843405}
-  battleUI: {fileID: 0}
+  battleUI: {fileID: 1524696528}
   ReadyToGetNextMessage: 1
 --- !u!1 &23578974
 GameObject:
