@@ -41,7 +41,7 @@ public class WinProgress : MonoBehaviour
             FreshText(plant, plantNum-moutainNum<0?0:plantNum-moutainNum, 6);
             FreshText(yard, yardNum-plantNum<0?0:yardNum-plantNum, 6);
             FreshText(moutain, moutainNum-yardNum<0?0:moutainNum-yardNum, 6);
-            FreshText(baodi, plantNum > 4 ? 4 : plantNum + yardNum > 4 ? 4 : yardNum + moutainNum > 4 ? 4 : moutainNum, 12);
+            FreshText(baodi, (plantNum > 4 ? 4 : plantNum) + (yardNum > 4 ? 4 : yardNum) + (moutainNum > 4 ? 4 : moutainNum), 12);
             if (groundInfo.pointSum < 25)
             {
                 FreshText(xiaohu, groundInfo.pointSum, 25);
