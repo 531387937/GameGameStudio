@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,6 +9,10 @@ public class EndPanel : MonoBehaviour
     public Text EndTimer;
     float timer = 0;
     bool gameOver = false;
+    public RectTransform born;
+    public RectTransform end;
+    public GameObject Stamp;
+    public GameObject endUI;
     // Start is called before the first frame update
     void Start()
     {
@@ -32,15 +37,25 @@ public class EndPanel : MonoBehaviour
     public void GameOver(List<Player> players)
     {
         gameOver = true;
-        for(int i = 0;i<players.Count;i++)
+        Stamp.SetActive(true);
+        endUI.SetActive(false);
+        Stamp.GetComponent<RectTransform>().position = born.position;
+        Stamp.GetComponent<RectTransform>().localScale = new Vector3(1, 1, 1);
+        Text[] name = Stamp.transform.GetComponentsInChildren<Text>();
+        for(int i = 0;i<players[0].playerName.Length;i++)
         {
-            winInfo.text = players[i].playerName + "和牌,牌型为" + players[i].wintype.ToString()+"\n";
+            name[i].text = players[0].playerName[i].ToString();
         }
-        timer = 10;
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(Stamp.GetComponent<RectTransform>().DOMove(end.position, 1.5f));
+        sequence.Append(Stamp.GetComponent<RectTransform>().DOScale(new Vector3(1.3f,1.3f,1.3f), 1));
+        sequence.Append(Stamp.GetComponent<RectTransform>().DOScale(new Vector3(0.5f,0.5f, 0.5f), 0.5f));
+        sequence.OnComplete(() => { endUI.SetActive(true); timer = 10; EventManager.Instance.FireEvent(eventType.waitTween, true); });
     }
 
     private void OnDisable()
     {
         gameOver = false;
+        endUI.SetActive(false);
     }
 }

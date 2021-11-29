@@ -26,6 +26,7 @@ public class UIManager : Singleton<UIManager>
     // Start is called before the first frame update
     void Start()
     {
+        waitingPanel.SetActive(true);
         EventManager.Instance.AddEventListener(eventType.initRoom, InitRoom);
         EventManager.Instance.AddEventListener(eventType.refreshRoundResult, OnReceiveRoundEnd);
         EventManager.Instance.AddEventListener(eventType.receiveChooseCard, OnReceiveRoundEnd);
@@ -99,11 +100,10 @@ public class UIManager : Singleton<UIManager>
     {
         List<Player> winPlayer = (List<Player>)obj;
         EndPanel.SetActive(true);
-        EndPanel.GetComponent<EndPanel>().GameOver(winPlayer);
         battleUI.SetActive(false);
         EventManager.Instance.FireEvent(eventType.waitTween, false);
         Vision3D.GetComponent<RectTransform>().DOLocalMove(new Vector3(0, 0, 0), 3f);
-        Vision3D.GetComponent<RectTransform>().DOSizeDelta(new Vector2(1920, 1080), 3f).OnComplete(() => { EventManager.Instance.FireEvent(eventType.waitTween, true); });
+        Vision3D.GetComponent<RectTransform>().DOSizeDelta(new Vector2(1920, 1080), 3f).OnComplete(() => { EndPanel.GetComponent<EndPanel>().GameOver(winPlayer); });
     }
 
     private void OnReceiveRoundEnd(object obj)
