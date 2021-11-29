@@ -22,7 +22,7 @@ public class EndPanel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        EndTimer.text = string.Format( "{0:F1}s后自动开始下一局",timer);
+        EndTimer.text = string.Format( "{0:F1}s后开始下一局",timer);
         if(timer>0&&gameOver)
         {
             timer -= Time.deltaTime;
@@ -30,6 +30,7 @@ public class EndPanel : MonoBehaviour
         if(gameOver&&timer<0)
         {
             UIManager.Instance.ContiuneGame(true);
+            endUI.SetActive(false);
             gameOver = false;
         }
     }
