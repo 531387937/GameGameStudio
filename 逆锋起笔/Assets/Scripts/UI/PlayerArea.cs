@@ -80,7 +80,7 @@ public class PlayerArea : MonoBehaviour
     }
     private void ReFreshRoundResult(object info)
     {
-UIManager.Instance.StartCoroutine(UIManager.Instance.GetNext(OnFreshRoundResult, info));
+UIManager.Instance.StartCoroutine(UIManager.Instance.GetNext(OnReFreshRoundResult, info));
     }
     private void OnReFreshRoundResult(object info)
     {
