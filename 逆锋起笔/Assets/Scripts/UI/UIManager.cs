@@ -44,7 +44,10 @@ public class UIManager : Singleton<UIManager>
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+
+        }
     }
 
     private void InitRoom(object obj)
@@ -99,8 +102,8 @@ public class UIManager : Singleton<UIManager>
         EndPanel.GetComponent<EndPanel>().GameOver(winPlayer);
         battleUI.SetActive(false);
         EventManager.Instance.FireEvent(eventType.waitTween, false);
-        Vision3D.GetComponent<RectTransform>().DOMove(new Vector3(0, 0, 0), 0.2f);
-        Vision3D.GetComponent<RectTransform>().DOSizeDelta(new Vector2(1920, 1080), 1).OnComplete(() => { EventManager.Instance.FireEvent(eventType.waitTween, true); });
+        Vision3D.GetComponent<RectTransform>().DOLocalMove(new Vector3(0, 0, 0), 3f);
+        Vision3D.GetComponent<RectTransform>().DOSizeDelta(new Vector2(1920, 1080), 3f).OnComplete(() => { EventManager.Instance.FireEvent(eventType.waitTween, true); });
     }
 
     private void OnReceiveRoundEnd(object obj)
