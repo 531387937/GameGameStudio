@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SoundBanksInfo Platform="Mac" BasePlatform="Mac" SchemaVersion="12" SoundbankVersion="140">
+	<RootPaths>
+		<ProjectRoot>E:\Git\AudioWwiseProject\</ProjectRoot>
+		<SourceFilesRoot>E:\Git\AudioWwiseProject\.cache\Mac\</SourceFilesRoot>
+		<SoundBanksRoot>E:\Git\GameGameStudio\逆锋起笔\Assets\StreamingAssets\Audio\GeneratedSoundBanks\Mac\</SoundBanksRoot>
+		<ExternalSourcesInputFile></ExternalSourcesInputFile>
+		<ExternalSourcesOutputRoot>E:\Git\AudioWwiseProject\GeneratedSoundBanks\Mac</ExternalSourcesOutputRoot>
+	</RootPaths>
+	<DialogueEvents/>
+	<StreamedFiles>
+		<File Id="437833667" Language="SFX">
+			<ShortName>芊蔚 - 广陵散 (Live) render 001.wav</ShortName>
+			<Path>SFX\芊蔚 - 广陵散 (Live) render 001_3D1D1BA5.wem</Path>
+		</File>
+		<File Id="1008275583" Language="SFX">
+			<ShortName>芊蔚 - 广陵散 (Live) render 003.wav</ShortName>
+			<Path>SFX\芊蔚 - 广陵散 (Live) render 003_3D1D1BA5.wem</Path>
+		</File>
+		<File Id="1038379119" Language="SFX">
+			<ShortName>华夏民族乐团 - 广陵散 (古琴独奏) render 001.wav</ShortName>
+			<Path>SFX\华夏民族乐团 - 广陵散 (古琴独奏) render 001_3D1D1BA5.wem</Path>
+		</File>
+	</StreamedFiles>
+	<MediaFilesNotInAnyBank/>
+	<SoundBanks>
+		<SoundBank Id="1355168291" Language="SFX" Hash="33268480">
+			<ObjectPath>Init</ObjectPath>
+			<ShortName>Init</ShortName>
+			<Path>Init.bnk</Path>
+			<GameParameters>
+				<GameParameter Id="247982605" Name="SC_meter" ObjectPath="\Game Parameters\Default Work Unit\SC_meter"/>
+			</GameParameters>
+		</SoundBank>
+		<SoundBank Id="2395677314" Language="SFX" Hash="883837138">
+			<ObjectPath>\SoundBanks\Default Work Unit\Common</ObjectPath>
+			<ShortName>Common</ShortName>
+			<Path>Common.bnk</Path>
+			<IncludedEvents>
+				<Event Id="1098020724" Name="Click_UI" ObjectPath="\Events\Default Work Unit\Cards\Click_UI" DurationType="OneShot" DurationMin="3.318413" DurationMax="4.044195">
+					<IncludedMemoryFiles>
+						<File Id="96331312" Language="SFX">
+							<ShortName>water_drop_1.wav</ShortName>
+							<Path>SFX\water_drop_1_C1F52A07.wem</Path>
+						</File>
+						<File Id="113324742" Language="SFX">
+							<ShortName>UI_Click_3.wav</ShortName>
+							<Path>SFX\UI_Click_3_C1F52A07.wem</Path>
+						</File>
+						<File Id="513563477" Language="SFX">
+							<ShortName>water_drop_4.wav</ShortName>
+							<Path>SFX\water_drop_4_C1F52A07.wem</Path>
+						</File>
+						<File Id="685158608" Language="SFX">
+							<ShortName>water_drop_3.wav</ShortName>
+							<Path>SFX\water_drop_3_C1F52A07.wem</Path>
+						</File>
+						<File Id="698808966" Language="SFX">
+							<ShortName>UI_Click_5.wav</ShortName>
+							<Path>SFX\UI_Click_5_C1F52A07.wem</Path>
+						</File>
+						<File Id="828156048" Language="SFX">
+							<ShortName>UI_Click_4.wav</ShortName>
+							<Path>SFX\UI_Click_4_C1F52A07.wem</Path>
+						</File>
+						<File Id="866078488" Language="SFX">
+							<ShortName>water_drop_2.wav</ShortName>
+							<Path>SFX\water_drop_2_C1F52A07.wem</Path>
+						</File>
+						<File Id="929775050" Language="SFX">
+							<ShortName>UI_Click_1.wav</ShortName>
+							<Path>SFX\UI_Click_1_C1F52A07.wem</Path>
+						</File>
+						<File Id="994120821" Language="SFX">
+							<ShortName>UI_Click_2.wav</ShortName>
+							<Path>SFX\UI_Click_2_C1F52A07.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="381742967" Name="paixing_COMMON" ObjectPath="\Events\Default Work Unit\Cards\paixing_COMMON" DurationType="OneShot" DurationMin="3.376757" DurationMax="3.376757">
+					<IncludedMemoryFiles>
+						<File Id="555587638" Language="SFX">
+							<ShortName>paixing_COMMON.wav</ShortName>
+							<Path>SFX\paixing_COMMON_C1F52A07.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3237840143" Name="paixing_JCD" ObjectPath="\Events\Default Work Unit\Cards\paixing_JCD" DurationType="OneShot" DurationMin="3.373968" DurationMax="3.373968">
+					<IncludedMemoryFiles>
+						<File Id="149713249" Language="SFX">
+							<ShortName>paixing_JCD.wav</ShortName>
+							<Path>SFX\paixing_JCD_C1F52A07.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3936890802" Name="paixing_XYLS" ObjectPath="\Events\Default Work Unit\Cards\paixing_XYLS" DurationType="OneShot" DurationMin="4.661791" DurationMax="4.661791">
+					<IncludedMemoryFiles>
+						<File Id="921370662" Language="SFX">
+							<ShortName>paixing_XYLS.wav</ShortName>
+							<Path>SFX\paixing_XYLS_C1F52A07.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3034806198" Name="paixing_ZBSW" ObjectPath="\Events\Default Work Unit\Cards\paixing_ZBSW" DurationType="OneShot" DurationMin="5.983401" DurationMax="5.983401">
+					<IncludedMemoryFiles>
+						<File Id="205981991" Language="SFX">
+							<ShortName>paixing_ZBSW.wav</ShortName>
+							<Path>SFX\paixing_ZBSW_C1F52A07.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3019326911" Name="Play_Click_Card" ObjectPath="\Events\Default Work Unit\Cards\Play_Click_Card" DurationType="OneShot" DurationMin="0.516961" DurationMax="0.578957">
+					<IncludedMemoryFiles>
+						<File Id="365819460" Language="SFX">
+							<ShortName>click_r0.wav</ShortName>
+							<Path>SFX\click_r0_C1F52A07.wem</Path>
+						</File>
+						<File Id="506072466" Language="SFX">
+							<ShortName>click_r1.wav</ShortName>
+							<Path>SFX\click_r1_C1F52A07.wem</Path>
+						</File>
+						<File Id="977872859" Language="SFX">
+							<ShortName>click_r2.wav</ShortName>
+							<Path>SFX\click_r2_C1F52A07.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1691765453" Name="Play_MainBGM" ObjectPath="\Events\Default Work Unit\BGM\Play_MainBGM" DurationType="Infinite">
+					<ReferencedStreamedFiles>
+						<File Id="437833667" Language="SFX">
+							<ShortName>芊蔚 - 广陵散 (Live) render 001.wav</ShortName>
+							<Path>SFX\芊蔚 - 广陵散 (Live) render 001_3D1D1BA5.wem</Path>
+						</File>
+						<File Id="1008275583" Language="SFX">
+							<ShortName>芊蔚 - 广陵散 (Live) render 003.wav</ShortName>
+							<Path>SFX\芊蔚 - 广陵散 (Live) render 003_3D1D1BA5.wem</Path>
+						</File>
+						<File Id="1038379119" Language="SFX">
+							<ShortName>华夏民族乐团 - 广陵散 (古琴独奏) render 001.wav</ShortName>
+							<Path>SFX\华夏民族乐团 - 广陵散 (古琴独奏) render 001_3D1D1BA5.wem</Path>
+						</File>
+					</ReferencedStreamedFiles>
+					<SwitchContainers>
+						<SwitchContainer SwitchValue="{10F94FF0-F026-4A14-AA48-C6C10D1D0F7F}">
+							<Media>
+								<File Id="1038379119"/>
+							</Media>
+						</SwitchContainer>
+						<SwitchContainer SwitchValue="{50C895E2-7D04-4CCB-A1B6-E5968C7FF946}">
+							<Media>
+								<File Id="437833667"/>
+							</Media>
+						</SwitchContainer>
+						<SwitchContainer SwitchValue="{318A16F7-D1BF-47E2-9097-3CA5115830E5}">
+							<Media>
+								<File Id="1008275583"/>
+							</Media>
+						</SwitchContainer>
+					</SwitchContainers>
+				</Event>
+				<Event Id="2090783926" Name="Push_Card" ObjectPath="\Events\Default Work Unit\Cards\Push_Card" DurationType="OneShot" DurationMin="0.890272" DurationMax="0.890272">
+					<IncludedMemoryFiles>
+						<File Id="563790099" Language="SFX">
+							<ShortName>select.wav</ShortName>
+							<Path>SFX\select_C1F52A07.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="1396041131" Name="Set_State_Bridge" ObjectPath="\Events\Default Work Unit\Sync\Set_State_Bridge" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000">
+					<ActionSetState>
+						<ActionSetStateEntry Id="2068062714" Name="Bridge" ObjectPath="\States\Default Work Unit\Playing_State\Bridge"/>
+					</ActionSetState>
+				</Event>
+				<Event Id="1603954450" Name="Set_State_Chorus" ObjectPath="\Events\Default Work Unit\Sync\Set_State_Chorus" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000">
+					<ActionSetState>
+						<ActionSetStateEntry Id="2866621671" Name="Chorus" ObjectPath="\States\Default Work Unit\Playing_State\Chorus"/>
+					</ActionSetState>
+				</Event>
+				<Event Id="4160240018" Name="Set_State_None" ObjectPath="\Events\Default Work Unit\Sync\Set_State_None" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000">
+					<ActionSetState>
+						<ActionSetStateEntry Id="748895195" Name="None" ObjectPath="\States\Default Work Unit\Playing_State\None"/>
+					</ActionSetState>
+				</Event>
+				<Event Id="2630068541" Name="Set_State_Normal" ObjectPath="\Events\Default Work Unit\Sync\Set_State_Normal" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000">
+					<ActionSetState>
+						<ActionSetStateEntry Id="1160234136" Name="Normal" ObjectPath="\States\Default Work Unit\Playing_State\Normal"/>
+					</ActionSetState>
+				</Event>
+				<Event Id="4093728171" Name="Stop_MainBGM" ObjectPath="\Events\Default Work Unit\BGM\Stop_MainBGM" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+			</IncludedEvents>
+			<StateGroups>
+				<StateGroup Id="748895195" Name="None" ObjectPath="\States\Default Work Unit\Playing_State\None">
+					<States/>
+				</StateGroup>
+				<StateGroup Id="1160234136" Name="Normal" ObjectPath="\States\Default Work Unit\Playing_State\Normal">
+					<States/>
+				</StateGroup>
+				<StateGroup Id="1431182499" Name="Playing_State" ObjectPath="\States\Default Work Unit\Playing_State">
+					<States>
+						<State Id="748895195" Name="None" ObjectPath="\States\Default Work Unit\Playing_State\None"/>
+						<State Id="1160234136" Name="Normal" ObjectPath="\States\Default Work Unit\Playing_State\Normal"/>
+						<State Id="2866621671" Name="Chorus" ObjectPath="\States\Default Work Unit\Playing_State\Chorus"/>
+						<State Id="2068062714" Name="Bridge" ObjectPath="\States\Default Work Unit\Playing_State\Bridge"/>
+					</States>
+				</StateGroup>
+				<StateGroup Id="2068062714" Name="Bridge" ObjectPath="\States\Default Work Unit\Playing_State\Bridge">
+					<States/>
+				</StateGroup>
+				<StateGroup Id="2866621671" Name="Chorus" ObjectPath="\States\Default Work Unit\Playing_State\Chorus">
+					<States/>
+				</StateGroup>
+			</StateGroups>
+		</SoundBank>
+	</SoundBanks>
+</SoundBanksInfo>
