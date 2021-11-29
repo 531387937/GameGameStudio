@@ -89,6 +89,21 @@ UIManager.Instance.StartCoroutine(UIManager.Instance.GetNext(OnReFreshRoundResul
         cardEffect.SetActive(true);
         cardEffect.GetComponentInChildren<Text>().text = winStringDic[GameManager.Instance.playerManager.localPlayer.curRoundCard];
         //cardEffect.SetActive(true);
+        switch(GameManager.Instance.playerManager.localPlayer.curRoundCard)
+        {
+            case CardsType.ZhaDan:
+                AudioManager.GetInstance().Post2D("paixing_ZBSW");
+            break;
+            case CardsType.TongHuaShun:
+                AudioManager.GetInstance().Post2D("paixing_XYLS");
+            break;
+            case CardsType.TongShuZi:
+                AudioManager.GetInstance().Post2D("paixing_JCD");
+            break;
+            default:
+                AudioManager.GetInstance().Post2D("paixing_COMMON");
+            break;
+        }
     }
     private void RefreshHandCard(object arg)
     {

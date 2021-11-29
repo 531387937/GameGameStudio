@@ -127,6 +127,21 @@ public class RemotePlayerArea : MonoBehaviour
         //这里添加比拼动效
         cardEffect.SetActive(true);
         cardEffect.GetComponentInChildren<Text>().text = winStringDic[GameManager.Instance.playerManager.remotePlayers[remotePlayer].curRoundCard];
+        switch(GameManager.Instance.playerManager.remotePlayers[remotePlayer].curRoundCard)
+        {
+            case CardsType.ZhaDan:
+                AudioManager.GetInstance().Post2D("paixing_ZBSW");
+            break;
+            case CardsType.TongHuaShun:
+                AudioManager.GetInstance().Post2D("paixing_XYLS");
+            break;
+            case CardsType.TongShuZi:
+                AudioManager.GetInstance().Post2D("paixing_JCD");
+            break;
+            default:
+                AudioManager.GetInstance().Post2D("paixing_COMMON");
+            break;
+        }
     }
 
     public void InitRoom(object arg)
