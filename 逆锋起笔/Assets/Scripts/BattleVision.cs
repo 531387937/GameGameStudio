@@ -144,7 +144,10 @@ public class BattleVision : MonoBehaviour
     }
     void InitRoom(object obj)
     {
-        randomSeed = ((MsgRoomInfo)obj).RandomSeed;
+        if (obj != null)
+        {
+            randomSeed = ((MsgRoomInfo)obj).RandomSeed;
+        }
         Random.InitState((int)randomSeed);
         plantDrawables.Clear();
         moutainDrawables.Clear();
