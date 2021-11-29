@@ -22,7 +22,7 @@ public class WinProgress : MonoBehaviour
     public Image yardProgress;
     public Image baodiProgress;
     public Image xiaohuProgress;
-
+    bool almostHu = false;
     public int playerID;
 
     private void Awake()
@@ -41,7 +41,7 @@ public class WinProgress : MonoBehaviour
     {
         if (!groundInfo.used)
         {
-
+            almostHu = false;
             int plantNum = groundInfo.plantNum;
             int yardNum = groundInfo.yardNum;
             int moutainNum = groundInfo.moutainNum;
@@ -62,6 +62,7 @@ public class WinProgress : MonoBehaviour
             FreshText(yardSum, groundInfo.yardNum);
             FreshText(pointSum, groundInfo.pointSum);
             groundInfo.used = true;
+            GameManager.Instance.playerManager.players[playerID-1].almostHu = almostHu;
         }
     }
     private void OnFreshRoundResult(object info)
@@ -90,7 +91,7 @@ public class WinProgress : MonoBehaviour
             text.text = num.ToString() + "/" + target.ToString();
             if(target-num==1)
             {
-                GameManager.Instance.almostHu = true;
+                almostHu = true;
             }
         }
         else

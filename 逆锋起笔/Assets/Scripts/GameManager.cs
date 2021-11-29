@@ -13,7 +13,6 @@ public class GameManager : Singleton<GameManager>
 {
     public PlayerManager playerManager;
     public GameState curState;
-    public List<Player> players;
 
 
     private struct GroundState
@@ -30,6 +29,8 @@ public class GameManager : Singleton<GameManager>
         AudioManager.GetInstance().Init();
         AudioManager.GetInstance().LoadBank("Common");
         AudioManager.GetInstance().Post2D("Play_Ambience");
+        EventManager.Instance.AddEventListener(eventType.initRoom, InitRoom);
+        EventManager.Instance.AddEventListener(eventType.battleEnd, BattleResult);
         //playerManager.localPlayer = new Player(0, "111");
         curState = GameState.begin;
     }
@@ -38,13 +39,28 @@ public class GameManager : Singleton<GameManager>
     void Update()
     {
         NetManager.Update();
+        if (curState == GameState.playing&&playerManager.players.Count==3)
+        {
+            if (!playerManager.players[0].almostHu && !playerManager.players[0].almostHu && !playerManager.players[0].almostHu)
+            {
+                AudioManager.GetInstance().Post2D("Set_State_Normal");
+            }
+            else
+            {
+                AudioManager.GetInstance().Post2D("Set_State_Bridge");
+            }
+        }
+        else if(curState == GameState.end)
+        {
+            AudioManager.GetInstance().Post2D("Set_State_Chorus");
+        }
     }
 
 
     /// <summary>
     /// 初始化房间
     /// </summary>
-    private void InitRoom()
+    private void InitRoom(object obj)
     {
         curState = GameState.playing;
     }
@@ -56,7 +72,7 @@ public class GameManager : Singleton<GameManager>
 
     }
 
-    public void CheckBattleResult()
+    private void BattleResult(object obj)
     {
         //有人胡牌，本轮结束
         curState = GameState.end;

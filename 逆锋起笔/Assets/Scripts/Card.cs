@@ -86,11 +86,12 @@ public class Player
     //玩家唯一标识符
     public readonly int id;
     public readonly string playerName;
-
+    public bool almostHu = false;
     public PlayerGroundCard groundState;
 
     public Player(int id,string name)
     {
+        almostHu = false;
         this.id = id;
         playerName = name;
         handCards.Clear();
@@ -165,6 +166,7 @@ public class Player
         groundCard.Clear();
         curCard.Clear();
         groundState = new PlayerGroundCard();
+        almostHu = false;
         groundState.used = false;
         groundState.id = id;
     }
