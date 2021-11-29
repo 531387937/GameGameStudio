@@ -36,7 +36,7 @@
 				<GameParameter Id="247982605" Name="SC_meter" ObjectPath="\Game Parameters\Default Work Unit\SC_meter"/>
 			</GameParameters>
 		</SoundBank>
-		<SoundBank Id="2395677314" Language="SFX" Hash="2195561611">
+		<SoundBank Id="2395677314" Language="SFX" Hash="2915824355">
 			<ObjectPath>\SoundBanks\Default Work Unit\Common</ObjectPath>
 			<ShortName>Common</ShortName>
 			<Path>Common.bnk</Path>
