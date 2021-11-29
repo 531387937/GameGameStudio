@@ -53,7 +53,9 @@ public class UIManager : Singleton<UIManager>
 
     private void InitRoom(object obj)
     {
+        AudioManager.GetInstance().Post2D("Stop_Ambience");
         AudioManager.GetInstance().Post2D("Play_MainBGM");
+        AudioManager.GetInstance().Post2D("Set_State_Normal");
         int id = GameManager.Instance.playerManager.localPlayer.id;
         int r_id1 = (id + 1) % 3 == 0 ? 3 : (id + 1) % 3;
         int r_id2 = (id + 2) % 3 == 0 ? 3 : (id + 2) % 3;
