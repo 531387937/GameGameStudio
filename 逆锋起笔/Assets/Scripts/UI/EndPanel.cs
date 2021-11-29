@@ -25,6 +25,7 @@ public class EndPanel : MonoBehaviour
         if(gameOver&&timer<=0)
         {
             UIManager.Instance.ContiuneGame(true);
+            gameOver = false;
         }
     }
 
