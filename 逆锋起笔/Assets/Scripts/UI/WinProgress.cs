@@ -16,6 +16,12 @@ public class WinProgress : MonoBehaviour
     public Text plantSum;
     public Text yardSum;
 
+    public Image plantProgress;
+    public Image moutainProgress;
+    public Image yardProgress;
+    public Image baodiProgress;
+    public Image xiaohuProgress;
+
     public int playerID;
 
     private void Awake()
@@ -38,17 +44,17 @@ public class WinProgress : MonoBehaviour
             int plantNum = groundInfo.plantNum;
             int yardNum = groundInfo.yardNum;
             int moutainNum = groundInfo.moutainNum;
-            FreshText(plant, plantNum-moutainNum<0?0:plantNum-moutainNum, 6);
-            FreshText(yard, yardNum-plantNum<0?0:yardNum-plantNum, 6);
-            FreshText(moutain, moutainNum-yardNum<0?0:moutainNum-yardNum, 6);
-            FreshText(baodi, (plantNum > 4 ? 4 : plantNum) + (yardNum > 4 ? 4 : yardNum) + (moutainNum > 4 ? 4 : moutainNum), 12);
+            FreshText(plant,plantProgress, plantNum-moutainNum<0?0:plantNum-moutainNum, 6);
+            FreshText(yard,yardProgress, yardNum-plantNum<0?0:yardNum-plantNum, 6);
+            FreshText(moutain,moutainProgress, moutainNum-yardNum<0?0:moutainNum-yardNum, 6);
+            FreshText(baodi,baodiProgress, (plantNum > 4 ? 4 : plantNum) + (yardNum > 4 ? 4 : yardNum) + (moutainNum > 4 ? 4 : moutainNum), 12);
             if (groundInfo.pointSum < 25)
             {
-                FreshText(xiaohu, groundInfo.pointSum, 25);
+                FreshText(xiaohu,xiaohuProgress, groundInfo.pointSum, 25);
             }
             else
             {
-                FreshText(xiaohu, groundInfo.pointSum, 25, false);
+                FreshText(xiaohu, xiaohuProgress, groundInfo.pointSum, 25, false);
             }
             FreshText(plantSum, groundInfo.plantNum);
             FreshText(moutainSum, groundInfo.moutainNum);
@@ -71,7 +77,7 @@ public class WinProgress : MonoBehaviour
         }
         
     }
-    void FreshText(Text text, int num, int target, bool active = true)
+    void FreshText(Text text,Image progress, int num, int target, bool active = true)
     {
         if(text==null)
         {
@@ -84,6 +90,11 @@ public class WinProgress : MonoBehaviour
         }
         else
             text.text = "无役";
+        if(progress!=null)
+        {
+            progress.fillAmount = (float)num / (float)target;
+            progress.gameObject.SetActive(active);
+        }
     }
     void FreshText(Text text,int num)
     {
