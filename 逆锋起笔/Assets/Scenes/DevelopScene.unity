@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45120984, g: 0.50094664, b: 0.5736614, a: 1}
+  m_IndirectSpecularColor: {r: 0.45120978, g: 0.5009466, b: 0.57366085, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -542,7 +542,7 @@ MonoBehaviour:
   EndPanel: {fileID: 1417265597}
   gamePanel: {fileID: 1596705020}
   waitingPanel: {fileID: 1397568736}
-  tutorialPanel: {fileID: 1053785765}
+  tutorialPanel: {fileID: 0}
   chooseCardBtn: {fileID: 281666003}
   ReadyToGetNextMessage: 1
 --- !u!1 &23578974
@@ -13368,7 +13368,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.37647063, g: 0.3803922, b: 0.39607847, a: 0.9019608}
+  m_Color: {r: 0.39607847, g: 0.38823533, b: 0.3254902, a: 0.8745098}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -20714,7 +20714,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3372549, g: 0.32156864, b: 0.24705884, a: 0.8862745}
+  m_Color: {r: 0.33333334, g: 0.36078432, b: 0.39607847, a: 0.7490196}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
