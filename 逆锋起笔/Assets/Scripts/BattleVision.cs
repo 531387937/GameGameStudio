@@ -144,7 +144,7 @@ public class BattleVision : MonoBehaviour
     }
     void InitRoom(object obj)
     {
-        if (obj != null)
+        if (((MsgRoomInfo)obj) != null)
         {
             randomSeed = ((MsgRoomInfo)obj).RandomSeed;
         }

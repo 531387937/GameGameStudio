@@ -27,7 +27,7 @@ public class EndPanel : MonoBehaviour
         {
             timer -= Time.deltaTime;
         }
-        if(gameOver&&timer<=0)
+        if(gameOver&&timer<0)
         {
             UIManager.Instance.ContiuneGame(true);
             gameOver = false;
