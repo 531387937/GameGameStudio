@@ -91,6 +91,7 @@ public class UIManager : Singleton<UIManager>
         if(msgNextBattle.choice)
         {
             EndPanel.SetActive(false);
+            chooseCardBtn.gameObject.SetActive(true);
         }
         else
         {
