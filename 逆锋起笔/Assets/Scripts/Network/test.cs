@@ -29,10 +29,7 @@ namespace Network
 
         private void Start()
         {
-            AudioManager.GetInstance().Init();
-            AudioManager.GetInstance().LoadBank("Common");
-            AudioManager.GetInstance().Post2D("Play_MainBGM");
-            AudioManager.GetInstance().Post2D("Set_State_Normal");
+            
 
             NetManager.AddEventListener(NetEvent.ConnectSucc, OnConnectSucc);
             NetManager.AddEventListener(NetEvent.ConnectFail, OnConnectFail);

@@ -27,7 +27,9 @@ public class GameManager : Singleton<GameManager>
     void Start()
     {
         playerManager = new PlayerManager();
-
+        AudioManager.GetInstance().Init();
+        AudioManager.GetInstance().LoadBank("Common");
+        AudioManager.GetInstance().Post2D("Play_Ambience");
         //playerManager.localPlayer = new Player(0, "111");
         curState = GameState.begin;
     }
@@ -36,10 +38,6 @@ public class GameManager : Singleton<GameManager>
     void Update()
     {
         NetManager.Update();
-        AudioManager.GetInstance().Init();
-        AudioManager.GetInstance().LoadBank("Common");
-
-        
     }
 
 
