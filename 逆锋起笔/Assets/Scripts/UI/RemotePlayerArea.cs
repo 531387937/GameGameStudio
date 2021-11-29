@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Network;
+using DG.Tweening;
 public class RemotePlayerArea : MonoBehaviour
 {
     private List<RectTransform> cardAreas = new List<RectTransform>();
@@ -89,7 +90,11 @@ public class RemotePlayerArea : MonoBehaviour
         Card card = GameManager.Instance.playerManager.remotePlayers[remotePlayer].curCard[roundCard.Count];
         GameObject newCard = Instantiate(cardObject, transform);
         newCard.GetComponent<CardInstance>().card = card;
-        newCard.GetComponent<RectTransform>().position = roundAreas[roundCard.Count].position;
+        newCard.GetComponent<RectTransform>().sizeDelta = new Vector2(60, 75);
+        newCard.GetComponent<RectTransform>().position = cardAreas[cardAreas.Count - 1].position;
+        EventManager.Instance.FireEvent(eventType.waitTween, false);
+        newCard.GetComponent<RectTransform>().DOSizeDelta(new Vector2(120,160), 0.5f);
+        newCard.GetComponent<RectTransform>().DOMove(roundAreas[roundCard.Count].position,0.5f).OnComplete(()=> { EventManager.Instance.FireEvent(eventType.waitTween, true); });
         roundCard.Add(newCard);
     }
 

@@ -128,10 +128,9 @@ UIManager.Instance.StartCoroutine(UIManager.Instance.GetNext(OnReFreshRoundResul
         handCard[_index].transform.SetParent(roundCardArea.transform);
         handCard.RemoveAt(_index);
         RefreshHandCard(null);
-        for (int i = 0; i < roundCard.Count; i++)
-        {
-            roundCard[i].GetComponent<RectTransform>().position = roundAreas[i].position;
-        }
+        EventManager.Instance.FireEvent(eventType.waitTween, false);
+        int i = roundCard.Count - 1;
+        roundCard[i].GetComponent<RectTransform>().DOMove(roundAreas[i].position,0.5f).OnComplete(()=> { EventManager.Instance.FireEvent(eventType.waitTween, true); });
 
         
 
