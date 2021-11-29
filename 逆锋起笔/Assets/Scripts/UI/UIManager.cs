@@ -74,8 +74,7 @@ public class UIManager : Singleton<UIManager>
         msgNextBattle.playerID = GameManager.Instance.playerManager.localPlayer.id;
         msgNextBattle.choice = choice;
         NetManager.Send(msgNextBattle);
-        
-        EventManager.Instance.FireEvent(eventType.initRoom);
+
     }
 
     private void OnReceiveBattleEnd(object obj)
@@ -103,6 +102,7 @@ public class UIManager : Singleton<UIManager>
             gamePanel.SetActive(false);
             waitingPanel.SetActive(true);
         }
+        EventManager.Instance.FireEvent(eventType.initRoom);
     }
 
     private void SelectCard(int i)
@@ -126,7 +126,7 @@ public class UIManager : Singleton<UIManager>
 
     public IEnumerator GetNext(GetMessage message,object obj)
     {
-        while (ReadyToGetNextMessage) ;
+        yield return new WaitUntil(()=> { return ReadyToGetNextMessage; });
         message(obj);
         yield return null;
     }
