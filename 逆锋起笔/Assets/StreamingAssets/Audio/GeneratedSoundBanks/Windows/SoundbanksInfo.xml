@@ -9,6 +9,10 @@
 	</RootPaths>
 	<DialogueEvents/>
 	<StreamedFiles>
+		<File Id="310695272" Language="SFX">
+			<ShortName>QP01 0063 Coniferous forest ambience active.wav</ShortName>
+			<Path>SFX\QP01 0063 Coniferous forest ambience active_3D1D1BA5.wem</Path>
+		</File>
 		<File Id="437833667" Language="SFX">
 			<ShortName>芊蔚 - 广陵散 (Live) render 001.wav</ShortName>
 			<Path>SFX\芊蔚 - 广陵散 (Live) render 001_3D1D1BA5.wem</Path>
@@ -32,7 +36,7 @@
 				<GameParameter Id="247982605" Name="SC_meter" ObjectPath="\Game Parameters\Default Work Unit\SC_meter"/>
 			</GameParameters>
 		</SoundBank>
-		<SoundBank Id="2395677314" Language="SFX" Hash="883837138">
+		<SoundBank Id="2395677314" Language="SFX" Hash="2195561611">
 			<ObjectPath>\SoundBanks\Default Work Unit\Common</ObjectPath>
 			<ShortName>Common</ShortName>
 			<Path>Common.bnk</Path>
@@ -108,6 +112,14 @@
 							<Path>SFX\paixing_ZBSW_C1F52A07.wem</Path>
 						</File>
 					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="278617630" Name="Play_Ambience" ObjectPath="\Events\Default Work Unit\BGM\Play_Ambience" DurationType="Infinite">
+					<ReferencedStreamedFiles>
+						<File Id="310695272" Language="SFX">
+							<ShortName>QP01 0063 Coniferous forest ambience active.wav</ShortName>
+							<Path>SFX\QP01 0063 Coniferous forest ambience active_3D1D1BA5.wem</Path>
+						</File>
+					</ReferencedStreamedFiles>
 				</Event>
 				<Event Id="3019326911" Name="Play_Click_Card" ObjectPath="\Events\Default Work Unit\Cards\Play_Click_Card" DurationType="OneShot" DurationMin="0.516961" DurationMax="0.578957">
 					<IncludedMemoryFiles>
@@ -186,7 +198,32 @@
 						<ActionSetStateEntry Id="1160234136" Name="Normal" ObjectPath="\States\Default Work Unit\Playing_State\Normal"/>
 					</ActionSetState>
 				</Event>
+				<Event Id="2477713992" Name="Stop_Ambience" ObjectPath="\Events\Default Work Unit\BGM\Stop_Ambience" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
 				<Event Id="4093728171" Name="Stop_MainBGM" ObjectPath="\Events\Default Work Unit\BGM\Stop_MainBGM" MaxAttenuation="0.000000" DurationType="OneShot" DurationMin="0.000000" DurationMax="0.000000"/>
+				<Event Id="2519197294" Name="UI_Close" ObjectPath="\Events\Default Work Unit\UI\UI_Close" DurationType="OneShot" DurationMin="0.306984" DurationMax="0.376757">
+					<IncludedMemoryFiles>
+						<File Id="188258174" Language="SFX">
+							<ShortName>UI_Info_Widget_Close_Whoosh_03.wav</ShortName>
+							<Path>SFX\UI_Info_Widget_Close_Whoosh_03_C1F52A07.wem</Path>
+						</File>
+						<File Id="259757617" Language="SFX">
+							<ShortName>UI_Info_Widget_Close_Whoosh_04.wav</ShortName>
+							<Path>SFX\UI_Info_Widget_Close_Whoosh_04_C1F52A07.wem</Path>
+						</File>
+						<File Id="795862439" Language="SFX">
+							<ShortName>UI_Info_Widget_Close_Whoosh_02.wav</ShortName>
+							<Path>SFX\UI_Info_Widget_Close_Whoosh_02_C1F52A07.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
+				<Event Id="3282376362" Name="UI_Open" ObjectPath="\Events\Default Work Unit\UI\UI_Open" DurationType="OneShot" DurationMin="1.007075" DurationMax="1.007075">
+					<IncludedMemoryFiles>
+						<File Id="794595752" Language="SFX">
+							<ShortName>UI_Non_FullScreen_Pop.wav</ShortName>
+							<Path>SFX\UI_Non_FullScreen_Pop_C1F52A07.wem</Path>
+						</File>
+					</IncludedMemoryFiles>
+				</Event>
 			</IncludedEvents>
 			<StateGroups>
 				<StateGroup Id="748895195" Name="None" ObjectPath="\States\Default Work Unit\Playing_State\None">
