@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using DG.Tweening;
 public class WinProgress : MonoBehaviour
 {
     public PlayerGroundCard groundInfo;
@@ -87,12 +88,16 @@ public class WinProgress : MonoBehaviour
         {
             //tmpText = num.ToString() + "//" + target.ToString();
             text.text = num.ToString() + "/" + target.ToString();
+            if(target-num==1)
+            {
+                GameManager.Instance.almostHu = true;
+            }
         }
         else
             text.text = "无役";
         if(progress!=null)
         {
-            progress.fillAmount = (float)num / (float)target;
+            progress.DOFillAmount((float)num / (float)target, 1f);
             progress.gameObject.SetActive(active);
         }
     }
