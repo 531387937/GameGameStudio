@@ -13,6 +13,9 @@ public class UIManager : Singleton<UIManager>
     public GameObject waitingPanel;
     private int curChooseCard = 0;
     public Button chooseCardBtn;
+    public delegate void GetMessage(object msg);
+
+    public bool ReadyToGetNextMessage = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +23,7 @@ public class UIManager : Singleton<UIManager>
         EventManager.Instance.AddEventListener(eventType.refreshRoundResult, OnReceiveRoundEnd);
         EventManager.Instance.AddEventListener(eventType.receiveChooseCard, OnReceiveRoundEnd);
         EventManager.Instance.AddEventListener(eventType.battleEnd, OnReceiveBattleEnd);
+        EventManager.Instance.AddEventListener(eventType.waitTween, WaitTween);
         NetManager.AddMsgListener("MsgNextBattle", OnCountinueGame);
         Button[] buttons = transform.GetComponentsInChildren<Button>(true);
         foreach(var button in buttons)
@@ -59,7 +63,7 @@ public class UIManager : Singleton<UIManager>
     public void ChooseCard()
     {
         EventManager.Instance.FireEvent(eventType.chooseCard, curChooseCard);
-        curChooseCard = 0;
+        curChooseCard = -1;
         chooseCardBtn.gameObject.SetActive(false);
     }
 
@@ -102,7 +106,27 @@ public class UIManager : Singleton<UIManager>
 
     private void SelectCard(int i)
     {
+        //在这里加入选牌动效
+        if(curChooseCard!=-1)
+        {
+            GameObject s = playerArea.handCard[curChooseCard].gameObject;   //上一张所选牌
+            //将已选牌放下
+        }
         curChooseCard = i;
+        GameObject sel = playerArea.handCard[curChooseCard].gameObject;     //所选牌
+        //将选牌上拉
     }
 
+    private void WaitTween(object obj)
+    {
+        ReadyToGetNextMessage = (bool)obj;
+    }
+
+
+    public IEnumerator GetNext(GetMessage message,object obj)
+    {
+        while (ReadyToGetNextMessage) ;
+        message(obj);
+        yield return null;
+    }
 }

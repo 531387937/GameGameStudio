@@ -13,7 +13,6 @@ public enum eventType
     roundVision,
     roundDraw,
     waitTween,
-    tweenEnd,
     AddDrawWeight
 }
 

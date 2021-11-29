@@ -32,7 +32,8 @@ public class RemotePlayerArea : MonoBehaviour
     {
         EventManager.Instance.AddEventListener(eventType.refreshHandCard, RefreshHandCard);
         EventManager.Instance.AddEventListener(eventType.refreshRoundResult, RefreshHandCard);
-        EventManager.Instance.AddEventListener(eventType.refreshRoundResult, OnRefreshRoundResult);
+        EventManager.Instance.AddEventListener(eventType.refreshRoundResult, RefreshRoundResult);
+        EventManager.Instance.AddEventListener(eventType.receiveChooseCard, ReceiveChooseCard);
         //EventManager.Instance.AddEventListener(eventType.initRoom, InitRoom);
     }
 
@@ -40,7 +41,7 @@ public class RemotePlayerArea : MonoBehaviour
     {
         
         //NetManager.AddMsgListener("MsgChooseCard", OnReceiveChooseCard);
-        EventManager.Instance.AddEventListener(eventType.receiveChooseCard, OnReceiveChooseCard);
+        
         foreach (Transform child in transform)
         {
             if (child.tag == "CardArea")
@@ -61,6 +62,7 @@ public class RemotePlayerArea : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //暂时的比拼显示
         if (cardEffect.activeInHierarchy)
         {
             timer -= Time.deltaTime;
@@ -76,10 +78,14 @@ public class RemotePlayerArea : MonoBehaviour
             roundCard.Clear();
         }
     }
-
+    private void ReceiveChooseCard(object msg)
+    {
+        UIManager.Instance.StartCoroutine(UIManager.Instance.GetNext(OnReceiveChooseCard, msg));
+    }
 
     private void OnReceiveChooseCard(object msg)
     {
+        //这里添加出牌动效
         Card card = GameManager.Instance.playerManager.remotePlayers[remotePlayer].curCard[roundCard.Count];
         GameObject newCard = Instantiate(cardObject, transform);
         newCard.GetComponent<CardInstance>().card = card;
@@ -87,9 +93,13 @@ public class RemotePlayerArea : MonoBehaviour
         roundCard.Add(newCard);
     }
 
-
     private void RefreshHandCard(object arg)
     {
+        UIManager.Instance.StartCoroutine(UIManager.Instance.GetNext(OnRefreshHandCard, arg));
+    }
+    private void OnRefreshHandCard(object arg)
+    {
+        //这里添加抽牌特效
         Player localPlayer = GameManager.Instance.playerManager.localPlayer;
         for (; handCard.Count < localPlayer.handCards.Count;)
         {
@@ -103,9 +113,13 @@ public class RemotePlayerArea : MonoBehaviour
             handCard[i].GetComponent<RectTransform>().position = cardAreas[i].position;
         }
     }
-
+    private void RefreshRoundResult(object arg)
+    {
+        UIManager.Instance.StartCoroutine(UIManager.Instance.GetNext(OnRefreshRoundResult, arg));
+    }
     private void OnRefreshRoundResult(object arg)
     {
+        //这里添加比拼动效
         cardEffect.SetActive(true);
         cardEffect.GetComponentInChildren<Text>().text = winStringDic[GameManager.Instance.playerManager.remotePlayers[remotePlayer].curRoundCard];
     }

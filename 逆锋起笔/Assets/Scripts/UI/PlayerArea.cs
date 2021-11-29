@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Network;
+using DG.Tweening;
 public class PlayerArea : MonoBehaviour
 {
     private List<RectTransform> cardAreas = new List<RectTransform>();
     [SerializeField]
     private List<RectTransform> roundAreas = new List<RectTransform>();
     public GameObject cardObject;
-    private List<GameObject> handCard = new List<GameObject>();
+    public List<GameObject> handCard = new List<GameObject>();
     private List<GameObject> roundCard = new List<GameObject>();
     private List<GameObject> groundCard = new List<GameObject>();
     public GameObject roundCardArea;
@@ -36,7 +37,7 @@ public class PlayerArea : MonoBehaviour
     {
         EventManager.Instance.AddEventListener(eventType.refreshHandCard, RefreshHandCard);
         EventManager.Instance.AddEventListener(eventType.chooseCard, ChooseCard);
-        EventManager.Instance.AddEventListener(eventType.refreshRoundResult, OnFreshRoundResult);
+        EventManager.Instance.AddEventListener(eventType.refreshRoundResult, ReFreshRoundResult);
         EventManager.Instance.AddEventListener(eventType.initRoom, InitRoom);
     }
     void Start()
@@ -61,6 +62,7 @@ public class PlayerArea : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //暂留的比拼动效，需要调到下面
         if(cardEffect.activeInHierarchy)
         {
             timer -= Time.deltaTime;
@@ -76,20 +78,31 @@ public class PlayerArea : MonoBehaviour
             roundCard.Clear();
         }
     }
-    private void OnFreshRoundResult(object info)
+    private void ReFreshRoundResult(object info)
     {
+UIManager.Instance.StartCoroutine(UIManager.Instance.GetNext(OnFreshRoundResult, info));
+    }
+    private void OnReFreshRoundResult(object info)
+    {
+        
+        //每轮的比拼结果动效应该在这里
         cardEffect.SetActive(true);
         cardEffect.GetComponentInChildren<Text>().text = winStringDic[GameManager.Instance.playerManager.localPlayer.curRoundCard];
         //cardEffect.SetActive(true);
     }
     private void RefreshHandCard(object arg)
     {
+        UIManager.Instance.StartCoroutine(UIManager.Instance.GetNext(OnRefreshHandCard, arg));
+    }
+    private void OnRefreshHandCard(object arg)
+    {
+        //播放抽牌动画应在这里
         Player localPlayer = GameManager.Instance.playerManager.localPlayer;
         for (; handCard.Count < localPlayer.handCards.Count;)
         {
             GameObject newCard = Instantiate(cardObject, transform);
             newCard.GetComponent<CardInstance>().card = localPlayer.handCards[handCard.Count];
-            newCard.GetComponent<RectTransform>().position = cardAreas[handCard.Count].position;
+            newCard.GetComponent<RectTransform>().position = cardAreas[handCard.Count].position;    //先在一个序列tween中记录，for循环结束后调用
             newCard.GetComponent<CardInstance>().number = handCard.Count;
             handCard.Add(newCard);
         }
@@ -101,6 +114,11 @@ public class PlayerArea : MonoBehaviour
     }
     private void ChooseCard(object index)
     {
+        UIManager.Instance.StartCoroutine(UIManager.Instance.GetNext(OnChooseCard, index));
+    }
+    private void OnChooseCard(object index)
+    {
+        //播放出牌动效应该在这里
         int _index = (int)index;
 
         Card card = GameManager.Instance.playerManager.localPlayer.ChooseOneCard(_index);
