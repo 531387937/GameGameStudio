@@ -63,6 +63,10 @@ public class UIManager : Singleton<UIManager>
     //由button调用
     public void ChooseCard()
     {
+        if(curChooseCard == -1)
+        {
+            curChooseCard = 0;
+        }
         EventManager.Instance.FireEvent(eventType.chooseCard, curChooseCard);
         curChooseCard = -1;
         chooseCardBtn.gameObject.SetActive(false);

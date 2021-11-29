@@ -42,7 +42,7 @@ public class PlayerManager
             }
             GetAllPlayers();
             //to do调用游戏管理器 初始化房间
-            EventManager.Instance.FireEvent(eventType.initRoom);
+            EventManager.Instance.FireEvent(eventType.initRoom,roomInfo);
         }
     }
 

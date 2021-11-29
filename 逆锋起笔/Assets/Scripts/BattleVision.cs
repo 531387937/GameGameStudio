@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Network;
 public class BattleVision : MonoBehaviour
 {
     private List<List<int>> compute1 = new List<List<int>>() {
@@ -39,6 +39,7 @@ public class BattleVision : MonoBehaviour
         EventManager.Instance.AddEventListener(eventType.roundDraw, DrawPic);
         EventManager.Instance.AddEventListener(eventType.AddDrawWeight, AddDrawWeight);
     }
+    private long randomSeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -143,6 +144,8 @@ public class BattleVision : MonoBehaviour
     }
     void InitRoom(object obj)
     {
+        randomSeed = ((MsgRoomInfo)obj).RandomSeed;
+        Random.InitState((int)randomSeed);
         plantDrawables.Clear();
         moutainDrawables.Clear();
         yardDrawables.Clear();
