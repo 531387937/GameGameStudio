@@ -22,7 +22,10 @@ namespace Network
 
         private List<PlayerInfo> players = new List<PlayerInfo>();//房间内的玩家信息
         private int localPlayerId = 0;//本地玩家的id
-        
+
+        private bool canMatch = true;//是否可以匹配
+        private bool isMatching = false;//是否正在匹配
+
 
         private void Start()
         {
@@ -36,6 +39,7 @@ namespace Network
             NetManager.AddEventListener(NetEvent.Close, OnConnectClose);
 
             NetManager.AddMsgListener("MsgRoomInfo", OnMsgRoomInfo);//添加消息监听函数
+            NetManager.AddMsgListener("MsgCancelMatch", OnMsgCancelMatch);
 
             matchPanel.SetActive(false);
             gamePanel.SetActive(false);
@@ -54,16 +58,26 @@ namespace Network
                 waitingPanel.SetActive(false);
             }
 
-            if (matchPanel.activeInHierarchy==true&& playerCount > 0)
+            if (matchPanel.activeInHierarchy == true)
             {
-                //显示当前房间人数
-                textCount.text = string.Format("匹配中：[{0}/3]", playerCount);
-                //此时不能再次匹配
-                textMatch.text = "取消匹配";
-            }
-            else
-            {
-                textCount.text = "未匹配";
+                if (isMatching)
+                {
+                    //显示当前房间人数
+                    textCount.text = string.Format("匹配中：[{0}/3]", playerCount);
+                }
+                else
+                {
+                    textCount.text = "未匹配";
+                }
+
+                if (canMatch)
+                {
+                    textMatch.text = "开始匹配";
+                }
+                else
+                {
+                    textMatch.text = "取消匹配";
+                }
             }
 
             if (playerCount == 3)
@@ -131,19 +145,22 @@ namespace Network
 
         public void OnMatchClick()
         {
-            if(textMatch.text == "开始匹配")
+            if (canMatch)
             {
                 MsgStartMatch msg = new MsgStartMatch();
                 NetManager.Send(msg);
+
+                canMatch = false;
             }
             else
             {
                 //取消匹配
                 MsgCancelMatch msg = new MsgCancelMatch();
                 NetManager.Send(msg);
-
+                isMatching = false;
                 playerCount = 0;
-                textMatch.text = "开始匹配";
+
+                canMatch = true;
             }
         }
 
@@ -180,11 +197,12 @@ namespace Network
 
             players.Clear();
             players.Add(msg.localPlayer);
-            foreach(var p in msg.remotePlayers)
+            foreach (var p in msg.remotePlayers)
             {
                 players.Add(p);
             }
             localPlayerId = msg.localPlayer.playerId;
+            isMatching = true;
         }
 
         /// <summary>
@@ -194,7 +212,9 @@ namespace Network
         /// <param name="msgBase"></param>
         void OnMsgCancelMatch(MsgBase msgBase)
         {
-            //TODO
+            isMatching = false;
+            canMatch = true;
+            playerCount = 0;
         }
 
         /// <summary>
